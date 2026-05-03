@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Saloon Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --------------------------------
+   Pearl & Nude Theme – Login Page
+   Modern Boutique | Clean Girl Aesthetic
+   -------------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;700&family=Tenor+Sans&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F9F6F2;          /* linen white canvas */
+    font-family: 'Lato', sans-serif;
+    color: #4A3728;                     /* espresso for text */
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+/* Main Login Container – Glassmorphism Card */
+body > div {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 48px;
+    padding: 48px 40px;
+    max-width: 480px;
+    width: 100%;
+    border: 1px solid rgba(209, 209, 209, 0.5);
+    box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.02);
+    transition: transform 0.2s ease;
+}
+
+/* Header Section */
+body > div > div:first-child {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+body > div h2 {
+    font-family: 'Tenor Sans', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.12em;
+    color: #4A3728;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+body > div p:first-of-type {
+    font-size: 0.95rem;
+    color: #4A3728;
+    opacity: 0.75;
+    letter-spacing: 0.02em;
+}
+
+/* Login Form */
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* Form Groups */
+#loginForm > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#loginForm label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #4A3728;
+    opacity: 0.8;
+    margin-left: 8px;
+}
+
+/* Input Fields – Pill-shaped */
+#loginForm input {
+    width: 100%;
+    padding: 14px 20px;
+    background: #FFFFFF;
+    border: 1px solid #D1D1D1;
+    border-radius: 60px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    color: #4A3728;
+    transition: all 0.25s ease;
+    outline: none;
+}
+
+#loginForm input:focus {
+    border-color: #E2B49A;
+    box-shadow: 0 0 0 3px rgba(226, 180, 154, 0.2);
+}
+
+#loginForm input::placeholder {
+    color: #b9aea3;
+    font-weight: 300;
+    font-size: 0.9rem;
+}
+
+/* Login Button – Dusty Rose, Pill-shaped */
+#loginForm button {
+    background-color: #E2B49A;
+    border: none;
+    border-radius: 60px;
+    padding: 14px 28px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #F9F6F2;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-top: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+#loginForm button:hover {
+    background-color: #d4a07f;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(226, 180, 154, 0.3);
+}
+
+#loginForm button:active {
+    transform: scale(0.97);
+}
+
+/* Message paragraph (error/success) */
+#message {
+    text-align: center;
+    margin-top: 28px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #c0392b;          /* subtle red for errors – but soft */
+    background: rgba(192, 57, 43, 0.05);
+    padding: 10px;
+    border-radius: 60px;
+    display: block;
+}
+
+/* Optional: add small icon hint inside inputs (using font-awesome) */
+/* Already loaded via CDN, but not used in HTML – you can add if needed */
+
+/* Responsive – maintain massive white space on mobile */
+@media (max-width: 550px) {
+    body {
+        padding: 16px;
+    }
+    body > div {
+        padding: 32px 24px;
+        border-radius: 36px;
+    }
+    body > div h2 {
+        font-size: 1.6rem;
+    }
+    #loginForm input {
+        padding: 12px 18px;
+    }
+    #loginForm button {
+        padding: 12px 24px;
+    }
+}
+
+/* Additional Polish for link (if any) */
+a {
+    color: #E2B49A;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+a:hover {
+    color: #d4a07f;
+    text-decoration: underline;
+}
+    </style>
+</head>
+<body>
+
+    <div >
+        <div >
+            <h2>Welcome Back</h2>
+            <p >Please login to your account</p>
+        </div>
+
+        <form id="loginForm" >
+            <div>
+                <label >Email Address</label>
+                <input type="email" id="email" placeholder="admin@example.com" required>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" id="password" placeholder="••••••••"required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+
+        <p id="message"></p>
+    </div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const message = document.getElementById("message");
+
+    try {
+        const response = await fetch("http://127.0.0.1:8000/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            message.innerText = data.message || "Login failed";
+            return;
+        }
+
+        // Save token
+        localStorage.setItem("token", data.token);
+
+        // Get role from user
+        const role = data.user.role;
+
+        // 🔥 Role-based redirect
+        if (role === "admin") {
+            window.location.href = "Admin/Html/Admin Dashboard.html";
+        } 
+        else if (role === "staff") {
+            window.location.href = "Staff/Html/Staff Dashboard.html";
+        }
+
+    } catch (error) {
+        message.innerText = "Something went wrong";
+        console.error(error);
+    }
+});
+</script>
+
+</body>
+</html>

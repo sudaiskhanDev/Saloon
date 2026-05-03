@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../../Css/Admin Dashboard.css">
+
+
+
+    <style>
+
+        /* --------------------------------
+   Pearl & Nude Theme – Feedback Management
+   Modern Boutique | Clean Girl Aesthetic
+   -------------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;700&family=Tenor+Sans&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F9F6F2;          /* linen white */
+    font-family: 'Lato', sans-serif;
+    color: #4A3728;                     /* espresso */
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Tenor Sans', sans-serif;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    color: #4A3728;
+}
+
+/* ----- Main Dashboard Container ----- */
+.main-admin-dashboard {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ----- Navbar (Glassmorphism) ----- */
+.nav-bar {
+    background: rgba(249, 246, 242, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 80px;
+    padding: 14px 40px;
+    margin: 32px 20px 40px 20px;
+    border: 1px solid rgba(209, 209, 209, 0.5);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.nav-bar h1 {
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.links ul {
+    display: flex;
+    gap: 42px;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.links a {
+    text-decoration: none;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: #4A3728;
+    transition: all 0.25s ease;
+    padding: 8px 0;
+    position: relative;
+}
+
+.links a:hover {
+    color: #E2B49A;
+}
+
+.links a::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #E2B49A;
+    border-radius: 2px;
+    transition: width 0.25s ease;
+}
+
+.links a:hover::after {
+    width: 100%;
+}
+
+/* ----- Dashboard Content ----- */
+.dashboard-content {
+    padding: 20px;
+}
+
+.dashboard-content > h2 {
+    font-size: 2rem;
+    margin-bottom: 36px;
+    text-align: center;
+    letter-spacing: 0.12em;
+    border-bottom: 1px solid #D1D1D1;
+    display: inline-block;
+    padding-bottom: 12px;
+    width: auto;
+}
+
+/* ----- Form Sections (Create & Edit) ----- */
+.form-section, #editBox {
+    background: #FFFFFF;
+    border-radius: 32px;
+    padding: 32px;
+    margin-bottom: 32px;
+    border: 1px solid #D1D1D1;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.form-section h3, #editBox h3 {
+    font-size: 1.4rem;
+    margin-bottom: 24px;
+    letter-spacing: 0.08em;
+    color: #4A3728;
+}
+
+/* Form elements flex layout */
+.form-section, #editBox {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+.form-section select,
+.form-section input,
+#editBox select,
+#editBox input {
+    flex: 1 1 180px;
+    padding: 12px 18px;
+    border: 1px solid #D1D1D1;
+    border-radius: 60px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    background: #FFFFFF;
+    color: #4A3728;
+    transition: all 0.25s ease;
+    outline: none;
+}
+
+/* Special styling for comment / longer text */
+.form-section input[type="text"],
+#editBox input[type="text"] {
+    flex: 2 1 260px;
+}
+
+/* Rating input number */
+.form-section input[type="number"],
+#editBox input[type="number"] {
+    flex: 0 1 120px;
+}
+
+/* Focus state */
+.form-section select:focus,
+.form-section input:focus,
+#editBox select:focus,
+#editBox input:focus {
+    border-color: #E2B49A;
+    box-shadow: 0 0 0 3px rgba(226, 180, 154, 0.2);
+}
+
+/* Date input specific */
+input[type="date"] {
+    color-scheme: light;
+}
+
+/* Buttons inside forms */
+.form-section button,
+#editBox button {
+    background-color: #E2B49A;
+    border: none;
+    border-radius: 60px;
+    padding: 12px 28px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    color: #F9F6F2;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.form-section button:hover,
+#editBox button:hover {
+    background-color: #d4a07f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(226, 180, 154, 0.25);
+}
+
+.form-section button:active,
+#editBox button:active {
+    transform: scale(0.97);
+}
+
+/* Cancel button inside editBox */
+#editBox button:last-of-type {
+    background-color: transparent;
+    border: 1px solid #D1D1D1;
+    color: #4A3728;
+}
+
+#editBox button:last-of-type:hover {
+    background-color: #f0e4d8;
+    border-color: #c4b5a5;
+    transform: translateY(-2px);
+    box-shadow: none;
+}
+
+/* Horizontal rule */
+hr {
+    margin: 40px 0;
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #D1D1D1, transparent);
+}
+
+/* ----- Table Styling (Modern, Clean) ----- */
+h3 + h3 {
+    margin-top: 32px;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #FFFFFF;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    border: 1px solid #D1D1D1;
+}
+
+th, td {
+    padding: 16px 12px;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+th {
+    font-family: 'Tenor Sans', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    background-color: #F9F6F2;
+    color: #4A3728;
+    border-bottom: 1px solid #D1D1D1;
+}
+
+td {
+    border-bottom: 1px solid #F0EDE8;
+    color: #4A3728;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Rating stars visual (optional, adds charm) */
+td:nth-child(3) {
+    font-weight: 600;
+    color: #E2B49A;
+}
+
+/* Action buttons inside table */
+td button {
+    background: transparent;
+    border: 1px solid #E2B49A;
+    border-radius: 50px;
+    padding: 6px 14px;
+    margin-right: 8px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #E2B49A;
+}
+
+td button:first-of-type:hover {
+    background-color: #E2B49A;
+    color: #F9F6F2;
+    transform: translateY(-1px);
+}
+
+td button:last-of-type {
+    border-color: #D1D1D1;
+    color: #4A3728;
+}
+
+td button:last-of-type:hover {
+    background-color: #f0e4d8;
+    border-color: #c4b5a5;
+    transform: translateY(-1px);
+}
+
+/* ----- Edit Box hidden by default ----- */
+#editBox {
+    display: none;
+}
+
+/* ----- Responsive Design ----- */
+@media (max-width: 900px) {
+    .nav-bar {
+        border-radius: 50px;
+        margin: 20px;
+        padding: 16px 24px;
+        flex-direction: column;
+        text-align: center;
+    }
+    .links ul {
+        justify-content: center;
+        gap: 28px;
+    }
+    .form-section, #editBox {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .form-section select,
+    .form-section input,
+    #editBox select,
+    #editBox input,
+    .form-section button,
+    #editBox button {
+        width: 100%;
+    }
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    th {
+        display: none;
+    }
+    tr {
+        margin-bottom: 20px;
+        border: 1px solid #D1D1D1;
+        border-radius: 24px;
+        padding: 12px;
+        background: white;
+    }
+    td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 8px;
+        border-bottom: 1px solid #F0EDE8;
+        gap: 12px;
+    }
+    td:before {
+        content: attr(data-label);
+        font-weight: 600;
+        font-family: 'Tenor Sans', sans-serif;
+        letter-spacing: 0.05em;
+        color: #4A3728;
+        width: 40%;
+    }
+    /* Manually add data-label in HTML if desired, or just keep inline */
+    td:last-child {
+        border-bottom: none;
+    }
+    td button {
+        margin: 0 4px;
+    }
+}
+
+@media (max-width: 550px) {
+    .main-admin-dashboard {
+        padding: 0 12px;
+    }
+    .nav-bar {
+        margin: 16px;
+        border-radius: 36px;
+    }
+    .links ul {
+        flex-direction: column;
+        gap: 14px;
+    }
+    .form-section, #editBox {
+        padding: 24px;
+    }
+    .dashboard-content > h2 {
+        font-size: 1.6rem;
+        text-align: center;
+        display: block;
+    }
+    table {
+        font-size: 0.85rem;
+    }
+    td {
+        padding: 8px;
+    }
+}
+
+/* Additional Polish */
+::placeholder {
+    color: #b9aea3;
+    font-weight: 300;
+}
+
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234A3728' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 14px;
+}
+
+/* Improve number input spinner (optional) */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    opacity: 0.5;
+    margin-right: 4px;
+}
+    </style>
+</head>
+<body>
+    <div class="mian-admin-dashboard">
+
+        <div class="nav-bar">
+            <h1>The Linear</h1>
+
+           <div class="links">
+             <ul>
+                <li><a href="../Admin Dashboard.html">Home</a></li>
+                <li><a href="./Service.html">Service</a></li>
+                <li><a href="./Appointment.html">Appointment</a></li>
+                <li><a href="./Schedule.html">Schedule</a></li>
+                <li><a href="./Feedback.html">Feedback</a></li>
+                <li><a href="./Notification.html">Notification</a></li>
+            </ul>
+           </div>
+
+           
+        </div>
+
+           <!-- DASHBOARD -->
+    <div class="dashboard-content">
+
+        <h2>Feedback Management</h2>
+
+        <!-- CREATE -->
+        <div class="form-section">
+            <h3>Create Feedback</h3>
+
+            <!-- Appointment dropdown (IMPORTANT) -->
+            <select id="appointment_id"></select>
+
+            <input type="number" id="rating" placeholder="Rating (1-5)">
+            <input type="text" id="comment" placeholder="Comment">
+            <input type="date" id="date">
+
+            <button onclick="createFeedback()">Submit</button>
+        </div>
+
+        <hr>
+
+        <!-- EDIT -->
+        <div id="editBox">
+            <h3>Edit Feedback</h3>
+
+            <input type="hidden" id="edit_id">
+
+            <select id="edit_appointment_id"></select>
+
+            <input type="number" id="edit_rating">
+            <input type="text" id="edit_comment">
+            <input type="date" id="edit_date">
+
+            <button onclick="updateFeedback()">Update</button>
+            <button onclick="closeEdit()">Cancel</button>
+        </div>
+
+        <hr>
+
+        <!-- TABLE -->
+        <h3>All Feedback</h3>
+
+        <table border="1" width="100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Appointment</th>
+                    <th>Rating</th>
+                    <th>Comment</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="feedbackTable"></tbody>
+        </table>
+
+    </div>
+
+
+    </div>
+
+    <script>
+        const API = "http://127.0.0.1:8000/api/feedback";
+const APPOINTMENT_API = "http://127.0.0.1:8000/api/appointments";
+
+const token = localStorage.getItem("token");
+
+let appointmentsList = [];
+
+/* ================= LOAD APPOINTMENTS DROPDOWN ================= */
+async function loadAppointments() {
+    let res = await fetch(APPOINTMENT_API, {
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    });
+
+    let data = await res.json();
+
+    appointmentsList = data;
+
+    let select = document.getElementById("appointment_id");
+    let editSelect = document.getElementById("edit_appointment_id");
+
+    select.innerHTML = "";
+    editSelect.innerHTML = "";
+
+    data.forEach(a => {
+        let option = `<option value="${a.appointment_id}">
+                        Appointment #${a.appointment_id}
+                      </option>`;
+
+        select.innerHTML += option;
+        editSelect.innerHTML += option;
+    });
+}
+
+/* ================= GET APPOINTMENT LABEL ================= */
+function getAppointmentLabel(id) {
+    let app = appointmentsList.find(a => a.appointment_id == id);
+    return app ? `#${app.appointment_id}` : "N/A";
+}
+
+/* ================= LOAD FEEDBACK ================= */
+async function loadFeedback() {
+
+    let res = await fetch(API, {
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    });
+
+    let data = await res.json();
+
+    let table = document.getElementById("feedbackTable");
+    table.innerHTML = "";
+
+    data.forEach(f => {
+        table.innerHTML += `
+            <tr>
+                <td>${f.feedback_id}</td>
+                <td>${getAppointmentLabel(f.appointment_id)} (${f.appointment_id})</td>
+                <td>${f.rating}</td>
+                <td>${f.comment}</td>
+                <td>${f.date}</td>
+                <td>
+                    <button onclick="editFeedback(${f.feedback_id}, ${f.appointment_id}, ${f.rating}, '${f.comment}', '${f.date}')">Edit</button>
+                    <button onclick="deleteFeedback(${f.feedback_id})">Delete</button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+/* ================= CREATE ================= */
+async function createFeedback() {
+
+    let data = {
+        appointment_id: document.getElementById("appointment_id").value,
+        rating: document.getElementById("rating").value,
+        comment: document.getElementById("comment").value,
+        date: document.getElementById("date").value
+    };
+
+    let res = await fetch(API, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify(data)
+    });
+
+    if (res.ok) loadFeedback();
+}
+
+/* ================= EDIT ================= */
+function editFeedback(id, appointment_id, rating, comment, date) {
+
+    document.getElementById("editBox").style.display = "block";
+
+    document.getElementById("edit_id").value = id;
+    document.getElementById("edit_appointment_id").value = appointment_id;
+    document.getElementById("edit_rating").value = rating;
+    document.getElementById("edit_comment").value = comment;
+    document.getElementById("edit_date").value = date;
+}
+
+/* ================= UPDATE ================= */
+async function updateFeedback() {
+
+    let id = document.getElementById("edit_id").value;
+
+    let data = {
+        appointment_id: document.getElementById("edit_appointment_id").value,
+        rating: document.getElementById("edit_rating").value,
+        comment: document.getElementById("edit_comment").value,
+        date: document.getElementById("edit_date").value
+    };
+
+    let res = await fetch(`${API}/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify(data)
+    });
+
+    if (res.ok) {
+        closeEdit();
+        loadFeedback();
+    }
+}
+
+/* ================= DELETE ================= */
+async function deleteFeedback(id) {
+
+    let res = await fetch(`${API}/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    });
+
+    if (res.ok) loadFeedback();
+}
+
+/* ================= CLOSE EDIT ================= */
+function closeEdit() {
+    document.getElementById("editBox").style.display = "none";
+}
+
+/* ================= INIT ================= */
+async function init() {
+    await loadAppointments();
+    await loadFeedback();
+}
+
+init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../../Css/Admin Dashboard.css">
+   
+   <style>
+    /* --------------------------------
+   Pearl & Nude Theme – Admin Dashboard
+   Modern Boutique | Clean Girl Aesthetic
+   -------------------------------- */
+
+/* ----- Google Fonts ----- */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;700&family=Tenor+Sans&display=swap');
+
+/* ----- CSS Variables (Theme Colors) ----- */
+:root {
+    --canvas: #F9F6F2;          /* linen white – primary background */
+    --espresso: #4A3728;        /* all text, headings */
+    --dusty-rose: #E2B49A;      /* buttons, active states, hover */
+    --soft-silk: #D1D1D1;       /* borders, dividers */
+    --white: #FFFFFF;
+    --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
+    --transition: all 0.25s ease;
+}
+
+/* ----- Reset & Base ----- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--canvas);
+    font-family: 'Lato', sans-serif;
+    color: var(--espresso);
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Tenor Sans', sans-serif;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    color: var(--espresso);
+}
+
+/* ----- Main Dashboard Container ----- */
+.main-admin-dashboard {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ----- Navbar (Glassmorphism) ----- */
+.nav-bar {
+    background: rgba(249, 246, 242, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 80px;
+    padding: 14px 40px;
+    margin: 32px 20px 40px 20px;
+    border: 1px solid rgba(209, 209, 209, 0.5);
+    box-shadow: var(--card-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.nav-bar h1 {
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.links ul {
+    display: flex;
+    gap: 42px;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.links a {
+    text-decoration: none;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--espresso);
+    transition: var(--transition);
+    padding: 8px 0;
+    position: relative;
+}
+
+.links a:hover {
+    color: var(--dusty-rose);
+}
+
+.links a::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: var(--dusty-rose);
+    border-radius: 2px;
+    transition: var(--transition);
+}
+
+.links a:hover::after {
+    width: 100%;
+}
+
+/* ----- Dashboard Content Area ----- */
+.dashboard-content {
+    padding: 20px;
+}
+
+/* ----- Service Section Heading ----- */
+.service-section h2 {
+    font-size: 2rem;
+    margin-bottom: 32px;
+    text-align: center;
+    letter-spacing: 0.12em;
+    border-bottom: 1px solid var(--soft-silk);
+    display: inline-block;
+    padding-bottom: 12px;
+    width: auto;
+}
+
+/* ----- Service Form (Create / Update) ----- */
+.service-form {
+    background: var(--white);
+    border-radius: 32px;
+    padding: 32px;
+    margin-bottom: 40px;
+    border: 1px solid var(--soft-silk);
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+.service-form input:not([type="file"]) {
+    flex: 1 1 180px;
+    padding: 12px 18px;
+    border: 1px solid var(--soft-silk);
+    border-radius: 60px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    background: var(--white);
+    color: var(--espresso);
+    transition: var(--transition);
+}
+
+.service-form input:focus {
+    outline: none;
+    border-color: var(--dusty-rose);
+    box-shadow: 0 0 0 3px rgba(226, 180, 154, 0.2);
+}
+
+.service-form input[type="file"] {
+    flex: 1 1 200px;
+    padding: 8px 0;
+    font-family: 'Lato', sans-serif;
+    color: var(--espresso);
+}
+
+.service-form button {
+    background-color: var(--dusty-rose);
+    border: none;
+    border-radius: 60px;
+    padding: 12px 32px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    color: var(--canvas);
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.service-form button:hover {
+    background-color: #d4a07f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(226, 180, 154, 0.25);
+}
+
+.service-form button:active {
+    transform: scale(0.97);
+}
+
+/* Horizontal rule */
+hr {
+    margin: 40px 0;
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--soft-silk), transparent);
+}
+
+/* ----- Service Cards Grid ----- */
+#serviceList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 32px;
+    margin-top: 20px;
+}
+
+/* Individual Service Card */
+.service-card {
+    background: var(--white);
+    border-radius: 32px;
+    padding: 24px;
+    border: 1px solid var(--soft-silk);
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.08);
+    border-color: rgba(226, 180, 154, 0.3);
+}
+
+.service-card img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    border: 3px solid var(--canvas);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.service-card h3 {
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    color: var(--espresso);
+}
+
+.service-card p {
+    font-size: 0.95rem;
+    color: var(--espresso);
+    opacity: 0.8;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.service-card p:first-of-type {
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+/* Buttons inside card */
+.service-card button {
+    border: none;
+    border-radius: 60px;
+    padding: 8px 24px;
+    margin: 10px 6px 0;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.service-card button:first-of-type {
+    background-color: transparent;
+    border: 1px solid var(--dusty-rose);
+    color: var(--dusty-rose);
+}
+
+.service-card button:first-of-type:hover {
+    background-color: var(--dusty-rose);
+    color: var(--canvas);
+    transform: translateY(-2px);
+}
+
+.service-card button:last-of-type {
+    background-color: transparent;
+    border: 1px solid var(--soft-silk);
+    color: var(--espresso);
+}
+
+.service-card button:last-of-type:hover {
+    background-color: #f0e4d8;
+    border-color: #c4b5a5;
+    transform: translateY(-2px);
+}
+
+/* ----- Responsive Design (Massive White Space Maintained) ----- */
+@media (max-width: 900px) {
+    .nav-bar {
+        border-radius: 50px;
+        margin: 20px;
+        padding: 16px 24px;
+        flex-direction: column;
+        text-align: center;
+    }
+    .links ul {
+        justify-content: center;
+        gap: 28px;
+    }
+    .service-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .service-form input:not([type="file"]),
+    .service-form button {
+        width: 100%;
+    }
+    .service-section h2 {
+        font-size: 1.6rem;
+        text-align: center;
+        display: block;
+    }
+}
+
+@media (max-width: 550px) {
+    .main-admin-dashboard {
+        padding: 0 12px;
+    }
+    .nav-bar {
+        margin: 16px;
+        border-radius: 36px;
+    }
+    .links ul {
+        flex-direction: column;
+        gap: 14px;
+    }
+    .service-card {
+        padding: 20px;
+    }
+    .service-card img {
+        width: 100px;
+        height: 100px;
+    }
+    .service-form {
+        padding: 24px;
+    }
+}
+
+/* ----- Additional Polish ----- */
+::placeholder {
+    color: #b9aea3;
+    font-weight: 300;
+    font-size: 0.9rem;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* Make file input nicer */
+input[type="file"]::file-selector-button {
+    border-radius: 60px;
+    background-color: var(--canvas);
+    border: 1px solid var(--soft-silk);
+    padding: 6px 16px;
+    font-family: 'Lato', sans-serif;
+    color: var(--espresso);
+    margin-right: 12px;
+    transition: var(--transition);
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: var(--dusty-rose);
+    color: var(--canvas);
+    border-color: var(--dusty-rose);
+}
+   </style>
+</head>
+<body>
+    <div class="mian-admin-dashboard">
+
+        <div class="nav-bar">
+            <h1>The Linear</h1>
+
+           <div class="links">
+             <ul>
+                <li><a href="../Admin Dashboard.html">Home</a></li>
+                <li><a href="./Service.html">Service</a></li>
+                <li><a href="./Appointment.html">Appointment</a></li>
+                <li><a href="./Schedule.html">Schedule</a></li>
+                <li><a href="./Feedback.html">Feedback</a></li>
+                <li><a href="./Notification.html">Notification</a></li>
+            </ul>
+           </div>
+
+           
+        </div>
+
+        <div class="dashboard-content">
+
+            <div class="service-section">
+
+    <h2>Services Management</h2>
+
+    <!-- CREATE / UPDATE FORM -->
+    <div class="service-form">
+
+        <input type="hidden" id="service_id">
+
+        <input type="text" id="name" placeholder="Service Name">
+        <input type="text" id="description" placeholder="Description">
+        <input type="number" id="price" placeholder="Price">
+        <input type="text" id="duration" placeholder="Duration">
+        <input type="file" id="image">
+
+        <button onclick="saveService()">Save</button>
+    </div>
+
+    <hr>
+
+    <!-- LIST -->
+    <div id="serviceList"></div>
+
+</div>
+        </div>
+
+    </div>
+
+    <script>
+        const API_URL = "http://127.0.0.1:8000/api/services";
+
+
+// =========================
+// LOAD SERVICES
+// =========================
+function loadServices() {
+
+    fetch(API_URL)
+    .then(res => res.json())
+    .then(data => {
+
+        let html = "";
+
+        data.forEach(service => {
+
+            let imageUrl = service.image;
+
+            // FIX IMAGE PATH
+            if (imageUrl && !imageUrl.startsWith("http")) {
+                imageUrl = "http://127.0.0.1:8000/storage/" + imageUrl;
+            }
+
+            html += `
+                <div class="service-card">
+
+                    <img src="${imageUrl}" width="100">
+
+                    <h3>${service.name}</h3>
+                    <p>${service.description || ''}</p>
+                    <p>Price: ${service.price}</p>
+                    <p>Duration: ${service.duration}</p>
+
+                    <button onclick="editService(
+                        ${service.service_id},
+                        '${service.name}',
+                        '${service.description || ''}',
+                        '${service.price}',
+                        '${service.duration}'
+                    )">Edit</button>
+
+                    <button onclick="deleteService(${service.service_id})">Delete</button>
+
+                </div>
+            `;
+        });
+
+        document.getElementById("serviceList").innerHTML = html;
+    });
+}
+
+
+// =========================
+// SAVE (CREATE + UPDATE)
+// =========================
+function saveService() {
+
+    let id = document.getElementById("service_id").value;
+
+    let formData = new FormData();
+    formData.append("name", document.getElementById("name").value);
+    formData.append("description", document.getElementById("description").value);
+    formData.append("price", document.getElementById("price").value);
+    formData.append("duration", document.getElementById("duration").value);
+
+    let image = document.getElementById("image").files[0];
+    if (image) {
+        formData.append("image", image);
+    }
+
+    let url = API_URL;
+    if (id) {
+        url = `${API_URL}/${id}?_method=PUT`;
+    }
+
+    fetch(url, {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(() => {
+        clearForm();
+        loadServices();
+    });
+}
+
+
+// =========================
+// EDIT (fill HTML form)
+// =========================
+function editService(id, name, description, price, duration) {
+
+    document.getElementById("service_id").value = id;
+    document.getElementById("name").value = name;
+    document.getElementById("description").value = description;
+    document.getElementById("price").value = price;
+    document.getElementById("duration").value = duration;
+}
+
+
+// =========================
+// DELETE
+// =========================
+function deleteService(id) {
+
+    fetch(`${API_URL}/${id}`, {
+        method: "DELETE"
+    })
+    .then(() => loadServices());
+}
+
+
+// =========================
+// CLEAR FORM
+// =========================
+function clearForm() {
+
+    document.getElementById("service_id").value = "";
+    document.getElementById("name").value = "";
+    document.getElementById("description").value = "";
+    document.getElementById("price").value = "";
+    document.getElementById("duration").value = "";
+    document.getElementById("image").value = "";
+}
+
+
+// =========================
+// INIT
+// =========================
+loadServices();
+    </script>
+</body>
+</html>

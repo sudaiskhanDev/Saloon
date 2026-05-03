@@ -1,0 +1,183 @@
+/* --------------------------------
+   Pearl & Nude Theme – Navbar
+   Modern Boutique | Clean Girl Aesthetic
+   -------------------------------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global Background – Linen White (primary canvas) */
+body {
+    background-color: #F9F6F2;
+    font-family: 'Lato', 'Inter', sans-serif;
+    color: #4A3728;          /* espresso for all body text */
+    line-height: 1.5;
+}
+
+/* Headings use Tenor Sans (elegant, wider letter spacing) */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Tenor Sans', 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    color: #4A3728;
+}
+
+/* ----- Navbar (Glassmorphism) ----- */
+.nav-bar {
+    /* Glass effect */
+    background: rgba(249, 246, 242, 0.75);   /* linen white with opacity */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    
+    border-radius: 80px;
+    padding: 14px 40px;
+    margin: 32px 40px;               /* generous spacing – massive white space */
+    border: 1px solid rgba(209, 209, 209, 0.5); /* soft silk border */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.02);
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+/* Logo – Espresso (dark but soft) */
+.nav-bar h1 {
+    font-family: 'Tenor Sans', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: #4A3728;
+    margin: 0;
+    white-space: nowrap;
+    background: none;
+    text-transform: uppercase;
+}
+
+/* Navigation Links */
+.links ul {
+    display: flex;
+    gap: 42px;                     /* airy spacing between links */
+    list-style: none;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.links a {
+    text-decoration: none;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: #4A3728;               /* espresso */
+    transition: color 0.25s ease;
+    padding: 8px 0;
+    position: relative;
+}
+
+/* Hover & Active – Dusty Rose accent */
+.links a:hover {
+    color: #E2B49A;               /* dusty rose / nude glow */
+}
+
+.links a::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #E2B49A;
+    border-radius: 2px;
+    transition: width 0.25s ease;
+}
+
+.links a:hover::after {
+    width: 100%;
+}
+
+/* Logout Button – Dusty Rose, pill-shaped, soft elegance */
+.logout-btn button {
+    background-color: #E2B49A;    /* nude accent */
+    border: none;
+    border-radius: 50px;
+    padding: 10px 32px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: #F9F6F2;               /* linen white for contrast */
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.logout-btn button:hover {
+    background-color: #d4a07f;    /* slightly deeper dusty rose */
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(226, 180, 154, 0.2);
+}
+
+.logout-btn button:active {
+    transform: scale(0.97);
+}
+
+/* Optional: secondary outline style (if needed) */
+/* .btn-outline {
+    background: transparent;
+    border: 1px solid #E2B49A;
+    color: #E2B49A;
+} */
+
+/* ----- Massive White Space + Responsive ----- */
+@media (max-width: 1100px) {
+    .nav-bar {
+        margin: 24px 30px;
+        padding: 12px 28px;
+    }
+    .links ul {
+        gap: 28px;
+    }
+}
+
+@media (max-width: 900px) {
+    .nav-bar {
+        border-radius: 50px;
+        margin: 20px;
+        padding: 16px 24px;
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        backdrop-filter: blur(10px);
+    }
+    
+    .links ul {
+        justify-content: center;
+        gap: 24px;
+    }
+    
+    .nav-bar h1 {
+        white-space: normal;
+        text-align: center;
+    }
+    
+    .logout-btn {
+        text-align: center;
+    }
+}
+
+@media (max-width: 550px) {
+    .links ul {
+        flex-direction: column;
+        gap: 14px;
+    }
+    
+    .nav-bar {
+        border-radius: 36px;
+        margin: 16px;
+    }
+}
