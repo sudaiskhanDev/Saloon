@@ -12,7 +12,8 @@ return new class extends Migration
             $table->id('appointment_id');
 
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('admin_staff_id');
+            $table->unsignedBigInteger('admin_staff_id')->nullable();
+            // $table->unsignedBigInteger('admin_staff_id');
             $table->unsignedBigInteger('service_id');
 
             $table->date('date');
