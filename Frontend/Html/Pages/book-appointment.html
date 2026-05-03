@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Appointment</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.box {
+    background: white;
+    padding: 25px;
+    width: 350px;
+    border-radius: 10px;
+}
+
+h2 { text-align: center; }
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background: #FE4600;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.service-box {
+    background: #eee;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h2>Book Appointment</h2>
+
+    <div class="service-box" id="serviceInfo"></div>
+
+    <form id="bookingForm">
+
+        <label>Date</label>
+        <input type="date" id="date" required>
+
+        <label>Time</label>
+        <input type="time" id="time" required>
+
+        <button type="submit">Confirm Booking</button>
+
+    </form>
+
+</div>
+
+<script>
+
+// =======================
+// GET SERVICE
+// =======================
+let service = JSON.parse(localStorage.getItem("selectedService"));
+
+if (!service) {
+    alert("No service selected!");
+    window.location.href = "Service.html";
+}
+
+// =======================
+// SHOW SERVICE INFO (FIXED)
+// =======================
+document.getElementById("serviceInfo").innerHTML = `
+    <h3>${service.name ?? "Service"}</h3>
+    <p>Price: Rs. ${service.price ?? 0}</p>
+    <p>Duration: ${service.duration_minutes ?? service.duration ?? "N/A"} min</p>
+`;
+
+// =======================
+// BOOK APPOINTMENT (USER ROUTE)
+// =======================
+document.getElementById("bookingForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    let date = document.getElementById("date").value;
+    let time = document.getElementById("time").value;
+
+    let token = localStorage.getItem("token");
+
+    if (!token) {
+        alert("Please login first");
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+
+        let response = await fetch("http://127.0.0.1:8000/api/user/appointments", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            },
+            body: JSON.stringify({
+                service_id: service.service_id ?? service.id,
+                date: date,
+                time: time
+            })
+        });
+
+        let data = await response.json();
+
+        if (response.ok) {
+
+            alert("Appointment Booked Successfully");
+
+            // clear selected service
+            localStorage.removeItem("selectedService");
+
+            window.location.href = "Service.html";
+
+        } else {
+            console.log(data);
+            alert(data.message || "Booking Failed");
+        }
+
+    } catch (error) {
+        console.log(error);
+        alert("Server error");
+    }
+});
+
+</script>
+
+</body>
+</html>

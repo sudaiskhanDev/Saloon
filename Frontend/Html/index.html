@@ -2,27 +2,153 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Linear</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>The Linear | Boutique Salon & Skincare</title>
     <link rel="stylesheet" href="../Css/index.css">
     
 </head>
 <body>
     <div class="main-landing-page">
 
+        <!-- Navigation Bar -->
         <div class="nav-bar">
-
             <h1>The Linear</h1>
-
             <div class="links">
                 <ul>
                     <li><a href="./index.html">Home</a></li>
-                    <li><a href="./services.html">Service</a></li>
+                    <li><a href="./Pages/Service.html">Service</a></li>
                 </ul>
             </div>
+            <div class="btns">
+    <button><a href="./Auth/Login.html">Login</a></button>
+    <button><a href="./Auth/Register.html">Register</a></button>
+    <button id="logoutBtn">Logout</button>
+</div>
+        </div>
+
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <img src="../Assets/bg.png" alt="The Linear Salon hero background">
+        </div>
+
+        <!-- Centered CTA Button -->
+        <div class="all-services-btn">
+            <a href="./Pages/Service.html">Service</a>
         </div>
 
 
+
+        <section class="services">
+  <h2>Our Nail Designs</h2>
+  <div class="service-cards">
+
+    <div class="card">
+      <img src="../Assets/nails.jpg" alt="Drook Real">
+      <h3>Drook Real</h3>
+      <p>Chicks embarrassed each by wealthy joy reality to express. Lainess why end might ask civil again spoil.</p>
+      <span class="price">$10.99</span>
     </div>
+
+    <div class="card">
+      <img src="../Assets/nail2.jpg" alt="Finistmal Fire">
+      <h3>Finistmal Fire</h3>
+      <p>Tried on cause need smart in no dear. Tyneside so many at these ready sense. Alteration end literature admiration.</p>
+      <span class="price">$13.99</span>
+    </div>
+
+    <div class="card">
+      <img src="../Assets/nail3.jpg" alt="Ouce Fiere">
+      <h3>Ouce Fiere</h3>
+      <p>Chicks more enjoy temperament had early. To prepare daughters. Alteration end literature admiration.</p>
+      <span class="price">$12.99</span>
+    </div>
+
+  </div>
+</section>
+
+
+        <!-- About Section -->
+        <div class="about">
+            <div class="about-text">
+                <h2>About Our Salon</h2>
+                <p>
+                    We provide a comfortable, modern, and beautiful environment for women and girls.
+                    Our goal is to highlight your natural beauty with professional care and stylish services.
+                </p>
+                <p>
+                    From hair styling to skincare, we bring elegance and confidence to every client.
+                </p>
+                <a href="./Pages/Service.html" class="btn">Discover Services</a>
+            </div>
+            <div class="about-image">
+                <img src="../Assets/Mechas.jpg" alt="Salon interior with styling station">
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-content">
+                <h3>The Linear Salon</h3>
+                <p>Bringing elegance and confidence to women & girls with modern salon services.</p>
+                <ul class="socials">
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 The Linear Salon | All Rights Reserved</p>
+            </div>
+        </div>
+
+    </div>
+
+
+
+ <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const token = localStorage.getItem("token");
+
+    const loginBtn = document.getElementById("loginBtn");
+    const registerBtn = document.getElementById("registerBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // 🔥 Check login state
+    if (token) {
+        // User logged in
+        loginBtn.style.display = "none";
+        registerBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+    } else {
+        // User not logged in
+        loginBtn.style.display = "inline-block";
+        registerBtn.style.display = "inline-block";
+        logoutBtn.style.display = "none";
+    }
+
+    // 🔥 Logout Function
+    logoutBtn.addEventListener("click", function () {
+        localStorage.removeItem("token");
+
+        // optional: API logout call
+        fetch("http://127.0.0.1:8000/api/user/logout", {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Accept": "application/json"
+            }
+        });
+
+        alert("Logged out successfully");
+
+        // reload page
+        window.location.reload();
+    });
+
+});
+</script>
+
+    <script src="../Js/index.js"></script>
 </body>
 </html>
