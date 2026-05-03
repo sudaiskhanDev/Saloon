@@ -15,51 +15,51 @@ class AppointmentController extends Controller
     }
 
     // CREATE
+//     public function store(Request $request)
+// {
+//     $user = auth('user_api')->user();
+
+//     if (!$user) {
+//         return response()->json(['message' => 'Unauthenticated'], 401);
+//     }
+
+//     $request->validate([
+//         'service_id' => 'required',
+//         'date' => 'required',
+//         'time' => 'required',
+//     ]);
+
+//     return Appointment::create([
+//         'user_id' => $user->user_id,
+//         'admin_staff_id' => null,
+//         'service_id' => $request->service_id,
+//         'date' => $request->date,
+//         'time' => $request->time,
+//         'status' => 'booked'
+//     ]);
+// }
     public function store(Request $request)
-{
-    $user = auth('user_api')->user();
+    {
+        $request->validate([
+            'user_id' => 'required',
+            'admin_staff_id' => 'required',
+            'service_id' => 'required',
+            'date' => 'required',
+            'time' => 'required',
+            'status' => 'nullable|in:booked,cancelled,completed'
+        ]);
 
-    if (!$user) {
-        return response()->json(['message' => 'Unauthenticated'], 401);
+        $appointment = Appointment::create([
+            'user_id' => $request->user_id,
+            'admin_staff_id' => $request->admin_staff_id,
+            'service_id' => $request->service_id,
+            'date' => $request->date,
+            'time' => $request->time,
+            'status' => $request->status ?? 'booked'
+        ]);
+
+        return response()->json($appointment, 201);
     }
-
-    $request->validate([
-        'service_id' => 'required',
-        'date' => 'required',
-        'time' => 'required',
-    ]);
-
-    return Appointment::create([
-        'user_id' => $user->user_id,
-        'admin_staff_id' => null,
-        'service_id' => $request->service_id,
-        'date' => $request->date,
-        'time' => $request->time,
-        'status' => 'booked'
-    ]);
-}
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'user_id' => 'required',
-    //         'admin_staff_id' => 'required',
-    //         'service_id' => 'required',
-    //         'date' => 'required',
-    //         'time' => 'required',
-    //         'status' => 'nullable|in:booked,cancelled,completed'
-    //     ]);
-
-    //     $appointment = Appointment::create([
-    //         'user_id' => $request->user_id,
-    //         'admin_staff_id' => $request->admin_staff_id,
-    //         'service_id' => $request->service_id,
-    //         'date' => $request->date,
-    //         'time' => $request->time,
-    //         'status' => $request->status ?? 'booked'
-    //     ]);
-
-    //     return response()->json($appointment, 201);
-    // }
 
     // SHOW SINGLE
     public function show($id)
