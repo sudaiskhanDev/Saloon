@@ -37,4 +37,6 @@ public function feedback()
 {
     return $this->hasOne(Feedback::class, 'appointment_id', 'appointment_id');
 }
+
+
 }

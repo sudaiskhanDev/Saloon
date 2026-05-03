@@ -38,6 +38,42 @@ Route::get('/services', function () {
 
 
 use App\Http\Controllers\Api\AppointmentActionController;
+
 Route::prefix('user')->middleware('auth:user_api')->group(function () {
+
     Route::post('/appointments', [AppointmentActionController::class, 'store']);
+
+     Route::get('/dashboard', [AppointmentActionController::class, 'dashboard']);
+
+    Route::post('/feedback', [AppointmentActionController::class, 'submitFeedback']);
+
+    Route::get('/appointments', [AppointmentActionController::class, 'userAppointments']);
+
+    // 🔥 NEW
+    Route::get('/notifications', [AppointmentActionController::class, 'userNotifications']);
+});
+
+
+
+ 
+Route::middleware('auth:admin_api')->group(function () {
+
+    // 🔥 staff appointments list
+    Route::get('/staff/appointments', [
+        AppointmentActionController::class,
+        'staffAppointments'
+    ]);
+
+    // 🔥 mark completed
+    Route::post('/staff/appointment/{id}/complete', [
+        AppointmentActionController::class,
+        'markCompleted'
+    ]);
+
+    // 🔥 cancel appointment
+    Route::post('/staff/appointment/{id}/cancel', [
+        AppointmentActionController::class,
+        'cancel'
+    ]);
+
 });

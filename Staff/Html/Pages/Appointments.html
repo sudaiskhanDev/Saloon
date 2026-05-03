@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 5px #ccc;
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+            display: inline-block;
+        }
+
+        .booked { background: orange; }
+        .completed { background: green; }
+        .cancelled { background: red; }
+
+        button {
+            margin-top: 10px;
+            padding: 6px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>My Appointments</h2>
+
+<div id="appointments"></div>
+
+<script>
+const token = localStorage.getItem("token"); // JWT token
+
+// 🔥 LOAD APPOINTMENTS
+async function loadAppointments() {
+    const res = await fetch("http://127.0.0.1:8000/api/staff/appointments", {
+        method: "GET",
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Accept": "application/json"
+        }
+    });
+
+    const data = await res.json();
+
+    let html = "";
+
+    data.appointments.forEach(app => {
+        html += `
+            <div class="card">
+                <h3>${app.service.name}</h3>
+                <p>User ID: ${app.user_id}</p>
+                <p>Date: ${app.date} | Time: ${app.time}</p>
+
+                <span class="status ${app.status}">
+                    ${app.status}
+                </span>
+
+                <br>
+
+                <button onclick="markCompleted(${app.appointment_id})">
+                    Mark Completed
+                </button>
+
+                <button onclick="cancelAppointment(${app.appointment_id})">
+                    Cancel
+                </button>
+            </div>
+        `;
+    });
+
+    document.getElementById("appointments").innerHTML = html;
+}
+
+// 🔥 MARK COMPLETED
+async function markCompleted(id) {
+    await fetch(`http://127.0.0.1:8000/api/staff/appointment/${id}/complete`, {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Accept": "application/json"
+        }
+    });
+
+    loadAppointments();
+}
+
+// 🔥 CANCEL
+async function cancelAppointment(id) {
+    await fetch(`http://127.0.0.1:8000/api/staff/appointment/${id}/cancel`, {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Accept": "application/json"
+        }
+    });
+
+    loadAppointments();
+}
+
+// INIT
+loadAppointments();
+</script>
+
+</body>
+</html>
