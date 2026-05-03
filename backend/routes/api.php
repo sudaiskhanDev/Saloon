@@ -77,3 +77,36 @@ Route::middleware('auth:admin_api')->group(function () {
     ]);
 
 });
+
+
+
+
+use App\Http\Controllers\Api\StaffStatusController;
+
+Route::get('/staff/status', [
+    StaffStatusController::class,
+    'getStaffWithStatus'
+]);
+
+
+
+
+
+
+
+use App\Http\Controllers\Api\UserAppointmentController;
+
+Route::middleware('auth:user_api')->group(function () {
+
+    // 🔥 USER APPOINTMENTS
+    Route::get('/my-appointments', [
+        UserAppointmentController::class,
+        'myAppointments'
+    ]);
+
+    // 🔥 FEEDBACK SUBMIT
+    Route::post('/feedback', [
+        UserAppointmentController::class,
+        'submitFeedback'
+    ]);
+});

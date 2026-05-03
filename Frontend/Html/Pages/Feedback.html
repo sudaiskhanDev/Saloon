@@ -1,11 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<title>My Appointments</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#f4f4f4;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:15px;
+    margin-bottom:10px;
+    border-radius:8px;
+    box-shadow:0 0 8px rgba(0,0,0,0.1);
+}
+
+.badge{
+    padding:5px 10px;
+    border-radius:20px;
+    color:white;
+    font-size:12px;
+}
+
+.completed{background:green;}
+.booked{background:orange;}
+.cancelled{background:red;}
+
+textarea,input{
+    width:100%;
+    margin-top:5px;
+    padding:8px;
+}
+
+button{
+    margin-top:10px;
+    padding:8px 12px;
+    cursor:pointer;
+}
+</style>
 </head>
+
 <body>
-    
+
+<h2>My Appointments</h2>
+
+<div id="container"></div>
+
+<script>
+
+const API = "http://127.0.0.1:8000/api/my-appointments";
+const FEEDBACK_API = "http://127.0.0.1:8000/api/feedback";
+
+const token = localStorage.getItem("token");
+
+let appointments = [];
+
+/* ================= LOAD APPOINTMENTS ================= */
+async function loadAppointments() {
+
+    let res = await fetch(API, {
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    });
+
+    let data = await res.json();
+
+    appointments = data.data;
+
+    let container = document.getElementById("container");
+    container.innerHTML = "";
+
+    appointments.forEach(app => {
+
+        container.innerHTML += `
+            <div class="card">
+
+                <h3>Service: ${app.service.name}</h3>
+                <p>Date: ${app.date} | Time: ${app.time}</p>
+
+                <span class="badge ${app.status}">
+                    ${app.status.toUpperCase()}
+                </span>
+
+                <hr>
+
+                ${app.feedback ? `
+                    <p>⭐ Rating: ${app.feedback.rating}</p>
+                    <p>${app.feedback.comment}</p>
+                ` : `
+                    <div>
+                        <h4>Give Feedback</h4>
+
+                        <input type="number" min="1" max="5" id="rating_${app.appointment_id}" placeholder="Rating 1-5">
+                        <textarea id="comment_${app.appointment_id}" placeholder="Comment"></textarea>
+
+                        <button onclick="submitFeedback(${app.appointment_id})">
+                            Submit
+                        </button>
+                    </div>
+                `}
+
+            </div>
+        `;
+    });
+}
+
+/* ================= SUBMIT FEEDBACK ================= */
+async function submitFeedback(id) {
+
+    let rating = document.getElementById("rating_" + id).value;
+    let comment = document.getElementById("comment_" + id).value;
+
+    let res = await fetch(FEEDBACK_API, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({
+            appointment_id: id,
+            rating: rating,
+            comment: comment
+        })
+    });
+
+    let data = await res.json();
+
+    if (data.status) {
+        alert("Feedback submitted");
+        loadAppointments();
+    } else {
+        alert(data.message);
+    }
+}
+
+/* ================= INIT ================= */
+loadAppointments();
+
+</script>
+
 </body>
 </html>

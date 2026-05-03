@@ -1,651 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="../../Css/Admin Dashboard.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Status - Admin Dashboard</title>
+<link rel="stylesheet" href="../../Css/Admin Dashboard.css">
 
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;700&family=Tenor+Sans&display=swap');
 
-    <style>
-        /* --------------------------------
-   Pearl & Nude Theme – Schedule Management
-   Modern Boutique | Clean Girl Aesthetic
-   -------------------------------- */
-
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;700&family=Tenor+Sans&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #F9F6F2;          /* linen white */
-    font-family: 'Lato', sans-serif;
-    color: #4A3728;                     /* espresso */
-    line-height: 1.5;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Tenor Sans', sans-serif;
-    letter-spacing: 0.1em;
-    font-weight: 500;
-    color: #4A3728;
-}
-
-/* ----- Main Dashboard Container ----- */
-.main-admin-dashboard {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* ----- Navbar (Glassmorphism) ----- */
-.nav-bar {
-    background: rgba(249, 246, 242, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 80px;
-    padding: 14px 40px;
-    margin: 32px 20px 40px 20px;
-    border: 1px solid rgba(209, 209, 209, 0.5);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 24px;
-}
-
-.nav-bar h1 {
-    font-size: 1.6rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin: 0;
-}
-
-.links ul {
-    display: flex;
-    gap: 42px;
-    list-style: none;
-    flex-wrap: wrap;
-}
-
-.links a {
-    text-decoration: none;
-    font-family: 'Lato', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    color: #4A3728;
-    transition: all 0.25s ease;
-    padding: 8px 0;
-    position: relative;
-}
-
-.links a:hover {
-    color: #E2B49A;
-}
-
-.links a::after {
-    content: '';
-    position: absolute;
-    bottom: -6px;
-    left: 0;
-    width: 0%;
-    height: 2px;
-    background-color: #E2B49A;
-    border-radius: 2px;
-    transition: width 0.25s ease;
-}
-
-.links a:hover::after {
-    width: 100%;
-}
-
-/* ----- Dashboard Content ----- */
-.dashboard-content {
-    padding: 20px;
-}
-
-.dashboard-content > h2 {
-    font-size: 2rem;
-    margin-bottom: 36px;
-    text-align: center;
-    letter-spacing: 0.12em;
-    border-bottom: 1px solid #D1D1D1;
-    display: inline-block;
-    padding-bottom: 12px;
-    width: auto;
-}
-
-/* ----- Form Sections (Create & Edit) ----- */
-.form-section, #editBox {
-    background: #FFFFFF;
-    border-radius: 32px;
-    padding: 32px;
-    margin-bottom: 32px;
-    border: 1px solid #D1D1D1;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
-}
-
-.form-section h3, #editBox h3 {
-    font-size: 1.4rem;
-    margin-bottom: 24px;
-    letter-spacing: 0.08em;
-    color: #4A3728;
-}
-
-/* Form elements flex layout */
-.form-section, #editBox {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: flex-end;
-}
-
-.form-section select,
-.form-section input,
-#editBox select,
-#editBox input {
-    flex: 1 1 180px;
-    padding: 12px 18px;
-    border: 1px solid #D1D1D1;
-    border-radius: 60px;
-    font-family: 'Lato', sans-serif;
-    font-size: 0.95rem;
-    background: #FFFFFF;
-    color: #4A3728;
-    transition: all 0.25s ease;
-    outline: none;
-}
-
-.form-section select:focus,
-.form-section input:focus,
-#editBox select:focus,
-#editBox input:focus {
-    border-color: #E2B49A;
-    box-shadow: 0 0 0 3px rgba(226, 180, 154, 0.2);
-}
-
-/* Buttons inside forms */
-.form-section button,
-#editBox button {
-    background-color: #E2B49A;
-    border: none;
-    border-radius: 60px;
-    padding: 12px 28px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-    color: #F9F6F2;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-.form-section button:hover,
-#editBox button:hover {
-    background-color: #d4a07f;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(226, 180, 154, 0.25);
-}
-
-.form-section button:active,
-#editBox button:active {
-    transform: scale(0.97);
-}
-
-/* Cancel button inside editBox */
-#editBox button:last-of-type {
-    background-color: transparent;
-    border: 1px solid #D1D1D1;
-    color: #4A3728;
-}
-
-#editBox button:last-of-type:hover {
-    background-color: #f0e4d8;
-    border-color: #c4b5a5;
-    transform: translateY(-2px);
-    box-shadow: none;
-}
-
-/* Horizontal rule */
-hr {
-    margin: 40px 0;
-    border: none;
-    height: 1px;
-    background: linear-gradient(to right, transparent, #D1D1D1, transparent);
-}
-
-/* ----- Table Styling (Modern, Clean) ----- */
-h3 + h3 {
-    margin-top: 32px;
-    font-size: 1.4rem;
-    margin-bottom: 20px;
-}
-
-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    background: #FFFFFF;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-    border: 1px solid #D1D1D1;
-}
-
-th, td {
-    padding: 16px 12px;
-    text-align: left;
-    font-size: 0.9rem;
-}
-
-th {
-    font-family: 'Tenor Sans', sans-serif;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    background-color: #F9F6F2;
-    color: #4A3728;
-    border-bottom: 1px solid #D1D1D1;
-}
-
-td {
-    border-bottom: 1px solid #F0EDE8;
-    color: #4A3728;
-}
-
-tr:last-child td {
-    border-bottom: none;
-}
-
-/* Action buttons inside table */
-td button {
-    background: transparent;
-    border: 1px solid #E2B49A;
-    border-radius: 50px;
-    padding: 6px 14px;
-    margin-right: 8px;
-    font-family: 'Lato', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: #E2B49A;
-}
-
-td button:first-of-type:hover {
-    background-color: #E2B49A;
-    color: #F9F6F2;
-    transform: translateY(-1px);
-}
-
-td button:last-of-type {
-    border-color: #D1D1D1;
-    color: #4A3728;
-}
-
-td button:last-of-type:hover {
-    background-color: #f0e4d8;
-    border-color: #c4b5a5;
-    transform: translateY(-1px);
-}
-
-/* ----- Edit Box hidden by default (will be shown via JS) ----- */
-#editBox {
-    display: none;
-}
-
-/* ----- Responsive Design ----- */
-@media (max-width: 900px) {
-    .nav-bar {
-        border-radius: 50px;
-        margin: 20px;
-        padding: 16px 24px;
-        flex-direction: column;
-        text-align: center;
-    }
-    .links ul {
-        justify-content: center;
-        gap: 28px;
-    }
-    .form-section, #editBox {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .form-section select,
-    .form-section input,
-    #editBox select,
-    #editBox input,
-    .form-section button,
-    #editBox button {
-        width: 100%;
-    }
-    table, thead, tbody, th, td, tr {
-        display: block;
-    }
-    th {
-        display: none;
-    }
-    tr {
-        margin-bottom: 20px;
-        border: 1px solid #D1D1D1;
-        border-radius: 24px;
-        padding: 12px;
-        background: white;
-    }
-    td {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 8px;
-        border-bottom: 1px solid #F0EDE8;
-        gap: 12px;
-    }
-    td:before {
-        content: attr(data-label);
-        font-weight: 600;
-        font-family: 'Tenor Sans', sans-serif;
-        letter-spacing: 0.05em;
+    body {
+        background-color: #F9F6F2;
+        font-family: 'Lato', sans-serif;
         color: #4A3728;
-        width: 40%;
+        margin: 0;
     }
-    td:last-child {
-        border-bottom: none;
-    }
-    td button {
-        margin: 0 4px;
-    }
-}
 
-@media (max-width: 550px) {
-    .main-admin-dashboard {
-        padding: 0 12px;
-    }
     .nav-bar {
-        margin: 16px;
-        border-radius: 36px;
+        background: rgba(249, 246, 242, 0.75);
+        backdrop-filter: blur(12px);
+        border-radius: 80px;
+        padding: 14px 40px;
+        margin: 32px 20px 40px 20px;
+        border: 1px solid rgba(209, 209, 209, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
-    .links ul {
-        flex-direction: column;
-        gap: 14px;
-    }
-    .form-section, #editBox {
-        padding: 24px;
-    }
-    .dashboard-content > h2 {
+
+    .nav-bar h1 {
+        font-family: 'Tenor Sans', sans-serif;
         font-size: 1.6rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    .links ul {
+        display: flex;
+        gap: 42px;
+        list-style: none;
+    }
+
+    .links a {
+        text-decoration: none;
+        color: #4A3728;
+        font-weight: 500;
+        transition: 0.25s;
+    }
+
+    .links a:hover { color: #E2B49A; }
+
+    .dashboard-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
         text-align: center;
-        display: block;
     }
+
+    h2 {
+        font-family: 'Tenor Sans', sans-serif;
+        font-size: 2rem;
+        margin-bottom: 40px;
+        letter-spacing: 0.12em;
+    }
+
     table {
-        font-size: 0.85rem;
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: #FFFFFF;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        border: 1px solid #D1D1D1;
     }
-    td {
-        padding: 8px;
+
+    th, td {
+        padding: 16px 24px;
+        text-align: left;
+        border-bottom: 1px solid #F0EDE8;
     }
-}
 
-/* Additional Polish */
-::placeholder {
-    color: #b9aea3;
-    font-weight: 300;
-}
+    th {
+        font-family: 'Tenor Sans', sans-serif;
+        background-color: #F9F6F2;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+    }
 
-select {
-    appearance: none;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234A3728' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
-    background-repeat: no-repeat;
-    background-position: right 18px center;
-    background-size: 14px;
-}
-    </style>
+    tr:last-child td { border-bottom: none; }
 
+    .badge {
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        display: inline-block;
+    }
+
+    .available { background-color: #e8f5e9; color: #2e7d32; }
+    .busy { background-color: #fff3e0; color: #ef6c00; }
+    .offline { background-color: #f5f5f5; color: #757575; }
+</style>
 </head>
+
 <body>
-    <div class="mian-admin-dashboard">
 
-        <div class="nav-bar">
-            <h1>The Linear</h1>
-
-           <div class="links">
-             <ul>
-                <li><a href="../Admin Dashboard.html">Home</a></li>
-                <li><a href="./Service.html">Service</a></li>
-                <li><a href="./Appointment.html">Appointment</a></li>
-                <li><a href="./Schedule.html">Schedule</a></li>
-                <li><a href="./Feedback.html">Feedback</a></li>
-                <li><a href="./Notification.html">Notification</a></li>
-            </ul>
-           </div>
-
-           
-        </div>
- 
- 
-
-    <!-- DASHBOARD CONTENT -->
-    <div class="dashboard-content">
-
-        <h2>Schedule Management</h2>
-
-        <!-- CREATE -->
-        <div class="form-section">
-            <h3>Create Schedule</h3>
-
-            <select id="admin_staff_id"></select>
-
-            <input type="date" id="work_date">
-            <input type="time" id="start_time">
-            <input type="time" id="end_time">
-
-            <button onclick="createSchedule()">Create</button>
-        </div>
-
-        <hr>
-
-        <!-- EDIT -->
-        <div id="editBox">
-            <h3>Edit Schedule</h3>
-
-            <input type="hidden" id="edit_id">
-
-            <select id="edit_admin_staff_id"></select>
-
-            <input type="date" id="edit_work_date">
-            <input type="time" id="edit_start_time">
-            <input type="time" id="edit_end_time">
-
-            <button onclick="updateSchedule()">Update</button>
-            <button onclick="closeEdit()">Cancel</button>
-        </div>
-
-        <hr>
-
-        <!-- TABLE -->
-        <h3>All Schedules</h3>
-
-        <table border="1" width="100%">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Staff</th>
-                    <th>Date</th>
-                    <th>Start</th>
-                    <th>End</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="scheduleTable"></tbody>
-        </table>
-
+<div class="nav-bar">
+    <h1>The Linear</h1>
+    <div class="links">
+        <ul>
+            <li><a href="../Admin Dashboard.html">Home</a></li>
+            <li><a href="./Service.html">Service</a></li>
+            <li><a href="./Appointment.html">Appointment</a></li>
+            <li><a href="./Schedule.html">Schedule</a></li>
+            <li><a href="./Feedback.html">Feedback</a></li>
+            <li><a href="./Notification.html">Notification</a></li>
+        </ul>
     </div>
+</div>
 
- 
+<div class="dashboard-content">
 
-    </div>
+    <h2>Staff Availability Status</h2>
 
-
-
- <script>
-    const API = "http://127.0.0.1:8000/api/schedules";
-const STAFF_API = "http://127.0.0.1:8000/api/staff";
-
-const token = localStorage.getItem("token");
-
-let staffList = [];
-
-/* ================= STAFF DROPDOWN ================= */
-async function loadStaff() {
-    let res = await fetch(STAFF_API);
-    let data = await res.json();
-
-    staffList = data;
-
-    let select = document.getElementById("admin_staff_id");
-    let editSelect = document.getElementById("edit_admin_staff_id");
-
-    select.innerHTML = "";
-    editSelect.innerHTML = "";
-
-    data.forEach(s => {
-        let option = `<option value="${s.admin_staff_id}">
-                        ${s.name} (Staff)
-                      </option>`;
-
-        select.innerHTML += option;
-        editSelect.innerHTML += option;
-    });
-}
-
-/* ================= GET STAFF NAME ================= */
-function getStaffName(id) {
-    let staff = staffList.find(s => s.admin_staff_id == id);
-    return staff ? staff.name : "N/A";
-}
-
-/* ================= LOAD ================= */
-async function loadSchedules() {
-    let res = await fetch(API, {
-        headers: { "Authorization": "Bearer " + token }
-    });
-
-    let data = await res.json();
-
-    let table = document.getElementById("scheduleTable");
-    table.innerHTML = "";
-
-    data.forEach(s => {
-        table.innerHTML += `
+    <table>
+        <thead>
             <tr>
-                <td>${s.schedule_id}</td>
-                <td>${getStaffName(s.admin_staff_id)} (${s.admin_staff_id})</td>
-                <td>${s.work_date}</td>
-                <td>${s.start_time}</td>
-                <td>${s.end_time}</td>
+                <th>Staff ID</th>
+                <th>Name</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="staffTableBody"></tbody>
+    </table>
+
+</div>
+
+<script>
+
+const API = "http://127.0.0.1:8000/api/staff/status";
+
+// 🔥 LOAD STAFF + STATUS
+async function loadDashboard() {
+
+    let res = await fetch(API);
+    let response = await res.json();
+
+    let data = response.data;
+
+    let tableBody = document.getElementById("staffTableBody");
+    tableBody.innerHTML = "";
+
+    data.forEach(staff => {
+        tableBody.innerHTML += `
+            <tr>
+                <td>${staff.admin_staff_id}</td>
+                <td><strong>${staff.name}</strong></td>
                 <td>
-                    <button onclick="editSchedule(${s.schedule_id}, ${s.admin_staff_id}, '${s.work_date}', '${s.start_time}', '${s.end_time}')">Edit</button>
-                    <button onclick="deleteSchedule(${s.schedule_id})">Delete</button>
+                    <span class="badge ${staff.status}">
+                        ${staff.status.toUpperCase()}
+                    </span>
                 </td>
             </tr>
         `;
     });
 }
 
-/* ================= CREATE ================= */
-async function createSchedule() {
+loadDashboard();
 
-    let data = {
-        admin_staff_id: document.getElementById("admin_staff_id").value,
-        work_date: document.getElementById("work_date").value,
-        start_time: document.getElementById("start_time").value,
-        end_time: document.getElementById("end_time").value,
-    };
+</script>
 
-    let res = await fetch(API, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + token
-        },
-        body: JSON.stringify(data)
-    });
-
-    if (res.ok) {
-        loadSchedules();
-    }
-}
-
-/* ================= EDIT ================= */
-function editSchedule(id, staff_id, date, start, end) {
-
-    document.getElementById("editBox").style.display = "block";
-
-    document.getElementById("edit_id").value = id;
-    document.getElementById("edit_admin_staff_id").value = staff_id;
-    document.getElementById("edit_work_date").value = date;
-    document.getElementById("edit_start_time").value = start;
-    document.getElementById("edit_end_time").value = end;
-}
-
-/* ================= UPDATE ================= */
-async function updateSchedule() {
-
-    let id = document.getElementById("edit_id").value;
-
-    let data = {
-        admin_staff_id: document.getElementById("edit_admin_staff_id").value,
-        work_date: document.getElementById("edit_work_date").value,
-        start_time: document.getElementById("edit_start_time").value,
-        end_time: document.getElementById("edit_end_time").value,
-    };
-
-    let res = await fetch(`${API}/${id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + token
-        },
-        body: JSON.stringify(data)
-    });
-
-    if (res.ok) {
-        closeEdit();
-        loadSchedules();
-    }
-}
-
-/* ================= DELETE ================= */
-async function deleteSchedule(id) {
-
-    let res = await fetch(`${API}/${id}`, {
-        method: "DELETE",
-        headers: {
-            "Authorization": "Bearer " + token
-        }
-    });
-
-    if (res.ok) {
-        loadSchedules();
-    }
-}
-
-/* ================= CLOSE ================= */
-function closeEdit() {
-    document.getElementById("editBox").style.display = "none";
-}
-
-/* ================= INIT ================= */
-async function init() {
-    await loadStaff();
-    await loadSchedules();
-}
-
-init();
- </script>
 </body>
 </html>

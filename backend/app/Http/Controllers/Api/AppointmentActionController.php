@@ -213,5 +213,31 @@ class AppointmentActionController extends Controller
     }
 
 
-    
+    public function userAppointmentsForFeedback()
+{
+    try {
+        $user = auth('admin_api')->user();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);
+        }
+
+        $appointments = Appointment::with(['service', 'feedback'])
+            ->where('admin_staff_id', $user->admin_staff_id)
+            ->get();
+
+        return response()->json([
+            'message' => 'Appointments fetched successfully',
+            'data' => $appointments
+        ], 200);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'message' => 'Error fetching appointments',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
 }
