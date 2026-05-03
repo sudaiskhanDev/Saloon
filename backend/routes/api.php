@@ -33,3 +33,11 @@ Route::get('/staff', function () {
 Route::get('/services', function () {
     return Service::all();
 });
+
+
+
+
+use App\Http\Controllers\Api\AppointmentActionController;
+Route::prefix('user')->middleware('auth:user_api')->group(function () {
+    Route::post('/appointments', [AppointmentActionController::class, 'store']);
+});
