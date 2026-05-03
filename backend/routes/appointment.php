@@ -10,3 +10,11 @@ Route::prefix('appointments')->group(function () {
     Route::put('/{id}', [AppointmentController::class, 'update']);
     Route::delete('/{id}', [AppointmentController::class, 'destroy']);
 });
+
+
+Route::prefix('user')->middleware('auth:user_api')->group(function () {
+
+    Route::post('/appointments', [AppointmentController::class, 'store']);
+
+    Route::get('/appointments', [AppointmentController::class, 'userAppointments']);
+});
