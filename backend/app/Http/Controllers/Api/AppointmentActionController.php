@@ -41,7 +41,7 @@ class AppointmentActionController extends Controller
             'time' => $request->time,
             'status' => 'booked'
         ]);
-
+ 
         // =========================
         // 2️⃣ CREATE NOTIFICATION (DIRECT HERE)
         // =========================
