@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Staff Dashboard | Services - The Linear</title>
+    <!-- Font Awesome 6 (icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- External Staff Dashboard CSS (contains nav-bar styles) -->
+    <link rel="stylesheet" href="../../Css/Staff Dashboard.css">
+    <style>
+        /* ========== ADDITIONAL STYLES (EXCLUDING .nav-bar) ========== */
+        /* These styles ONLY affect the services grid, cards, and content area.
+           No styling for .nav-bar, .nav-bar ul, .nav-bar li, or .nav-bar a is present. */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #F8F8FC;
+            font-family: 'Inter', 'Montserrat', system-ui, sans-serif;
+            color: #1E1E2A;
+        }
+
+        .main-staff-dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 3rem 2rem;
+        }
+
+        /* Dashboard content area */
+        .dashboard-staff-content {
+            padding: 1rem 0 2rem;
+        }
+
+        /* Section title (Our Services) */
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #1E1E2A;
+            margin: 0.5rem 0 1.8rem 0;
+            padding-left: 1rem;
+            border-left: 5px solid #FF715B;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .section-title i {
+            color: #FF715B;
+            font-size: 1.6rem;
+        }
+
+        /* Services grid (modern card layout) */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: #FFFFFF;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            cursor: default;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 36px -12px rgba(0, 0, 0, 0.12);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #F1F1F5;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover .service-image {
+            transform: scale(1.02);
+        }
+
+        .service-info {
+            padding: 1.3rem 1.3rem 1.5rem;
+        }
+
+        .service-name {
+            font-size: 1.3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #1E1E2A;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-description {
+            font-size: 0.85rem;
+            color: #5A5C6E;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .service-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            border-top: 1px solid #EFEFF4;
+            padding-top: 1rem;
+        }
+
+        .service-price {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: #FF715B;
+            background: rgba(255, 113, 91, 0.08);
+            padding: 0.2rem 1rem;
+            border-radius: 60px;
+        }
+
+        .service-duration {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: #F4F4F9;
+            padding: 0.3rem 1rem;
+            border-radius: 60px;
+            color: #2D2D3A;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .service-duration i {
+            color: #FF715B;
+            font-size: 0.7rem;
+        }
+
+        /* Loading & error states */
+        .loading, .error {
+            text-align: center;
+            padding: 3rem;
+            background: #FFFFFF;
+            border-radius: 28px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
+            margin: 2rem 0;
+            font-weight: 600;
+        }
+
+        .loading i, .error i {
+            margin-right: 0.6rem;
+        }
+
+        .loading {
+            color: #FF715B;
+        }
+
+        .error {
+            color: #C62828;
+            background: rgba(198, 40, 40, 0.02);
+        }
+
+        /* Responsive (only for content area) */
+        @media (max-width: 768px) {
+            .main-staff-dashboard {
+                padding: 0 1.2rem 2rem;
+            }
+            .section-title {
+                font-size: 1.4rem;
+            }
+            .services-grid {
+                gap: 1.2rem;
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            }
+            .service-name {
+                font-size: 1.1rem;
+            }
+            .service-image {
+                height: 170px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .main-staff-dashboard {
+                padding: 0 1rem 1.5rem;
+            }
+            .service-info {
+                padding: 1rem;
+            }
+            .service-price {
+                font-size: 1rem;
+            }
+        }
+
+        ::selection {
+            background: rgba(255, 113, 91, 0.2);
+            color: #1E1E2A;
+        }
+    </style>
+</head>
+<body>
+<div class="main-staff-dashboard">
+    <!-- Navigation bar – NO inline CSS, relies entirely on external Staff Dashboard.css -->
+      <div class="nav-bar">
+            <h1>Staff Dashboard</h1>
+            <ul>
+                <li><a href="../Staff Dashboard.html">Home</a></li>
+                <li><a href="./Appointments.html">Appointments</a></li>
+                <li><a href="./Services.html">Services</a></li>
+            </ul>
+        </div>
+
+    <!-- Dynamic Services Content -->
+    <div class="dashboard-staff-content" id="servicesContainer">
+        <div class="loading" id="loadingMsg">
+            <i class="fas fa-spinner fa-pulse"></i> Loading available services...
+        </div>
+    </div>
+</div>
+
+<script>
+    // ======================== SERVICES DISPLAY (READ-ONLY API) ========================
+    const SERVICES_API = "http://127.0.0.1:8000/api/services";
+    const token = localStorage.getItem("token");   // optional authentication
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function formatPrice(price) {
+        const num = parseFloat(price);
+        if (isNaN(num)) return '0.00';
+        return num.toFixed(2);
+    }
+
+    async function fetchAndDisplayServices() {
+        const container = document.getElementById("servicesContainer");
+        const loadingDiv = document.getElementById("loadingMsg");
+        
+        try {
+            const headers = { "Accept": "application/json" };
+            if (token) headers["Authorization"] = `Bearer ${token}`;
+
+            const response = await fetch(SERVICES_API, { headers });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+            const services = await response.json();
+            if (loadingDiv) loadingDiv.style.display = "none";
+
+            if (!services || services.length === 0) {
+                container.innerHTML = `<div class="error"><i class="fas fa-info-circle"></i> No services are currently available.</div>`;
+                return;
+            }
+
+            let html = `
+                <h2 class="section-title">
+                    <i class="fas fa-concierge-bell"></i> Our Premium Services
+                </h2>
+                <div class="services-grid">
+            `;
+
+            services.forEach(service => {
+                let imageUrl = service.image || "";
+                if (imageUrl && !imageUrl.startsWith("http")) {
+                    imageUrl = `http://127.0.0.1:8000/storage/${imageUrl}`;
+                }
+                const placeholder = "https://placehold.co/600x400?text=Service+Image";
+                
+                html += `
+                    <div class="service-card">
+                        <img class="service-image" 
+                             src="${imageUrl || placeholder}" 
+                             alt="${escapeHtml(service.name)}"
+                             onerror="this.src='${placeholder}'">
+                        <div class="service-info">
+                            <div class="service-name">${escapeHtml(service.name)}</div>
+                            <div class="service-description">${escapeHtml(service.description || 'A professional service tailored for you.')}</div>
+                            <div class="service-meta">
+                                <span class="service-price">$${formatPrice(service.price)}</span>
+                                <span class="service-duration"><i class="far fa-clock"></i> ${escapeHtml(service.duration || '30 min')}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            container.innerHTML = html;
+
+        } catch (error) {
+            console.error("Services fetch error:", error);
+            if (loadingDiv) loadingDiv.style.display = "none";
+            container.innerHTML = `
+                <div class="error">
+                    <i class="fas fa-exclamation-triangle"></i> 
+                    Unable to load services. Please verify API connection (${SERVICES_API}).
+                </div>
+            `;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", fetchAndDisplayServices);
+</script>
+</body>
+</html>

@@ -18,16 +18,16 @@ body {
 }
 
 /* ============================================
-   MAIN DASHBOARD CONTAINER
+   MAIN STAFF DASHBOARD CONTAINER
    ============================================ */
-.mian-admin-dashboard {
+.main-staff-dashboard {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem 3rem 2rem;
 }
 
 /* ============================================
-   NAVIGATION BAR (Premium white card)
+   NAVIGATION BAR (White card, rounded, shadow)
    ============================================ */
 .nav-bar {
   display: flex;
@@ -42,12 +42,11 @@ body {
   gap: 1rem;
 }
 
-/* Brand Name - Coral gradient */
 .nav-bar h1 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: -0.5px;
+  letter-spacing: 1px;
   margin: 0;
   background: linear-gradient(135deg, #2E2E2E 0%, #FF715B 100%);
   background-clip: text;
@@ -55,8 +54,7 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* Navigation Links */
-.links ul {
+.nav-bar ul {
   display: flex;
   list-style: none;
   gap: 2rem;
@@ -65,22 +63,24 @@ body {
   flex-wrap: wrap;
 }
 
-.links a {
+.nav-bar li a {
   text-decoration: none;
   font-size: 0.9rem;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.8px;
   color: #2E2E2E;
   transition: color 0.2s ease;
 }
 
-.links a:hover {
+.nav-bar li a:hover {
   color: #FF715B;
 }
 
-/* Logout Button Container */
-.logout-btn button {
+/* ============================================
+   LOGOUT BUTTON (Pill shape, coral, glow)
+   ============================================ */
+.btn button {
   background-color: #FF715B;
   color: #FFFFFF;
   font-family: inherit;
@@ -96,88 +96,106 @@ body {
   transition: all 0.2s ease;
 }
 
-.logout-btn button:hover {
+.btn button:hover {
   transform: translateY(-2px);
   background-color: #ff5a42;
   box-shadow: 0 8px 18px rgba(255, 113, 91, 0.35);
 }
 
-.logout-btn button:active {
+.btn button:active {
   transform: translateY(1px);
 }
 
 /* ============================================
    DASHBOARD CONTENT AREA
    ============================================ */
-.dashboard-content {
-  background: transparent;   /* Let cards or widgets define their own white backgrounds */
+.dashboard-staff-content {
+  background: transparent;
   min-height: 400px;
-  padding: 0.5rem 0;
+  padding: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
 }
 
-/* Example: if you later add cards inside .dashboard-content,
-   they will inherit the premium card style automatically if you use .card.
-   For now, we just ensure proper spacing. */
+/* Example card styling (ready for widgets) */
+.dashboard-staff-content .card {
+  background: #FFFFFF;
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04);
+  flex: 1;
+  min-width: 280px;
+  transition: transform 0.2s ease;
+}
+
+.dashboard-staff-content .card:hover {
+  transform: translateY(-4px);
+}
+
+.dashboard-staff-content .card h3 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #FF715B;
+  margin-bottom: 0.8rem;
+  border-left: 3px solid #FF715B;
+  padding-left: 0.8rem;
+}
+
+.dashboard-staff-content .card p {
+  font-size: 0.9rem;
+  color: #4a4a4a;
+  line-height: 1.6;
+}
 
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
-@media (max-width: 1024px) {
-  .mian-admin-dashboard {
+@media (max-width: 768px) {
+  .main-staff-dashboard {
     padding: 0 1.5rem 2rem 1.5rem;
   }
   
   .nav-bar {
-    padding: 1rem 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 1.2rem;
   }
   
-  .links ul {
+  .nav-bar ul {
     gap: 1.2rem;
   }
   
-  .links a {
+  .nav-bar li a {
     font-size: 0.8rem;
   }
-}
-
-@media (max-width: 768px) {
-  .nav-bar {
-    flex-direction: column;
-    align-items: flex-start;
-    margin: 1rem 0 2rem 0;
-  }
   
-  .links ul {
-    gap: 1rem;
-  }
-  
-  .logout-btn {
+  .btn {
     align-self: flex-start;
-  }
-  
-  .dashboard-content {
-    min-height: 300px;
   }
 }
 
 @media (max-width: 550px) {
-  .mian-admin-dashboard {
+  .main-staff-dashboard {
     padding: 0 1rem 1.5rem 1rem;
   }
   
   .nav-bar h1 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
   
-  .links ul {
+  .nav-bar ul {
     gap: 0.8rem;
   }
   
-  .links a {
+  .nav-bar li a {
     font-size: 0.7rem;
   }
   
-  .logout-btn button {
+  .btn button {
     font-size: 0.75rem;
     padding: 0.5rem 1.2rem;
   }

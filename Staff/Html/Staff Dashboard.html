@@ -2,16 +2,620 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Staff Dashboard | The Linear</title>
+    <!-- Font Awesome 6 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: modern sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #F4F7FC;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: #121826;
+        }
+
+        /* main container (matching original structure) */
+        .main-staff-dashboard {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 1.5rem 2rem 1.5rem;
+        }
+
+        /* navigation bar (re-created to match original design but premium) */
+        .nav-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            background: #FFFFFF;
+            padding: 0.8rem 2rem;
+            border-radius: 80px;
+            margin: 1.5rem 0 2rem 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.02);
+            border: 1px solid #EDF2F7;
+        }
+
+        .nav-bar h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1F2A4A, #FF715B);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-bar ul {
+            display: flex;
+            gap: 1.8rem;
+            list-style: none;
+        }
+
+        .nav-bar ul li a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #2D3A5E;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .nav-bar ul li a:hover {
+            color: #FF715B;
+        }
+
+        .btn #logoutBtn {
+            background: transparent;
+            border: 1.5px solid #FFD9D0;
+            padding: 0.5rem 1.4rem;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #C23D2E;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn #logoutBtn:hover {
+            background: #FF715B;
+            border-color: #FF715B;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        /* dashboard content styles */
+        .dashboard-staff-content {
+            margin-top: 1rem;
+        }
+
+        /* welcome header */
+        .welcome-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .greeting h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #0F172A;
+        }
+
+        .greeting p {
+            color: #5B6E8C;
+            margin-top: 0.3rem;
+        }
+
+        .refresh-btn {
+            background: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .refresh-btn i {
+            margin-right: 6px;
+            color: #FF715B;
+        }
+
+        /* stats grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.2rem;
+        }
+
+        .stat-card {
+            background: #FFFFFF;
+            border-radius: 28px;
+            padding: 1.2rem 1.5rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s;
+            border: 1px solid #EEF2F8;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-color: #FFE0D6;
+        }
+
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+            background: #FFEFEB;
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: #FF715B;
+        }
+
+        .stat-info h3 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7E8AA2;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1E293B;
+            line-height: 1.2;
+        }
+
+        .stat-sub {
+            font-size: 0.7rem;
+            color: #5F6C84;
+        }
+
+        /* two column layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 0.9fr;
+            gap: 1.8rem;
+            margin-top: 0.8rem;
+        }
+
+        .card-panel {
+            background: #FFFFFF;
+            border-radius: 28px;
+            padding: 1.4rem 1.2rem 1.8rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
+            border: 1px solid #EDF2F9;
+        }
+
+        .card-panel h3 {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 4px solid #FF715B;
+            padding-left: 12px;
+        }
+
+        .appointment-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #F0F3F9;
+            padding: 0.9rem 0;
+        }
+
+        .appointment-item:last-child {
+            border-bottom: none;
+        }
+
+        .app-info .service-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .app-info .datetime {
+            font-size: 0.7rem;
+            color: #6F7C97;
+            margin-top: 4px;
+        }
+
+        .status-badge-sm {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.8rem;
+            border-radius: 60px;
+            background: #EFF3F6;
+            color: #2E3A55;
+        }
+
+        .status-badge-sm.booked {
+            background: #FFE2DA;
+            color: #C23D2E;
+        }
+        .status-badge-sm.completed {
+            background: #DFF0E4;
+            color: #2A7E3B;
+        }
+        .status-badge-sm.cancelled {
+            background: #FFE9E9;
+            color: #B91C1C;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 2rem 0;
+            color: #8C9AB0;
+            font-size: 0.85rem;
+        }
+
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            padding: 2rem;
+            color: #FF715B;
+        }
+
+        .error-banner {
+            background: #FFF5F5;
+            border-radius: 24px;
+            padding: 1.5rem;
+            text-align: center;
+            color: #BC4E2C;
+        }
+
+        @media (max-width: 880px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .nav-bar {
+                flex-direction: column;
+                gap: 1rem;
+                border-radius: 36px;
+            }
+            .main-staff-dashboard {
+                padding: 0 1rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.8rem;
+            }
+            .stat-card {
+                padding: 0.8rem;
+            }
+            .stat-number {
+                font-size: 1.5rem;
+            }
+        }
+        button {
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <div class="main-staff-dashboard">
-        <div class="nav-bar">
-            <a href="./Pages/Appointments.html">Appointments
-            </a>
+<div class="main-staff-dashboard">
+    <!-- Navigation bar (as per original design) -->
+    <div class="nav-bar">
+        <h1>Staff Dashboard</h1>
+        <ul>
+            <li><a href="./Staff Dashboard.html">Home</a></li>
+            <li><a href="./Pages/Appointments.html">Appointments</a></li>
+            <li><a href="./Pages/Services.html">Services</a></li>
+        </ul>
+        <div class="btn">
+            <button id="logoutBtn">Logout</button>
         </div>
-
     </div>
+
+    <!-- DYNAMIC DASHBOARD CONTENT (fully detailed) -->
+    <div class="dashboard-staff-content" id="dashboardContent">
+        <!-- loading state will be injected via js -->
+        <div class="loading-spinner"><i class="fas fa-circle-notch fa-spin"></i> Loading executive dashboard...</div>
+    </div>
+</div>
+
+<script>
+    // ----------------------------- API & GLOBALS ---------------------------------
+    const API_BASE = "http://127.0.0.1:8000/api";
+    const token = localStorage.getItem("token");
+
+    // Helper: authenticated fetch
+    async function authFetch(endpoint, options = {}) {
+        const headers = {
+            "Accept": "application/json",
+            ...(options.headers || {})
+        };
+        if (token) {
+            headers["Authorization"] = `Bearer ${token}`;
+        }
+        const response = await fetch(`${API_BASE}${endpoint}`, {
+            ...options,
+            headers
+        });
+        if (!response.ok) {
+            let errorMsg = `HTTP ${response.status}`;
+            try {
+                const errData = await response.json();
+                errorMsg = errData.message || errorMsg;
+            } catch (e) {}
+            throw new Error(errorMsg);
+        }
+        return response.json();
+    }
+
+    // Helper: get today's date in YYYY-MM-DD
+    function getTodayDate() {
+        const today = new Date();
+        return today.toISOString().split('T')[0];
+    }
+
+    // Helper: format time & date for display
+    function formatDisplayDate(dateStr, timeStr) {
+        if (!dateStr) return '—';
+        return `${dateStr} ${timeStr ? '· ' + timeStr : ''}`;
+    }
+
+    // Main dashboard render
+    async function loadDetailedDashboard() {
+        const container = document.getElementById("dashboardContent");
+        if (!container) return;
+
+        // Show loading
+        container.innerHTML = `<div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Fetching statistics & appointments ...</div>`;
+
+        try {
+            // 1. Fetch appointments (core data)
+            let appointmentsData = [];
+            let servicesCount = 0;
+
+            // Fetch appointments (staff endpoint)
+            const appointResponse = await authFetch("/staff/appointments", { method: "GET" });
+            appointmentsData = appointResponse.appointments || [];
+
+            // Optional: fetch services count to show total services catalog
+            try {
+                const servicesRes = await fetch(`${API_BASE}/services`, {
+                    headers: token ? { "Authorization": `Bearer ${token}` } : {}
+                });
+                if (servicesRes.ok) {
+                    const servicesList = await servicesRes.json();
+                    servicesCount = Array.isArray(servicesList) ? servicesList.length : 0;
+                }
+            } catch (e) { console.warn("services count fetch optional failed", e); }
+
+            // ----- COMPUTE STATISTICS FROM APPOINTMENTS -----
+            const totalAppointments = appointmentsData.length;
+            const completedCount = appointmentsData.filter(a => a.status === 'completed').length;
+            const cancelledCount = appointmentsData.filter(a => a.status === 'cancelled').length;
+            const bookedCount = appointmentsData.filter(a => a.status === 'booked').length;
+            const completionRate = totalAppointments === 0 ? 0 : ((completedCount / totalAppointments) * 100).toFixed(0);
+
+            // Today's appointments count
+            const todayStr = getTodayDate();
+            const todayAppointments = appointmentsData.filter(a => a.date === todayStr);
+            const todayCount = todayAppointments.length;
+
+            // Upcoming appointments (not cancelled/completed, date >= today, sort by date & time)
+            const upcoming = appointmentsData
+                .filter(a => (a.status === 'booked') && a.date >= todayStr)
+                .sort((a,b) => (a.date + a.time).localeCompare(b.date + b.time))
+                .slice(0, 6);
+
+            // Recent activity: latest 5 appointments (by date and time desc)
+            const recentActivity = [...appointmentsData]
+                .sort((a,b) => (b.date + b.time).localeCompare(a.date + a.time))
+                .slice(0, 5);
+
+            // pending actions = booked count (needs staff action)
+            const pendingActions = bookedCount;
+
+            // ---- Build HTML Dashboard ----
+            const html = `
+                <div class="welcome-section">
+                    <div class="greeting">
+                        <h2><i class="fas fa-chart-line" style="color:#FF715B;"></i> Hello, Staff Member</h2>
+                        <p>Here's what's happening with your appointments today.</p>
+                    </div>
+                    <button class="refresh-btn" id="manualRefresh"><i class="fas fa-sync-alt"></i> Refresh data</button>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-calendar-week"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Appointments</h3>
+                            <div class="stat-number">${totalAppointments}</div>
+                            <div class="stat-sub">all time bookings</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="stat-info">
+                            <h3>Completed</h3>
+                            <div class="stat-number">${completedCount}</div>
+                            <div class="stat-sub">${completionRate}% completion rate</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                        <div class="stat-info">
+                            <h3>Pending (Booked)</h3>
+                            <div class="stat-number">${pendingActions}</div>
+                            <div class="stat-sub">needs your action</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
+                        <div class="stat-info">
+                            <h3>Today's schedule</h3>
+                            <div class="stat-number">${todayCount}</div>
+                            <div class="stat-sub">appointments for ${todayStr}</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-cut"></i></div>
+                        <div class="stat-info">
+                            <h3>Service catalog</h3>
+                            <div class="stat-number">${servicesCount}</div>
+                            <div class="stat-sub">active offerings</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-ban"></i></div>
+                        <div class="stat-info">
+                            <h3>Cancelled</h3>
+                            <div class="stat-number">${cancelledCount}</div>
+                            <div class="stat-sub">appointments</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Two column detail area -->
+                <div class="dashboard-grid">
+                    <!-- Upcoming Appointments -->
+                    <div class="card-panel">
+                        <h3><i class="fas fa-calendar-plus"></i> Upcoming appointments <span style="font-size: 0.7rem;">(booked)</span></h3>
+                        <div id="upcomingList">
+                            ${upcoming.length === 0 ? `<div class="empty-message"><i class="far fa-smile-wink"></i> No upcoming bookings. Perfect time to relax!</div>` : 
+                                upcoming.map(app => `
+                                    <div class="appointment-item">
+                                        <div class="app-info">
+                                            <div class="service-name">${escapeHtml(app.service?.name || 'Service')}</div>
+                                            <div class="datetime"><i class="far fa-calendar-alt"></i> ${escapeHtml(app.date)} at ${escapeHtml(app.time)}</div>
+                                        </div>
+                                        <span class="status-badge-sm booked">${app.status}</span>
+                                    </div>
+                                `).join('')
+                            }
+                        </div>
+                        ${upcoming.length > 0 ? `<div style="margin-top: 12px; text-align: right;"><a href="./Pages/Appointments.html" style="font-size:0.75rem; color:#FF715B; text-decoration:none;">View all →</a></div>` : ''}
+                    </div>
+
+                    <!-- Recent Activity & Quick glance -->
+                    <div class="card-panel">
+                        <h3><i class="fas fa-history"></i> Recent appointments</h3>
+                        <div id="recentList">
+                            ${recentActivity.length === 0 ? `<div class="empty-message">No appointment history yet.</div>` :
+                                recentActivity.map(app => `
+                                    <div class="appointment-item">
+                                        <div class="app-info">
+                                            <div class="service-name">${escapeHtml(app.service?.name || 'Service')}</div>
+                                            <div class="datetime">${escapeHtml(app.date)} · ${escapeHtml(app.time)}</div>
+                                        </div>
+                                        <span class="status-badge-sm ${app.status === 'completed' ? 'completed' : (app.status === 'cancelled' ? 'cancelled' : 'booked')}">${app.status}</span>
+                                    </div>
+                                `).join('')
+                            }
+                        </div>
+                        <div style="margin-top: 1rem; background:#F9FAFE; border-radius: 20px; padding: 0.8rem;">
+                            <i class="fas fa-tasks" style="color:#FF715B;"></i> 
+                            <span style="font-size:0.75rem; font-weight:500;">Quick action: </span>
+                            <span style="font-size:0.75rem;">Visit <strong>Appointments</strong> tab to mark completed or cancel.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional insight: busy days or stats footer -->
+                <div style="margin-top: 1.6rem; background: linear-gradient(105deg, #FFFFFF 0%, #FEFAF8 100%); border-radius: 24px; padding: 1rem 1.2rem; border:1px solid #FFE5DD;">
+                    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;">
+                        <div><i class="fas fa-chart-simple"></i> <strong>Insight</strong> : ${pendingActions > 0 ? `You have ${pendingActions} pending appointments that need to be marked as completed or cancelled.` : `All appointments are up to date! Great job.`}</div>
+                        <div><i class="fas fa-check-double" style="color:#2A7E3B;"></i> Staff performance overview</div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            // attach refresh event
+            const refreshButton = document.getElementById("manualRefresh");
+            if (refreshButton) {
+                refreshButton.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    loadDetailedDashboard();
+                });
+            }
+
+        } catch (error) {
+            console.error("Dashboard error:", error);
+            let errorMsg = error.message || "Unknown error";
+            if (errorMsg.includes("401") || errorMsg.includes("403") || errorMsg.includes("Unauthenticated")) {
+                container.innerHTML = `<div class="error-banner"><i class="fas fa-lock"></i> Session expired or invalid token. Please login again.<br><button id="retryLoginBtn" style="margin-top:1rem; background:#FF715B; border:none; padding:0.5rem 1.8rem; border-radius:40px; color:white;">Go to Login</button></div>`;
+                const retryBtn = document.getElementById("retryLoginBtn");
+                if (retryBtn) retryBtn.addEventListener("click", () => { localStorage.removeItem("token"); window.location.href = "../../login.html"; });
+            } else {
+                container.innerHTML = `<div class="error-banner"><i class="fas fa-exclamation-triangle"></i> Failed to load dashboard: ${escapeHtml(errorMsg)}<br><button id="dashboardRetry" style="margin-top:1rem; background:#1E293B;border:none;padding:0.4rem 1.2rem; border-radius:30px; color:white;">Retry</button></div>`;
+                const retry = document.getElementById("dashboardRetry");
+                if (retry) retry.addEventListener("click", () => loadDetailedDashboard());
+            }
+        }
+    }
+
+    // escape HTML for safety
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str).replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // LOGOUT functionality (matches original logout btn behavior)
+    function setupLogout() {
+        const logoutBtn = document.getElementById("logoutBtn");
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", () => {
+                localStorage.removeItem("token");
+                // redirect to login page (adjust path as needed)
+                window.location.href = "../../login.html";
+            });
+        }
+    }
+
+    // check token presence and show appropriate warning if missing, but still try to load (public endpoints might fail)
+    function initDashboard() {
+        if (!token) {
+            const container = document.getElementById("dashboardContent");
+            if (container) {
+                container.innerHTML = `<div class="error-banner"><i class="fas fa-id-card"></i> No authentication token found. Please login as staff to view dashboard.<br><button id="forceLoginBtn" style="margin-top:1rem; background:#FF715B; border:none; border-radius:60px; padding:0.5rem 1.2rem;">Login</button></div>`;
+                const loginBtn = document.getElementById("forceLoginBtn");
+                if (loginBtn) loginBtn.addEventListener("click", () => { window.location.href = "../../login.html"; });
+            }
+        } else {
+            loadDetailedDashboard();
+        }
+        setupLogout();
+    }
+
+    // start everything when DOM ready
+    document.addEventListener("DOMContentLoaded", initDashboard);
+</script>
 </body>
 </html>

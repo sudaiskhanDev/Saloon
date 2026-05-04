@@ -6,118 +6,314 @@
     <title>Service Details | The Linear</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f9f9f9;
-            margin: 0;
-            color: #333;
-        }
+    /* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
 
-        .nav-bar {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px 50px;
-            background: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+/* Global Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-        .links ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
+body {
+  background-color: #F8F8F8;        /* Off-white canvas */
+  font-family: 'Inter', 'Montserrat', sans-serif;
+  line-height: 1.7;
+  color: #2E2E2E;                   /* Deep charcoal text */
+}
 
-        .links a {
-            text-decoration: none;
-            color: #555;
-            font-weight: bold;
-        }
+/* Navigation Bar (Matches previous designs) */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFFFF;
+  padding: 1rem 3rem;
+  margin: 2rem 3rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
 
-        .container {
-            max-width: 850px;
-            margin: 50px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
+.nav-bar h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  color: #2E2E2E;
+  margin: 0;
+  background: linear-gradient(135deg, #2E2E2E 0%, #FF715B 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-        .img-box {
-            width: 100%;
-            height: 380px;
-            overflow: hidden;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
+.links ul {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
 
-        .img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+.links a {
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #2E2E2E;
+  transition: color 0.25s ease;
+}
 
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            background: #faf6f2;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
+.links a:hover {
+  color: #FF715B;
+}
 
-        .info-box b {
-            color: #d4a373;
-            display: block;
-            font-size: 13px;
-        }
+/* Main Container */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 40px 5rem 40px;
+}
 
-        .info-box span {
-            font-size: 18px;
-            font-weight: bold;
-        }
+/* Detail Box - White card with rounded corners and soft shadow */
+#detailBox {
+  background: #FFFFFF;
+  border-radius: 24px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: transform 0.2s ease;
+}
 
-        .desc {
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
+/* Service Name (inside detailBox) */
+#detailBox h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #2E2E2E;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
 
-        #bookBtn {
-            background: #d4a373;
-            color: white;
-            border: none;
-            padding: 14px 35px;
-            font-size: 16px;
-            border-radius: 30px;
-            cursor: pointer;
-        }
+#detailBox h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 3px;
+  background-color: #FF715B;
+  border-radius: 3px;
+}
 
-        #bookBtn:hover {
-            background: #b88452;
-        }
+/* Image Box */
+.img-box {
+  width: 100%;
+  margin-bottom: 2rem;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
 
-        .back {
-            display: block;
-            margin-top: 20px;
-            text-align: center;
-            color: #777;
-            text-decoration: none;
-        }
-    </style>
+.img-box img {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.img-box:hover img {
+  transform: scale(1.02);
+}
+
+/* Info Grid (Price + Duration) */
+.info-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.info-box {
+  flex: 1;
+  min-width: 180px;
+  background: #F8F8F8;
+  border-radius: 16px;
+  padding: 1.2rem;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.info-box b {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #FF715B;
+  margin-bottom: 0.5rem;
+}
+
+.info-box span {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2E2E2E;
+}
+
+/* Description */
+.desc {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #4a4a4a;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* Book Appointment Button - Pill shape, coral, glow */
+#bookBtn {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto 1.5rem auto;
+  background-color: #FF715B;
+  color: #FFFFFF;
+  font-family: 'Inter', 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 0.9rem 1.8rem;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(255, 113, 91, 0.3);
+  transition: all 0.25s ease;
+}
+
+#bookBtn:hover {
+  transform: translateY(-3px);
+  background-color: #ff5a42;
+  box-shadow: 0 12px 24px rgba(255, 113, 91, 0.4);
+}
+
+#bookBtn:active {
+  transform: translateY(1px);
+}
+
+/* Back Link */
+.back {
+  display: inline-block;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #2E2E2E;
+  background: transparent;
+  padding: 0.6rem 1.2rem;
+  border-radius: 40px;
+  transition: all 0.2s ease;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.back:hover {
+  color: #FF715B;
+  background-color: rgba(255, 113, 91, 0.05);
+  transform: translateX(-3px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 1rem;
+    padding: 1rem;
+  }
+  
+  .links ul {
+    gap: 1rem;
+  }
+  
+  .container {
+    padding: 1rem 20px 3rem 20px;
+  }
+  
+  #detailBox {
+    padding: 1.5rem;
+  }
+  
+  #detailBox h2 {
+    font-size: 1.6rem;
+  }
+  
+  .info-box span {
+    font-size: 1.2rem;
+  }
+  
+  #bookBtn {
+    max-width: 260px;
+    font-size: 0.9rem;
+    padding: 0.8rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem 16px 2rem 16px;
+  }
+  
+  #detailBox {
+    padding: 1.2rem;
+  }
+  
+  #detailBox h2 {
+    font-size: 1.3rem;
+  }
+  
+  .info-grid {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .info-box span {
+    font-size: 1.1rem;
+  }
+  
+  .desc {
+    font-size: 0.9rem;
+  }
+}
+   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<div class="nav-bar">
-    <h1>The Linear</h1>
-    <div class="links">
-        <ul>
-            <li><a href="./index.html">Home</a></li>
-            <li><a href="./Service.html">Services</a></li>
-        </ul>
-    </div>
-</div>
+<!-- Navigation Bar -->
+        <div class="nav-bar">
+            <h1>The Linear</h1>
+            <div class="links">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="./Service.html">Services</a></li>
+                    <li><a href="./Notification.html">Notifications</a></li>
+                    <li><a href="./Feedback.html">Feedback</a></li>
+                </ul>
+            </div>
+             
+        </div>
 
 <!-- MAIN -->
 <div class="container">

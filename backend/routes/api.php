@@ -12,8 +12,6 @@ require __DIR__.'/notification.php';
 
 
 
-
-
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Models\AdminStaff;
@@ -110,3 +108,16 @@ Route::middleware('auth:user_api')->group(function () {
         'submitFeedback'
     ]);
 });
+
+
+
+
+
+use App\Http\Controllers\Api\AdminStaffController;
+
+Route::post('/staff', [AdminStaffController::class, 'store']);
+Route::get('/staff', [AdminStaffController::class, 'index']);
+Route::get('/staff/{id}', [AdminStaffController::class, 'show']);
+Route::put('/staff/{id}', [AdminStaffController::class, 'update']);
+Route::delete('/staff/{id}', [AdminStaffController::class, 'destroy']);
+

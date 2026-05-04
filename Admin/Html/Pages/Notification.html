@@ -8,446 +8,439 @@
 
 
 <style>
-    /* --------------------------------
-   Pearl & Nude Theme – Notification Management
-   Modern Boutique | Clean Girl Aesthetic
-   -------------------------------- */
+    /* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;700&family=Tenor+Sans&display=swap');
-
+/* ============================================
+   GLOBAL RESET & BASE STYLES
+   ============================================ */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: #F9F6F2;          /* linen white */
-    font-family: 'Lato', sans-serif;
-    color: #4A3728;                     /* espresso */
-    line-height: 1.5;
+  background-color: #F8F8F8;        /* Off-white canvas */
+  font-family: 'Inter', 'Montserrat', sans-serif;
+  line-height: 1.7;
+  color: #2E2E2E;                   /* Deep charcoal text */
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Tenor Sans', sans-serif;
-    letter-spacing: 0.1em;
-    font-weight: 500;
-    color: #4A3728;
+/* ============================================
+   MAIN DASHBOARD CONTAINER
+   ============================================ */
+.mian-admin-dashboard {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem 3rem 2rem;
 }
 
-/* ----- Main Dashboard Container ----- */
-.main-admin-dashboard {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* ----- Navbar (Glassmorphism) ----- */
-.nav-bar {
-    background: rgba(249, 246, 242, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 80px;
-    padding: 14px 40px;
-    margin: 32px 20px 40px 20px;
-    border: 1px solid rgba(209, 209, 209, 0.5);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 24px;
-}
-
-.nav-bar h1 {
-    font-size: 1.6rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin: 0;
-}
-
-.links ul {
-    display: flex;
-    gap: 42px;
-    list-style: none;
-    flex-wrap: wrap;
-}
-
-.links a {
-    text-decoration: none;
-    font-family: 'Lato', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    color: #4A3728;
-    transition: all 0.25s ease;
-    padding: 8px 0;
-    position: relative;
-}
-
-.links a:hover {
-    color: #E2B49A;
-}
-
-.links a::after {
-    content: '';
-    position: absolute;
-    bottom: -6px;
-    left: 0;
-    width: 0%;
-    height: 2px;
-    background-color: #E2B49A;
-    border-radius: 2px;
-    transition: width 0.25s ease;
-}
-
-.links a:hover::after {
-    width: 100%;
-}
-
-/* ----- Dashboard Content ----- */
+/* ============================================
+   DASHBOARD CONTENT
+   ============================================ */
 .dashboard-content {
-    padding: 20px;
+  background: transparent;
+  margin-top: 1rem;
 }
 
-.dashboard-content > h2 {
-    font-size: 2rem;
-    margin-bottom: 36px;
-    text-align: center;
-    letter-spacing: 0.12em;
-    border-bottom: 1px solid #D1D1D1;
-    display: inline-block;
-    padding-bottom: 12px;
-    width: auto;
+/* Headings */
+.dashboard-content h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #2E2E2E;
+  text-align: center;
+  margin: 1rem 0 2rem 0;
+  position: relative;
 }
 
-/* ----- Form Sections (Create & Edit) ----- */
-.form-section, #editBox {
-    background: #FFFFFF;
-    border-radius: 32px;
-    padding: 32px;
-    margin-bottom: 32px;
-    border: 1px solid #D1D1D1;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
+.dashboard-content h2::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #FF715B;
+  border-radius: 4px;
 }
 
-.form-section h3, #editBox h3 {
-    font-size: 1.4rem;
-    margin-bottom: 24px;
-    letter-spacing: 0.08em;
-    color: #4A3728;
+.dashboard-content h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #2E2E2E;
+  margin: 1.5rem 0 1rem 0;
 }
 
-/* Form elements – flexible grid */
-.form-section, #editBox {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: flex-end;
+/* ============================================
+   FORM SECTION (Create Notification)
+   ============================================ */
+.form-section {
+  background: #FFFFFF;
+  border-radius: 24px;
+  padding: 1.8rem;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
 }
 
 .form-section select,
-.form-section input,
+.form-section input {
+  flex: 1;
+  min-width: 160px;
+  padding: 0.8rem 1rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border: 1px solid #e2e2e2;
+  border-radius: 14px;
+  background-color: #FFFFFF;
+  color: #2E2E2E;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.form-section select:focus,
+.form-section input:focus {
+  border-color: #FF715B;
+  box-shadow: 0 0 0 3px rgba(255, 113, 91, 0.1);
+}
+
+.form-section button {
+  background-color: #FF715B;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.8rem 1.8rem;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 113, 91, 0.25);
+  transition: all 0.2s ease;
+  min-width: 140px;
+}
+
+.form-section button:hover {
+  transform: translateY(-2px);
+  background-color: #ff5a42;
+  box-shadow: 0 8px 18px rgba(255, 113, 91, 0.35);
+}
+
+/* ============================================
+   EDIT BOX (Hidden by default)
+   ============================================ */
+#editBox {
+  background: #FFFFFF;
+  border-radius: 24px;
+  padding: 1.8rem;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04);
+  margin: 1.5rem 0;
+  display: none;
+}
+
+#editBox h3 {
+  margin-top: 0;
+  margin-bottom: 1.2rem;
+}
+
 #editBox select,
 #editBox input {
-    flex: 1 1 180px;
-    padding: 12px 18px;
-    border: 1px solid #D1D1D1;
-    border-radius: 60px;
-    font-family: 'Lato', sans-serif;
-    font-size: 0.95rem;
-    background: #FFFFFF;
-    color: #4A3728;
-    transition: all 0.25s ease;
-    outline: none;
+  width: calc(33.33% - 1rem);
+  min-width: 180px;
+  padding: 0.8rem 1rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border: 1px solid #e2e2e2;
+  border-radius: 14px;
+  background-color: #FFFFFF;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+  outline: none;
 }
 
-/* Message input – wider */
-.form-section input[type="text"],
-#editBox input[type="text"] {
-    flex: 2 1 280px;
-}
-
-/* Focus state */
-.form-section select:focus,
-.form-section input:focus,
 #editBox select:focus,
 #editBox input:focus {
-    border-color: #E2B49A;
-    box-shadow: 0 0 0 3px rgba(226, 180, 154, 0.2);
+  border-color: #FF715B;
+  box-shadow: 0 0 0 3px rgba(255, 113, 91, 0.1);
 }
 
-/* Buttons inside forms */
-.form-section button,
 #editBox button {
-    background-color: #E2B49A;
-    border: none;
-    border-radius: 60px;
-    padding: 12px 28px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-    color: #F9F6F2;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  background-color: #FF715B;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 0.8rem;
 }
 
-.form-section button:hover,
-#editBox button:hover {
-    background-color: #d4a07f;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(226, 180, 154, 0.25);
+#editBox button:first-of-type {
+  background-color: #FF715B;
+  box-shadow: 0 4px 12px rgba(255, 113, 91, 0.25);
 }
 
-.form-section button:active,
-#editBox button:active {
-    transform: scale(0.97);
+#editBox button:first-of-type:hover {
+  background-color: #ff5a42;
+  transform: translateY(-2px);
 }
 
-/* Cancel button inside editBox */
 #editBox button:last-of-type {
-    background-color: transparent;
-    border: 1px solid #D1D1D1;
-    color: #4A3728;
+  background-color: transparent;
+  color: #2E2E2E;
+  border: 1px solid #e2e2e2;
+  box-shadow: none;
 }
 
 #editBox button:last-of-type:hover {
-    background-color: #f0e4d8;
-    border-color: #c4b5a5;
-    transform: translateY(-2px);
-    box-shadow: none;
+  background-color: #f0f0f0;
+  transform: translateY(-1px);
 }
 
-/* Horizontal rule */
+/* ============================================
+   HORIZONTAL RULE
+   ============================================ */
 hr {
-    margin: 40px 0;
-    border: none;
-    height: 1px;
-    background: linear-gradient(to right, transparent, #D1D1D1, transparent);
+  margin: 2rem 0;
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e0e0e0, transparent);
 }
 
-/* ----- Table Styling ----- */
-h3 + h3 {
-    margin-top: 32px;
-    font-size: 1.4rem;
-    margin-bottom: 20px;
-}
-
+/* ============================================
+   TABLE STYLES
+   ============================================ */
 table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #FFFFFF;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+  margin: 1rem 0 2rem 0;
+}
+
+thead tr {
+  background: #2E2E2E;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+thead th {
+  padding: 1rem 0.8rem;
+  text-align: left;
+}
+
+tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s ease;
+}
+
+tbody tr:hover {
+  background: #FEF5F2;
+}
+
+tbody td {
+  padding: 0.9rem 0.8rem;
+  font-size: 0.85rem;
+  color: #2E2E2E;
+  vertical-align: middle;
+}
+
+/* Status badge inside table (optional, but keep consistent) */
+tbody td:nth-child(4) {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* Action buttons */
+tbody button {
+  background-color: transparent;
+  border: 1px solid #e2e2e2;
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.4rem 1rem;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 0.5rem;
+}
+
+tbody button:first-of-type {
+  background-color: #FF715B;
+  color: #FFFFFF;
+  border: none;
+  box-shadow: 0 2px 6px rgba(255, 113, 91, 0.2);
+}
+
+tbody button:first-of-type:hover {
+  background-color: #ff5a42;
+  transform: translateY(-1px);
+}
+
+tbody button:last-of-type {
+  background-color: transparent;
+  color: #c62828;
+  border-color: #ffe0e0;
+}
+
+tbody button:last-of-type:hover {
+  background-color: #c62828;
+  color: #FFFFFF;
+  border-color: #c62828;
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 1024px) {
+  .mian-admin-dashboard {
+    padding: 0 1.5rem 2rem 1.5rem;
+  }
+  
+  .form-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .form-section select,
+  .form-section input,
+  .form-section button {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    background: #FFFFFF;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-    border: 1px solid #D1D1D1;
+  }
+  
+  #editBox select,
+  #editBox input {
+    width: calc(50% - 0.5rem);
+  }
 }
 
-th, td {
-    padding: 16px 12px;
-    text-align: left;
-    font-size: 0.9rem;
-}
-
-th {
-    font-family: 'Tenor Sans', sans-serif;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    background-color: #F9F6F2;
-    color: #4A3728;
-    border-bottom: 1px solid #D1D1D1;
-}
-
-td {
-    border-bottom: 1px solid #F0EDE8;
-    color: #4A3728;
-}
-
-tr:last-child td {
-    border-bottom: none;
-}
-
-/* Status badges (pill-shaped, with colours) */
-td:nth-child(4) {
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-}
-
-/* Unread status – Dusty Rose background with espresso text */
-td:nth-child(4):contains("unread"),
-td:nth-child(4) {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 50px;
-    background-color: #E2B49A;
-    color: #F9F6F2;
-    width: auto;
-}
-/* But we need to style the text inside – use JS to add class, but pure CSS can't target content easily. 
-   Alternative: style the td directly if status text is 'unread'? Not possible with pure CSS without attribute.
-   Instead we'll give a general badge look and let JS add classes if needed, but for now a clean mono badge: */
-td:nth-child(4) {
-    display: inline-block;
-    padding: 4px 14px;
-    border-radius: 50px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    background-color: #f0e4d8;
-    color: #4A3728;
-}
-/* Override for unread – we can't do pure text match, so recommend JS to add class. 
-   As fallback, all badges look soft; manual override if needed. */
-
-/* Action buttons inside table */
-td button {
-    background: transparent;
-    border: 1px solid #E2B49A;
-    border-radius: 50px;
-    padding: 6px 14px;
-    margin-right: 8px;
-    font-family: 'Lato', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: #E2B49A;
-}
-
-td button:first-of-type:hover {
-    background-color: #E2B49A;
-    color: #F9F6F2;
-    transform: translateY(-1px);
-}
-
-td button:last-of-type {
-    border-color: #D1D1D1;
-    color: #4A3728;
-}
-
-td button:last-of-type:hover {
-    background-color: #f0e4d8;
-    border-color: #c4b5a5;
-    transform: translateY(-1px);
-}
-
-/* ----- Edit Box hidden by default ----- */
-#editBox {
+@media (max-width: 768px) {
+  .dashboard-content h2 {
+    font-size: 1.6rem;
+  }
+  
+  .dashboard-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  /* Responsive table – card style */
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  
+  thead {
     display: none;
-}
-
-/* ----- Responsive Design (Collapsible table) ----- */
-@media (max-width: 900px) {
-    .nav-bar {
-        border-radius: 50px;
-        margin: 20px;
-        padding: 16px 24px;
-        flex-direction: column;
-        text-align: center;
-    }
-    .links ul {
-        justify-content: center;
-        gap: 28px;
-    }
-    .form-section, #editBox {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .form-section select,
-    .form-section input,
-    #editBox select,
-    #editBox input,
-    .form-section button,
-    #editBox button {
-        width: 100%;
-    }
-    table, thead, tbody, th, td, tr {
-        display: block;
-    }
-    th {
-        display: none;
-    }
-    tr {
-        margin-bottom: 20px;
-        border: 1px solid #D1D1D1;
-        border-radius: 24px;
-        padding: 12px;
-        background: white;
-    }
-    td {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 8px;
-        border-bottom: 1px solid #F0EDE8;
-        gap: 12px;
-    }
-    td:before {
-        content: attr(data-label);
-        font-weight: 600;
-        font-family: 'Tenor Sans', sans-serif;
-        letter-spacing: 0.05em;
-        color: #4A3728;
-        width: 40%;
-    }
-    td:last-child {
-        border-bottom: none;
-    }
-    td button {
-        margin: 0 4px;
-    }
-    /* Status badge adjustment on mobile */
-    td:nth-child(4) {
-        display: inline-block;
-        width: auto;
-    }
+  }
+  
+  tbody tr {
+    margin-bottom: 1rem;
+    border: 1px solid #e2e2e2;
+    border-radius: 16px;
+    padding: 0.8rem;
+    background: #FFFFFF;
+  }
+  
+  tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.85rem;
+  }
+  
+  tbody td:last-child {
+    border-bottom: none;
+  }
+  
+  tbody td::before {
+    content: attr(data-label);
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #FF715B;
+    width: 40%;
+  }
+  
+  /* Fallback labels if no data-label in HTML */
+  tbody td:first-child::before {
+    content: "ID:";
+  }
+  tbody td:nth-child(2)::before {
+    content: "User:";
+  }
+  tbody td:nth-child(3)::before {
+    content: "Message:";
+  }
+  tbody td:nth-child(4)::before {
+    content: "Status:";
+  }
+  tbody td:nth-child(5)::before {
+    content: "Date:";
+  }
+  tbody td:nth-child(6)::before {
+    content: "Action:";
+  }
+  
+  #editBox select,
+  #editBox input {
+    width: 100%;
+    margin-right: 0;
+  }
 }
 
 @media (max-width: 550px) {
-    .main-admin-dashboard {
-        padding: 0 12px;
-    }
-    .nav-bar {
-        margin: 16px;
-        border-radius: 36px;
-    }
-    .links ul {
-        flex-direction: column;
-        gap: 14px;
-    }
-    .form-section, #editBox {
-        padding: 24px;
-    }
-    .dashboard-content > h2 {
-        font-size: 1.6rem;
-        text-align: center;
-        display: block;
-    }
-    table {
-        font-size: 0.85rem;
-    }
-    td {
-        padding: 8px;
-    }
+  .mian-admin-dashboard {
+    padding: 0 1rem 1.5rem 1rem;
+  }
+  
+  .dashboard-content h2 {
+    font-size: 1.4rem;
+  }
+  
+  .form-section {
+    padding: 1.2rem;
+  }
+  
+  #editBox {
+    padding: 1.2rem;
+  }
 }
 
-/* Additional Polish */
-::placeholder {
-    color: #b9aea3;
-    font-weight: 300;
+/* ============================================
+   UTILITY
+   ============================================ */
+::selection {
+  background: rgba(255, 113, 91, 0.2);
+  color: #2E2E2E;
 }
 
-select {
-    appearance: none;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234A3728' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
-    background-repeat: no-repeat;
-    background-position: right 18px center;
-    background-size: 14px;
+*:focus-visible {
+  outline: 2px solid #FF715B;
+  outline-offset: 2px;
 }
 </style>
 
@@ -465,6 +458,7 @@ select {
                 <li><a href="./Service.html">Service</a></li>
                 <li><a href="./Appointment.html">Appointment</a></li>
                 <li><a href="./Schedule.html">Schedule</a></li>
+                <li><a href="./Staffs.html">Staff</a></li>
                 <li><a href="./Feedback.html">Feedback</a></li>
                 <li><a href="./Notification.html">Notification</a></li>
             </ul>

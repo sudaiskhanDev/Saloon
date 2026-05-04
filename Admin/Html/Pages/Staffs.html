@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../Css/Admin Dashboard.css">
+    <title>Document</title>
+    <style>
+      /* ============================================
+   Staff Management Page – Premium Styles
+   (Nav-bar styles come from external Admin Dashboard.css)
+   ============================================ */
+
+/* Import Google Fonts (if not already in external CSS) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+/* ============================================
+   GLOBAL OVERRIDES (ensure consistent background)
+   ============================================ */
+body {
+  background-color: #F8F8F8;
+  font-family: 'Inter', 'Montserrat', sans-serif;
+  color: #2E2E2E;
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================
+   DASHBOARD CONTENT AREA
+   ============================================ */
+.dashboard-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem 3rem 2rem;
+}
+
+/* Page Heading */
+.dashboard-content h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #2E2E2E;
+  text-align: center;
+  margin: 1rem 0 2rem 0;
+  position: relative;
+}
+
+.dashboard-content h2::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #FF715B;
+  border-radius: 4px;
+}
+
+/* ============================================
+   FORM BOX (White card, rounded corners, shadow)
+   ============================================ */
+.form-box {
+  background: #FFFFFF;
+  border-radius: 24px;
+  padding: 1.8rem;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: flex-start;
+}
+
+.form-box input {
+  flex: 1;
+  min-width: 180px;
+  padding: 0.8rem 1rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border: 1px solid #e2e2e2;
+  border-radius: 14px;
+  background-color: #FFFFFF;
+  color: #2E2E2E;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.form-box input:focus {
+  border-color: #FF715B;
+  box-shadow: 0 0 0 3px rgba(255, 113, 91, 0.1);
+}
+
+.form-box input::placeholder {
+  color: #b0b0b0;
+}
+
+/* Error message styling */
+.form-box small {
+  width: 100%;
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-top: -0.5rem;
+  margin-bottom: 0.25rem;
+  color: #c62828 !important;  /* Override inline style, use deep red */
+  background: rgba(198, 40, 40, 0.05);
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  display: inline-block;
+  width: fit-content;
+}
+
+/* Buttons inside form */
+.form-box button {
+  background-color: #FF715B;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.8rem 1.8rem;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 113, 91, 0.25);
+  transition: all 0.2s ease;
+}
+
+.form-box button:hover {
+  transform: translateY(-2px);
+  background-color: #ff5a42;
+  box-shadow: 0 8px 18px rgba(255, 113, 91, 0.35);
+}
+
+.form-box button:active {
+  transform: translateY(1px);
+}
+
+/* Reset button (second button) – outlined style */
+.form-box button:last-of-type {
+  background-color: transparent;
+  color: #2E2E2E;
+  box-shadow: none;
+  border: 1px solid #e2e2e2;
+}
+
+.form-box button:last-of-type:hover {
+  background-color: #f0f0f0;
+  color: #FF715B;
+  border-color: #FF715B;
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   TABLE STYLES (Premium, clean)
+   ============================================ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #FFFFFF;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+  margin: 1rem 0 2rem 0;
+}
+
+thead tr {
+  background: #2E2E2E;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+thead th {
+  padding: 1rem 0.8rem;
+  text-align: left;
+}
+
+tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s ease;
+}
+
+tbody tr:hover {
+  background: #FEF5F2;
+}
+
+tbody td {
+  padding: 0.9rem 0.8rem;
+  font-size: 0.85rem;
+  color: #2E2E2E;
+  vertical-align: middle;
+}
+
+/* Action buttons inside table */
+tbody button {
+  background-color: transparent;
+  border: 1px solid #e2e2e2;
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.4rem 1rem;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 0.5rem;
+}
+
+tbody button:first-of-type {
+  background-color: #FF715B;
+  color: #FFFFFF;
+  border: none;
+  box-shadow: 0 2px 6px rgba(255, 113, 91, 0.2);
+}
+
+tbody button:first-of-type:hover {
+  background-color: #ff5a42;
+  transform: translateY(-1px);
+}
+
+tbody button:last-of-type {
+  background-color: transparent;
+  color: #c62828;
+  border-color: #ffe0e0;
+}
+
+tbody button:last-of-type:hover {
+  background-color: #c62828;
+  color: #FFFFFF;
+  border-color: #c62828;
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 768px) {
+  .dashboard-content {
+    padding: 1rem 1.5rem 2rem 1.5rem;
+  }
+  
+  .dashboard-content h2 {
+    font-size: 1.6rem;
+  }
+  
+  .form-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .form-box input,
+  .form-box button {
+    width: 100%;
+  }
+  
+  /* Responsive table – card style */
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  
+  thead {
+    display: none;
+  }
+  
+  tbody tr {
+    margin-bottom: 1rem;
+    border: 1px solid #e2e2e2;
+    border-radius: 16px;
+    padding: 0.8rem;
+    background: #FFFFFF;
+  }
+  
+  tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.85rem;
+  }
+  
+  tbody td:last-child {
+    border-bottom: none;
+  }
+  
+  tbody td::before {
+    content: attr(data-label);
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #FF715B;
+    width: 40%;
+  }
+  
+  /* Fallback labels */
+  tbody td:first-child::before {
+    content: "ID:";
+  }
+  tbody td:nth-child(2)::before {
+    content: "Name:";
+  }
+  tbody td:nth-child(3)::before {
+    content: "Email:";
+  }
+  tbody td:nth-child(4)::before {
+    content: "Actions:";
+  }
+}
+
+@media (max-width: 550px) {
+  .dashboard-content {
+    padding: 1rem 1rem 1.5rem 1rem;
+  }
+  
+  .dashboard-content h2 {
+    font-size: 1.4rem;
+  }
+  
+  .form-box {
+    padding: 1.2rem;
+  }
+}
+
+/* ============================================
+   UTILITY
+   ============================================ */
+::selection {
+  background: rgba(255, 113, 91, 0.2);
+  color: #2E2E2E;
+}
+
+*:focus-visible {
+  outline: 2px solid #FF715B;
+  outline-offset: 2px;
+}
+    </style>
+</head>
+<body>
+    
+
+    <div class="mian-admin-dashboard">
+
+
+
+           <div class="nav-bar">
+        <h1>The Linear</h1>
+        <div class="links">
+            <ul>
+                <li><a href="../Admin Dashboard.html">Home</a></li>
+                <li><a href="./Service.html">Service</a></li>
+                <li><a href="./Appointment.html">Appointment</a></li>
+                <li><a href="./Schedule.html">Schedule</a></li>
+                <li><a href="./Staffs.html">Staff</a></li>
+                <li><a href="./Feedback.html">Feedback</a></li>
+                <li><a href="./Notification.html">Notification</a></li>
+            </ul>
+        </div>
+       
+      
+    </div>
+
+
+
+      <div class="dashboard-content">
+
+            <div class="dashboard-content">
+
+    <h2>Staff Management</h2>
+
+    <!-- FORM -->
+    <div class="form-box">
+        <input type="hidden" id="staff_id">
+
+        <input type="text" id="name" placeholder="Name">
+        <small id="nameErr" style="color:red"></small>
+
+        <input type="email" id="email" placeholder="Email">
+        <small id="emailErr" style="color:red"></small>
+
+        <input type="password" id="password" placeholder="Password">
+        <small id="passwordErr" style="color:red"></small>
+
+        <button onclick="saveStaff()">Save</button>
+        <button onclick="resetForm()">Reset</button>
+    </div>
+
+    <!-- TABLE -->
+    <table border="1" width="100%" id="staffTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+</div>
+
+        </div>
+    </div>
+
+    <script>
+const API = "http://127.0.0.1:8000/api/staff";
+
+// LOAD STAFF
+function loadStaff() {
+    fetch(API)
+    .then(res => res.json())
+    .then(data => {
+        let rows = "";
+
+        data.forEach(staff => {
+            rows += `
+                <tr>
+                    <td>${staff.admin_staff_id}</td>
+                    <td>${staff.name}</td>
+                    <td>${staff.email}</td>
+                    <td>
+                        <button onclick="editStaff(${staff.admin_staff_id}, '${staff.name}', '${staff.email}')">Edit</button>
+                        <button onclick="deleteStaff(${staff.admin_staff_id})">Delete</button>
+                    </td>
+                </tr>
+            `;
+        });
+
+        document.querySelector("#staffTable tbody").innerHTML = rows;
+    });
+}
+
+// SAVE (CREATE + UPDATE)
+function saveStaff() {
+
+    clearErrors();
+
+    const id = document.getElementById("staff_id").value;
+
+    const data = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
+    };
+
+    let method = "POST";
+    let url = API;
+
+    if (id) {
+        method = "PUT";
+        url = API + "/" + id;
+    }
+
+    fetch(url, {
+        method: method,
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(async res => {
+        const data = await res.json();
+
+        // 🔴 VALIDATION ERROR (422)
+        if (res.status === 422) {
+            showErrors(data.errors);
+            return;
+        }
+
+        // 🔴 DUPLICATE EMAIL (409)
+        if (res.status === 409) {
+            alert(data.message);
+            return;
+        }
+
+        // 🔴 NOT FOUND (404)
+        if (res.status === 404) {
+            alert(data.message);
+            return;
+        }
+
+        // ❌ OTHER ERRORS
+        if (!res.ok) {
+            alert(data.message || "Error occurred");
+            return;
+        }
+
+        // ✅ SUCCESS
+        alert(data.message);
+        loadStaff();
+        resetForm();
+    });
+}
+
+// EDIT
+function editStaff(id, name, email) {
+    document.getElementById("staff_id").value = id;
+    document.getElementById("name").value = name;
+    document.getElementById("email").value = email;
+    document.getElementById("password").value = "";
+}
+
+// DELETE
+function deleteStaff(id) {
+    if (!confirm("Delete this staff?")) return;
+
+    fetch(API + "/" + id, {
+        method: "DELETE"
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        loadStaff();
+    });
+}
+
+// RESET
+function resetForm() {
+    document.getElementById("staff_id").value = "";
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+    clearErrors();
+}
+
+// SHOW ERRORS
+function showErrors(errors) {
+    if (errors.name) document.getElementById("nameErr").innerText = errors.name[0];
+    if (errors.email) document.getElementById("emailErr").innerText = errors.email[0];
+    if (errors.password) document.getElementById("passwordErr").innerText = errors.password[0];
+}
+
+// CLEAR ERRORS
+function clearErrors() {
+    document.getElementById("nameErr").innerText = "";
+    document.getElementById("emailErr").innerText = "";
+    document.getElementById("passwordErr").innerText = "";
+}
+
+// INIT
+loadStaff();
+</script>
+</body>
+</html>

@@ -7,191 +7,220 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <style>
-        /* --------------------------------
-   Pearl & Nude Theme – Login Page
-   Modern Boutique | Clean Girl Aesthetic
-   -------------------------------- */
+     <style>
+        /* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;700&family=Tenor+Sans&display=swap');
-
+/* ============================================
+   GLOBAL RESET & BASE STYLES
+   ============================================ */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: #F9F6F2;          /* linen white canvas */
-    font-family: 'Lato', sans-serif;
-    color: #4A3728;                     /* espresso for text */
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
+  background-color: #F8F8F8;        /* Off-white canvas */
+  font-family: 'Inter', 'Montserrat', sans-serif;
+  line-height: 1.7;
+  color: #2E2E2E;                   /* Deep charcoal text */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
 }
 
-/* Main Login Container – Glassmorphism Card */
+/* ============================================
+   LOGIN CARD (White background, rounded, shadow)
+   ============================================ */
 body > div {
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 48px;
-    padding: 48px 40px;
-    max-width: 480px;
-    width: 100%;
-    border: 1px solid rgba(209, 209, 209, 0.5);
-    box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.02);
-    transition: transform 0.2s ease;
+  max-width: 450px;
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 28px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.02);
+  padding: 2.5rem;
+  transition: transform 0.2s ease;
 }
 
 /* Header Section */
 body > div > div:first-child {
-    text-align: center;
-    margin-bottom: 36px;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-body > div h2 {
-    font-family: 'Tenor Sans', sans-serif;
-    font-size: 2rem;
-    letter-spacing: 0.12em;
-    color: #4A3728;
-    margin-bottom: 12px;
-    font-weight: 500;
+body > div > div:first-child h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #2E2E2E;
+  margin-bottom: 0.5rem;
+  position: relative;
+  display: inline-block;
 }
 
-body > div p:first-of-type {
-    font-size: 0.95rem;
-    color: #4A3728;
-    opacity: 0.75;
-    letter-spacing: 0.02em;
+/* Coral underline under Welcome Back */
+body > div > div:first-child h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: #FF715B;
+  border-radius: 3px;
 }
 
-/* Login Form */
-#loginForm {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
+body > div > div:first-child p {
+  font-size: 0.9rem;
+  color: #5a5a5a;
+  margin-top: 0.8rem;
 }
 
-/* Form Groups */
-#loginForm > div {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+/* ============================================
+   FORM STYLES
+   ============================================ */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
-#loginForm label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: #4A3728;
-    opacity: 0.8;
-    margin-left: 8px;
+/* Form field groups */
+form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
-/* Input Fields – Pill-shaped */
-#loginForm input {
-    width: 100%;
-    padding: 14px 20px;
-    background: #FFFFFF;
-    border: 1px solid #D1D1D1;
-    border-radius: 60px;
-    font-family: 'Lato', sans-serif;
-    font-size: 0.95rem;
-    color: #4A3728;
-    transition: all 0.25s ease;
-    outline: none;
+form label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #2E2E2E;
 }
 
-#loginForm input:focus {
-    border-color: #E2B49A;
-    box-shadow: 0 0 0 3px rgba(226, 180, 154, 0.2);
+/* Input fields */
+form input {
+  font-family: 'Inter', 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.2rem;
+  border: 1px solid #e2e2e2;
+  border-radius: 16px;
+  background-color: #FFFFFF;
+  color: #2E2E2E;
+  transition: all 0.2s ease;
+  outline: none;
+  width: 100%;
 }
 
-#loginForm input::placeholder {
-    color: #b9aea3;
-    font-weight: 300;
-    font-size: 0.9rem;
+form input:focus {
+  border-color: #FF715B;
+  box-shadow: 0 0 0 3px rgba(255, 113, 91, 0.1);
 }
 
-/* Login Button – Dusty Rose, Pill-shaped */
-#loginForm button {
-    background-color: #E2B49A;
-    border: none;
-    border-radius: 60px;
-    padding: 14px 28px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #F9F6F2;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    margin-top: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+form input::placeholder {
+  color: #b0b0b0;
+  font-weight: 400;
 }
 
-#loginForm button:hover {
-    background-color: #d4a07f;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(226, 180, 154, 0.3);
+/* Login Button - Pill shape, coral, glow */
+form button {
+  background-color: #FF715B;
+  color: #FFFFFF;
+  font-family: 'Inter', 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 0.9rem 1.5rem;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(255, 113, 91, 0.3);
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+  width: 100%;
 }
 
-#loginForm button:active {
-    transform: scale(0.97);
+form button:hover {
+  transform: translateY(-2px);
+  background-color: #ff5a42;
+  box-shadow: 0 12px 24px rgba(255, 113, 91, 0.4);
 }
 
-/* Message paragraph (error/success) */
+form button:active {
+  transform: translateY(1px);
+}
+
+/* ============================================
+   MESSAGE (Error / Success)
+   ============================================ */
 #message {
-    text-align: center;
-    margin-top: 28px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: #c0392b;          /* subtle red for errors – but soft */
-    background: rgba(192, 57, 43, 0.05);
-    padding: 10px;
-    border-radius: 60px;
-    display: block;
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #FF715B;
+  background: rgba(255, 113, 91, 0.08);
+  padding: 0.6rem;
+  border-radius: 12px;
+  display: none;               /* Hidden by default, shown when message exists */
 }
 
-/* Optional: add small icon hint inside inputs (using font-awesome) */
-/* Already loaded via CDN, but not used in HTML – you can add if needed */
+#message:not(:empty) {
+  display: block;
+}
 
-/* Responsive – maintain massive white space on mobile */
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
 @media (max-width: 550px) {
-    body {
-        padding: 16px;
-    }
-    body > div {
-        padding: 32px 24px;
-        border-radius: 36px;
-    }
-    body > div h2 {
-        font-size: 1.6rem;
-    }
-    #loginForm input {
-        padding: 12px 18px;
-    }
-    #loginForm button {
-        padding: 12px 24px;
-    }
+  body {
+    padding: 1rem;
+  }
+  
+  body > div {
+    padding: 1.8rem;
+  }
+  
+  body > div > div:first-child h2 {
+    font-size: 1.6rem;
+  }
+  
+  form button {
+    font-size: 0.9rem;
+    padding: 0.75rem 1.2rem;
+  }
+  
+  form input {
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  form label {
+    font-size: 0.8rem;
+  }
 }
 
-/* Additional Polish for link (if any) */
-a {
-    color: #E2B49A;
-    text-decoration: none;
-    transition: color 0.2s;
+/* ============================================
+   UTILITY
+   ============================================ */
+::selection {
+  background: rgba(255, 113, 91, 0.2);
+  color: #2E2E2E;
 }
-a:hover {
-    color: #d4a07f;
-    text-decoration: underline;
+
+*:focus-visible {
+  outline: 2px solid #FF715B;
+  outline-offset: 2px;
 }
-    </style>
+     </style>
 </head>
 <body>
 

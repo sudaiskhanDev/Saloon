@@ -2,40 +2,538 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>The Linear | Executive Admin Dashboard</title>
+    <!-- Base CSS (external, but we also provide fallback styles inline) -->
     <link rel="stylesheet" href="../Css/Admin Dashboard.css">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        /* ========== EXTRA DASHBOARD STYLES (PREMIUM) ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #F8F8FC;
+            font-family: 'Inter', 'Montserrat', system-ui, -apple-system, sans-serif;
+            color: #1E1E2A;
+        }
+
+        /* Navigation bar (ensuring it's visible) */
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: #1E1E2A;
+            color: white;
+            border-radius: 0 0 24px 24px;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .nav-bar h1 {
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+            font-weight: 800;
+        }
+        .links ul {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+        .links a {
+            color: #f0f0f0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .links a:hover { color: #FF715B; }
+        .logout-btn button {
+            background: rgba(255,113,91,0.2);
+            border: 1px solid #FF715B;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .logout-btn button:hover {
+            background: #FF715B;
+            transform: translateY(-2px);
+        }
+
+        /* Dashboard content wrapper */
+        .mian-admin-dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem 2rem;
+        }
+        .dashboard-content {
+            margin-top: 0.5rem;
+        }
+
+        /* Metric cards */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .metric-card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.4rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02), 0 2px 6px rgba(0,0,0,0.03);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.25s;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        .metric-card:hover { transform: translateY(-4px); box-shadow: 0 20px 30px -12px rgba(0,0,0,0.08); }
+        .metric-info h3 { font-size: 2rem; font-weight: 800; margin-bottom: 0.2rem; }
+        .metric-info p { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: #6C6E7A; letter-spacing: 0.5px; }
+        .metric-icon { font-size: 2.2rem; color: #FF715B; background: rgba(255,113,91,0.08); width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; border-radius: 30px; }
+
+        /* Section headers */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin: 1.8rem 0 1rem 0;
+            flex-wrap: wrap;
+        }
+        .section-header h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            border-left: 4px solid #FF715B;
+            padding-left: 0.8rem;
+            text-transform: uppercase;
+        }
+        .view-link {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #FF715B;
+            background: rgba(255,113,91,0.08);
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+        }
+
+        /* Tables */
+        .data-table-wrapper {
+            background: white;
+            border-radius: 24px;
+            overflow-x: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            min-width: 550px;
+        }
+        .data-table th {
+            background: #1E1E2A;
+            color: white;
+            padding: 0.9rem 1rem;
+            text-align: left;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+        }
+        .data-table td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #EDEDF0;
+        }
+        .data-table tr:hover td { background-color: #FEF7F5; }
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        .badge.booked { background: #FFF0ED; color: #FF715B; }
+        .badge.completed { background: #E8F5E9; color: #2E7D32; }
+        .badge.cancelled { background: #FFEBEE; color: #C62828; }
+        .rating-stars { color: #F5B042; letter-spacing: 2px; }
+
+        /* Two column layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 1.8rem;
+            margin: 1.5rem 0;
+        }
+        .insight-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.2rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+        }
+        .feedback-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #f0f0f5;
+        }
+        .feedback-text { font-weight: 500; margin-bottom: 0.25rem; }
+        .feedback-meta { font-size: 0.7rem; color: #8A8C9A; display: flex; gap: 12px; align-items: center; }
+        .staff-stats {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-top: 0.6rem;
+        }
+        .staff-chip {
+            background: #F3F3F8;
+            padding: 0.3rem 1rem;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .chart-container {
+            background: white;
+            border-radius: 28px;
+            padding: 1rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        canvas { max-height: 220px; width: 100%; }
+        .loading-state { text-align: center; padding: 3rem; color: #FF715B; }
+        @media (max-width: 900px) {
+            .two-col { grid-template-columns: 1fr; }
+            .nav-bar { flex-direction: column; text-align: center; }
+            .links ul { flex-wrap: wrap; justify-content: center; }
+        }
+    </style>
 </head>
 <body>
-    <div class="mian-admin-dashboard">
-
-        <div class="nav-bar">
-            <h1>The Linear</h1>
-
-           <div class="links">
-             <ul>
+<div class="mian-admin-dashboard">
+    <div class="nav-bar">
+        <h1>The Linear</h1>
+        <div class="links">
+            <ul>
                 <li><a href="./Admin Dashboard.html">Home</a></li>
                 <li><a href="./Pages/Service.html">Service</a></li>
                 <li><a href="./Pages/Appointment.html">Appointment</a></li>
                 <li><a href="./Pages/Schedule.html">Schedule</a></li>
+                <li><a href="./Pages/Staffs.html">Staff</a></li>
                 <li><a href="./Pages/Feedback.html">Feedback</a></li>
                 <li><a href="./Pages/Notification.html">Notification</a></li>
             </ul>
-           </div>
-
-            <div class="logout-btn">
-                <button id="logoutBtn">Logout</button>
-            </div>
         </div>
-
-        <div class="dashboard-content">
-
-
+        <div class="logout-btn">
+            <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
         </div>
-
     </div>
+    <div class="dashboard-content" id="dashboardRoot">
+        <div class="loading-state"><i class="fas fa-spinner fa-pulse"></i> Loading executive insights...</div>
+    </div>
+</div>
 
+<script>
+    // ======================== PROFESSIONAL DASHBOARD WITH LOGOUT ========================
+    const API_BASE = "http://127.0.0.1:8000/api";
+    const LOGIN_PATH = "../../Login.html";
+    let token = localStorage.getItem("token");
 
-    <script src="../Js/Admin Dashboard.js"></script>
+    // ---------- Auth fetch wrapper ----------
+    async function authFetch(url, options = {}) {
+        const headers = {
+            "Authorization": "Bearer " + token,
+            "Accept": "application/json",
+            ...options.headers
+        };
+        const res = await fetch(url, { ...options, headers });
+        if (res.status === 401) {
+            localStorage.removeItem("token");
+            alert("Session expired. Please login again.");
+            window.location.href = LOGIN_PATH;
+            throw new Error("Unauthorized");
+        }
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+    }
+
+    // ---------- LOGOUT FUNCTION (detailed, secure) ----------
+    async function performLogout() {
+        const logoutBtn = document.getElementById("logoutBtn");
+        if (logoutBtn) {
+            logoutBtn.disabled = true;
+            logoutBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Logging out...';
+        }
+        // Optional: call backend logout endpoint if available
+        if (token) {
+            try {
+                await fetch(`${API_BASE}/logout`, {
+                    method: "POST",
+                    headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" }
+                });
+            } catch (e) { console.warn("Backend logout not supported or offline"); }
+        }
+        // Clear local session
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        sessionStorage.clear();
+        // Redirect to login page with flag
+        setTimeout(() => {
+            window.location.href = `${LOGIN_PATH}?logout=success`;
+        }, 150);
+    }
+
+    // Attach logout event after DOM ready
+    document.addEventListener("DOMContentLoaded", () => {
+        const btn = document.getElementById("logoutBtn");
+        if (btn) btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (confirm("Are you sure you want to log out?")) performLogout();
+        });
+    });
+
+    // ---------- Helper maps and rendering logic ----------
+    let usersMap = new Map();      // user_id -> name
+    let servicesMap = new Map();   // service_id -> name
+    let servicesPriceMap = new Map(); // service_id -> price
+    let staffMap = new Map();      // admin_staff_id -> { name, status }
+
+    async function loadReferenceData() {
+        try {
+            const [users, services, staff] = await Promise.all([
+                authFetch(`${API_BASE}/users`).catch(() => []),
+                authFetch(`${API_BASE}/services`).catch(() => []),
+                authFetch(`${API_BASE}/staff`).catch(() => [])
+            ]);
+            users.forEach(u => usersMap.set(u.user_id, u.name));
+            services.forEach(s => {
+                servicesMap.set(s.service_id, s.name);
+                servicesPriceMap.set(s.service_id, parseFloat(s.price) || 0);
+            });
+            staff.forEach(s => staffMap.set(s.admin_staff_id, { name: s.name, status: s.status || 'available' }));
+        } catch(e) { console.warn("Error loading references", e); }
+    }
+
+    async function fetchStaffStatus() {
+        try {
+            const res = await authFetch(`${API_BASE}/staff/status`);
+            return res.data || [];
+        } catch {
+            return Array.from(staffMap.values()).map(s => ({ status: s.status, name: s.name }));
+        }
+    }
+
+    function renderStars(rating) {
+        const full = '<i class="fas fa-star"></i>', half = '<i class="fas fa-star-half-alt"></i>', empty = '<i class="far fa-star"></i>';
+        let stars = '';
+        for (let i = 1; i <= 5; i++) {
+            if (rating >= i) stars += full;
+            else if (rating >= i - 0.5) stars += half;
+            else stars += empty;
+        }
+        return stars;
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : (m === '<' ? '&lt;' : '&gt;'));
+    }
+
+    async function renderDashboard() {
+        const root = document.getElementById("dashboardRoot");
+        if (!root) return;
+        root.innerHTML = `<div class="loading-state"><i class="fas fa-spinner fa-pulse"></i> Fetching dashboard data...</div>`;
+
+        try {
+            await loadReferenceData();
+            const [appointments, feedback, staffStatusRaw] = await Promise.all([
+                authFetch(`${API_BASE}/appointments`).catch(() => []),
+                authFetch(`${API_BASE}/feedback`).catch(() => []),
+                fetchStaffStatus()
+            ]);
+
+            const totalAppointments = appointments.length;
+            const completedAppointments = appointments.filter(a => a.status === 'completed').length;
+            const completionRate = totalAppointments ? ((completedAppointments / totalAppointments) * 100).toFixed(0) : 0;
+            const avgRating = feedback.length ? (feedback.reduce((s, f) => s + (f.rating || 0), 0) / feedback.length).toFixed(1) : "0.0";
+            const fiveStarCount = feedback.filter(f => f.rating === 5).length;
+
+            // Revenue calculation
+            let totalRevenue = 0;
+            appointments.forEach(app => {
+                if (app.status === 'completed') {
+                    totalRevenue += servicesPriceMap.get(app.service_id) || 0;
+                }
+            });
+            const formattedRevenue = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalRevenue);
+
+            // Top services by appointment count
+            const serviceCounts = new Map();
+            appointments.forEach(app => {
+                let sid = app.service_id;
+                serviceCounts.set(sid, (serviceCounts.get(sid) || 0) + 1);
+            });
+            const topServices = Array.from(serviceCounts.entries())
+                .sort((a,b) => b[1] - a[1]).slice(0, 3)
+                .map(([id, cnt]) => ({ name: servicesMap.get(id) || `Service #${id}`, count: cnt }));
+
+            // Staff availability counts
+            const staffCount = { available: 0, busy: 0, off: 0 };
+            staffStatusRaw.forEach(s => {
+                let st = (s.status || '').toLowerCase();
+                if (st === 'available') staffCount.available++;
+                else if (st === 'busy') staffCount.busy++;
+                else staffCount.off++;
+            });
+            const totalStaff = staffMap.size;
+
+            // Recent appointments (last 6)
+            const recentApps = [...appointments].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 6);
+            // Recent feedback
+            const recentFeedback = [...feedback].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 4);
+
+            // Chart data
+            const bookedCount = appointments.filter(a => a.status === 'booked').length;
+            const cancelledCount = appointments.filter(a => a.status === 'cancelled').length;
+
+            // Build HTML
+            let html = `
+                <div class="metrics-grid">
+                    <div class="metric-card"><div class="metric-info"><h3>${usersMap.size}</h3><p>Total Clients</p></div><div class="metric-icon"><i class="fas fa-users"></i></div></div>
+                    <div class="metric-card"><div class="metric-info"><h3>${totalAppointments}</h3><p>Appointments</p></div><div class="metric-icon"><i class="fas fa-calendar-check"></i></div></div>
+                    <div class="metric-card"><div class="metric-info"><h3>${servicesMap.size}</h3><p>Active Services</p></div><div class="metric-icon"><i class="fas fa-cut"></i></div></div>
+                    <div class="metric-card"><div class="metric-info"><h3>${avgRating} ★</h3><p>Avg Rating</p></div><div class="metric-icon"><i class="fas fa-star-half-alt"></i></div></div>
+                    <div class="metric-card"><div class="metric-info"><h3>${completionRate}%</h3><p>Completion Rate</p></div><div class="metric-icon"><i class="fas fa-chart-line"></i></div></div>
+                    <div class="metric-card"><div class="metric-info"><h3>${formattedRevenue}</h3><p>Revenue (completed)</p></div><div class="metric-icon"><i class="fas fa-dollar-sign"></i></div></div>
+                </div>
+
+                <div class="chart-container">
+                    <h4 style="margin-bottom: 0.8rem; font-weight:800;"><i class="fas fa-chart-pie"></i> Appointment Status Distribution</h4>
+                    <canvas id="statusChart" width="400" height="180"></canvas>
+                </div>
+
+                <div class="two-col">
+                    <div>
+                        <div class="section-header"><h3><i class="fas fa-clock"></i> Recent Appointments</h3><a href="./Pages/Appointment.html" class="view-link">Manage →</a></div>
+                        <div class="data-table-wrapper">
+                            <table class="data-table">
+                                <thead><tr><th>ID</th><th>Client</th><th>Service</th><th>Date</th><th>Staff</th><th>Status</th></tr></thead>
+                                <tbody>
+                                    ${recentApps.map(app => {
+                                        const userName = usersMap.get(app.user_id) || `User ${app.user_id}`;
+                                        const serviceName = servicesMap.get(app.service_id) || `Service #${app.service_id}`;
+                                        const staffName = staffMap.get(app.admin_staff_id)?.name || `Staff ${app.admin_staff_id}`;
+                                        return `<tr>
+                                            <td>#${app.appointment_id}</td>
+                                            <td>${escapeHtml(userName)}</td>
+                                            <td>${escapeHtml(serviceName)}</td>
+                                            <td>${app.date}</td>
+                                            <td>${escapeHtml(staffName)}</td>
+                                            <td><span class="badge ${app.status}">${app.status}</span></td>
+                                        </tr>`;
+                                    }).join('')}
+                                    ${recentApps.length === 0 ? '<tr><td colspan="6">No appointments yet</td></tr>' : ''}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="section-header" style="margin-top:1.5rem;"><h3><i class="fas fa-trophy"></i> Top Performing Services</h3></div>
+                        <div class="insight-card">
+                            ${topServices.map((sv,idx) => `<div style="display:flex; justify-content:space-between; margin-bottom:0.7rem;"><span><strong>${idx+1}.</strong> ${escapeHtml(sv.name)}</span><span class="badge" style="background:#F1F1F4;">${sv.count} bookings</span></div>`).join('')}
+                            ${topServices.length === 0 ? '<div class="small-text">No service data</div>' : ''}
+                        </div>
+                    </div>
+                    <div>
+                        <div class="section-header"><h3><i class="fas fa-comment-dots"></i> Recent Feedback</h3><a href="./Pages/Feedback.html" class="view-link">All →</a></div>
+                        <div class="insight-card">
+                            ${recentFeedback.map(fb => `
+                                <div class="feedback-item">
+                                    <div class="feedback-text">“${escapeHtml(fb.comment?.substring(0,90) || 'No comment')}”</div>
+                                    <div class="rating-stars">${renderStars(fb.rating)}</div>
+                                    <div class="feedback-meta"><span>📅 ${fb.date}</span><span>⭐ ${fb.rating}/5</span></div>
+                                </div>
+                            `).join('')}
+                            ${recentFeedback.length === 0 ? '<div style="padding:1rem;">No feedback available</div>' : ''}
+                            <div style="margin-top:0.8rem; background:#F8F8FC; border-radius:16px; padding:0.7rem;">
+                                <i class="fas fa-chart-simple"></i> <strong>${fiveStarCount}</strong> five-star reviews · Total ${feedback.length} reviews
+                            </div>
+                        </div>
+
+                        <div class="section-header"><h3><i class="fas fa-user-md"></i> Staff Availability</h3></div>
+                        <div class="insight-card">
+                            <div class="staff-stats">
+                                <span class="staff-chip"><i class="fas fa-check-circle" style="color:#2E7D32"></i> Available: ${staffCount.available}</span>
+                                <span class="staff-chip"><i class="fas fa-clock" style="color:#FF715B"></i> Busy: ${staffCount.busy}</span>
+                                <span class="staff-chip"><i class="fas fa-moon" style="color:#6C6E7A"></i> Off: ${staffCount.off}</span>
+                                <span class="staff-chip">Total: ${totalStaff}</span>
+                            </div>
+                            <div style="margin-top: 0.8rem; background:#E9E9EF; border-radius: 60px; height: 6px;">
+                                <div style="width: ${totalStaff ? (staffCount.available/totalStaff)*100 : 0}%; background: #FF715B; height: 6px; border-radius: 60px;"></div>
+                            </div>
+                            <div class="small-text" style="margin-top:0.5rem;">Staff ready to serve: ${staffCount.available} / ${totalStaff}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            root.innerHTML = html;
+
+            // Render chart
+            const ctx = document.getElementById('statusChart')?.getContext('2d');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Booked', 'Completed', 'Cancelled'],
+                        datasets: [{
+                            data: [bookedCount, completedAppointments, cancelledCount],
+                            backgroundColor: ['#FF715B', '#2E7D32', '#C62828'],
+                            borderWidth: 0,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        cutout: '65%',
+                        plugins: {
+                            legend: { position: 'bottom', labels: { font: { size: 11 } } },
+                            tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.raw} (${Math.round(ctx.raw/totalAppointments*100)||0}%)` } }
+                        }
+                    }
+                });
+            }
+        } catch (err) {
+            console.error(err);
+            root.innerHTML = `<div style="background:white; border-radius:28px; padding:2rem; text-align:center; margin-top:1rem;">
+                <i class="fas fa-database" style="font-size:2rem; color:#c62828;"></i>
+                <h3>Dashboard Connection Error</h3>
+                <p>Unable to reach backend API at ${API_BASE}. Please verify server and authentication.</p>
+                <button onclick="location.reload()" style="background:#FF715B; border:none; border-radius:40px; padding:0.5rem 1.5rem; color:white; margin-top:0.8rem;">Retry</button>
+            </div>`;
+        }
+    }
+
+    // Initialization: check token and load dashboard
+    if (!token) {
+        document.getElementById("dashboardRoot").innerHTML = `
+            <div style="background:white; border-radius:28px; padding:3rem; text-align:center; margin-top:2rem;">
+                <i class="fas fa-lock" style="font-size:3rem; color:#FF715B;"></i>
+                <h2>Access Restricted</h2>
+                <p>Please login to access the admin dashboard.</p>
+                <button onclick="window.location.href='${LOGIN_PATH}'" style="background:#FF715B; border:none; padding:0.5rem 2rem; border-radius:60px; color:white;">Sign In</button>
+            </div>
+        `;
+    } else {
+        renderDashboard();
+        // Auto-refresh every 75 seconds
+        setInterval(() => { if (!document.hidden) renderDashboard().catch(e=>console.warn); }, 75000);
+    }
+</script>
 </body>
 </html>
