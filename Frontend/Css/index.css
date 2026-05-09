@@ -20,7 +20,7 @@
   color: #2E2E2E;
   margin: 0;
   text-transform: uppercase;    /* UPPERCASE */
-  background: linear-gradient(135deg, #2E2E2E 0%, #FF715B 100%);
+  background:black;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

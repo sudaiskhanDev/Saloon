@@ -1,215 +1,308 @@
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
-/* ============================================
-   GLOBAL RESET & BASE STYLES
-   ============================================ */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-  background-color: #F8F8F8;        /* Off-white canvas */
-  font-family: 'Inter', 'Montserrat', sans-serif;
-  line-height: 1.7;
-  color: #2E2E2E;                   /* Deep charcoal text */
-}
+        body {
+            background: #F4F7FC;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: #121826;
+        }
 
-/* ============================================
-   MAIN STAFF DASHBOARD CONTAINER
-   ============================================ */
-.main-staff-dashboard {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 2rem 3rem 2rem;
-}
+        /* main container (matching original structure) */
+        .main-staff-dashboard {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 1.5rem 2rem 1.5rem;
+        }
 
-/* ============================================
-   NAVIGATION BAR (White card, rounded, shadow)
-   ============================================ */
-.nav-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #FFFFFF;
-  padding: 1rem 2rem;
-  margin: 2rem 0 2.5rem 0;
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
-  flex-wrap: wrap;
-  gap: 1rem;
-}
+        /* navigation bar (re-created to match original design but premium) */
+        .nav-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            background: #FFFFFF;
+            padding: 0.8rem 2rem;
+            border-radius: 80px;
+            margin: 1.5rem 0 2rem 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.02);
+            border: 1px solid #EDF2F7;
+        }
 
-.nav-bar h1 {
-  font-size: 1.6rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin: 0;
-  background: linear-gradient(135deg, #2E2E2E 0%, #FF715B 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+        .nav-bar h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1F2A4A, #FF715B);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
 
-.nav-bar ul {
-  display: flex;
-  list-style: none;
-  gap: 2rem;
-  margin: 0;
-  padding: 0;
-  flex-wrap: wrap;
-}
+        .nav-bar ul {
+            display: flex;
+            gap: 1.8rem;
+            list-style: none;
+        }
 
-.nav-bar li a {
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: #2E2E2E;
-  transition: color 0.2s ease;
-}
+        .nav-bar ul li a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #2D3A5E;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
 
-.nav-bar li a:hover {
-  color: #FF715B;
-}
+        .nav-bar ul li a:hover {
+            color: #FF715B;
+        }
 
-/* ============================================
-   LOGOUT BUTTON (Pill shape, coral, glow)
-   ============================================ */
-.btn button {
-  background-color: #FF715B;
-  color: #FFFFFF;
-  font-family: inherit;
-  font-size: 0.85rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 0.6rem 1.6rem;
-  border: none;
-  border-radius: 60px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(255, 113, 91, 0.25);
-  transition: all 0.2s ease;
-}
+        .btn #logoutBtn {
+            background: transparent;
+            border: 1.5px solid #FFD9D0;
+            padding: 0.5rem 1.4rem;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #C23D2E;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
 
-.btn button:hover {
-  transform: translateY(-2px);
-  background-color: #ff5a42;
-  box-shadow: 0 8px 18px rgba(255, 113, 91, 0.35);
-}
+        .btn #logoutBtn:hover {
+            background: #FF715B;
+            border-color: #FF715B;
+            color: white;
+            transform: translateY(-1px);
+        }
 
-.btn button:active {
-  transform: translateY(1px);
-}
+        /* dashboard content styles */
+        .dashboard-staff-content {
+            margin-top: 1rem;
+        }
 
-/* ============================================
-   DASHBOARD CONTENT AREA
-   ============================================ */
-.dashboard-staff-content {
-  background: transparent;
-  min-height: 400px;
-  padding: 1rem 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-}
+        /* welcome header */
+        .welcome-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
 
-/* Example card styling (ready for widgets) */
-.dashboard-staff-content .card {
-  background: #FFFFFF;
-  border-radius: 24px;
-  padding: 1.5rem;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04);
-  flex: 1;
-  min-width: 280px;
-  transition: transform 0.2s ease;
-}
+        .greeting h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #0F172A;
+        }
 
-.dashboard-staff-content .card:hover {
-  transform: translateY(-4px);
-}
+        .greeting p {
+            color: #5B6E8C;
+            margin-top: 0.3rem;
+        }
 
-.dashboard-staff-content .card h3 {
-  font-size: 1.2rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #FF715B;
-  margin-bottom: 0.8rem;
-  border-left: 3px solid #FF715B;
-  padding-left: 0.8rem;
-}
+        .refresh-btn {
+            background: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
 
-.dashboard-staff-content .card p {
-  font-size: 0.9rem;
-  color: #4a4a4a;
-  line-height: 1.6;
-}
+        .refresh-btn i {
+            margin-right: 6px;
+            color: #FF715B;
+        }
 
-/* ============================================
-   RESPONSIVE DESIGN
-   ============================================ */
-@media (max-width: 768px) {
-  .main-staff-dashboard {
-    padding: 0 1.5rem 2rem 1.5rem;
-  }
-  
-  .nav-bar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1rem 1.2rem;
-  }
-  
-  .nav-bar ul {
-    gap: 1.2rem;
-  }
-  
-  .nav-bar li a {
-    font-size: 0.8rem;
-  }
-  
-  .btn {
-    align-self: flex-start;
-  }
-}
+        /* stats grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.2rem;
+        }
 
-@media (max-width: 550px) {
-  .main-staff-dashboard {
-    padding: 0 1rem 1.5rem 1rem;
-  }
-  
-  .nav-bar h1 {
-    font-size: 1.3rem;
-  }
-  
-  .nav-bar ul {
-    gap: 0.8rem;
-  }
-  
-  .nav-bar li a {
-    font-size: 0.7rem;
-  }
-  
-  .btn button {
-    font-size: 0.75rem;
-    padding: 0.5rem 1.2rem;
-  }
-}
+        .stat-card {
+            background: #FFFFFF;
+            border-radius: 28px;
+            padding: 1.2rem 1.5rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s;
+            border: 1px solid #EEF2F8;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
 
-/* ============================================
-   UTILITY / ACCESSIBILITY
-   ============================================ */
-::selection {
-  background: rgba(255, 113, 91, 0.2);
-  color: #2E2E2E;
-}
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-color: #FFE0D6;
+        }
 
-*:focus-visible {
-  outline: 2px solid #FF715B;
-  outline-offset: 2px;
-}
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+            background: #FFEFEB;
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: #FF715B;
+        }
+
+        .stat-info h3 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7E8AA2;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1E293B;
+            line-height: 1.2;
+        }
+
+        .stat-sub {
+            font-size: 0.7rem;
+            color: #5F6C84;
+        }
+
+        /* two column layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 0.9fr;
+            gap: 1.8rem;
+            margin-top: 0.8rem;
+        }
+
+        .card-panel {
+            background: #FFFFFF;
+            border-radius: 28px;
+            padding: 1.4rem 1.2rem 1.8rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
+            border: 1px solid #EDF2F9;
+        }
+
+        .card-panel h3 {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 4px solid #FF715B;
+            padding-left: 12px;
+        }
+
+        .appointment-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #F0F3F9;
+            padding: 0.9rem 0;
+        }
+
+        .appointment-item:last-child {
+            border-bottom: none;
+        }
+
+        .app-info .service-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .app-info .datetime {
+            font-size: 0.7rem;
+            color: #6F7C97;
+            margin-top: 4px;
+        }
+
+        .status-badge-sm {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.8rem;
+            border-radius: 60px;
+            background: #EFF3F6;
+            color: #2E3A55;
+        }
+
+        .status-badge-sm.booked {
+            background: #FFE2DA;
+            color: #C23D2E;
+        }
+        .status-badge-sm.completed {
+            background: #DFF0E4;
+            color: #2A7E3B;
+        }
+        .status-badge-sm.cancelled {
+            background: #FFE9E9;
+            color: #B91C1C;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 2rem 0;
+            color: #8C9AB0;
+            font-size: 0.85rem;
+        }
+
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            padding: 2rem;
+            color: #FF715B;
+        }
+
+        .error-banner {
+            background: #FFF5F5;
+            border-radius: 24px;
+            padding: 1.5rem;
+            text-align: center;
+            color: #BC4E2C;
+        }
+
+        @media (max-width: 880px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .nav-bar {
+                flex-direction: column;
+                gap: 1rem;
+                border-radius: 36px;
+            }
+            .main-staff-dashboard {
+                padding: 0 1rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.8rem;
+            }
+            .stat-card {
+                padding: 0.8rem;
+            }
+            .stat-number {
+                font-size: 1.5rem;
+            }
+        }
+        button {
+            cursor: pointer;
+        }
+ 

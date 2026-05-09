@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const loginBtn = document.querySelector('a[href="./Auth/Login.html"]')?.parentElement;
     const registerBtn = document.querySelector('a[href="./Auth/Register.html"]')?.parentElement;
+    const adminbtn = document.querySelector('a[href="../../Login.html"]')?.parentElement;
     const logoutBtn = document.getElementById("logoutBtn");
 
     function updateNavbar() {
@@ -12,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // logged in
             if (loginBtn) loginBtn.style.display = "none";
             if (registerBtn) registerBtn.style.display = "none";
+            if (adminbtn) adminbtn.style.display = "none";
             if (logoutBtn) logoutBtn.style.display = "inline-block";
         } else {
             // logged out

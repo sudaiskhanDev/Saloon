@@ -220,9 +220,43 @@ form button:active {
   outline: 2px solid #FF715B;
   outline-offset: 2px;
 }
+
+/* Back to Home Button Styling */
+.back-home-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: #FFFFFF;
+  padding: 10px 20px;
+  border-radius: 50px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.back-home-btn:hover {
+  transform: translateX(-5px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.back-home-btn a {
+  text-decoration: none;
+  color: #2E2E2E;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
      </style>
+
+     
 </head>
 <body>
+    <button class="back-home-btn">
+        <a href="./Frontend/Html/index.html">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </button>
 
     <div >
         <div >
