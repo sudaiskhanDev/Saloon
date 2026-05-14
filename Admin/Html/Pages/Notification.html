@@ -523,7 +523,7 @@ tbody button:last-of-type:hover {
                 <th>ID</th>
                 <th>User</th>
                 <th>Message</th>
-                <th>Status</th>
+               
                 <th>Date</th>
                 <th>Action</th>
             </tr>
@@ -590,9 +590,9 @@ async function loadNotifications() {
         table.innerHTML += `
             <tr>
                 <td>${n.notification_id}</td>
-                <td>${getUserName(n.user_id)} (${n.user_id})</td>
+                <td>${getUserName(n.user_id)}</td>
                 <td>${n.message}</td>
-                <td>${n.status}</td>
+                 
                 <td>${n.date}</td>
                 <td>
                     <button onclick="editNotification(${n.notification_id}, ${n.user_id}, '${n.message}', '${n.status}', '${n.date}')">Edit</button>

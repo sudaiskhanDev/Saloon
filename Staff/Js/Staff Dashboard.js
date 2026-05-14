@@ -3,7 +3,7 @@ document.getElementById("logoutBtn").addEventListener("click", function () {
     const token = localStorage.getItem("token");
 
     if (!token) {
-        window.location.href = "../../Login.html";
+        window.location.href = "../../Frontend/Html/Auth/Login.html";
         return;
     }
 

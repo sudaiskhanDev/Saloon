@@ -23,7 +23,7 @@ class UserAuthController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Validation error',
+                'message' => 'Password must be at least 6 characters long',
                 'errors' => $validator->errors()
             ], 422);
         }

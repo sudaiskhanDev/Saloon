@@ -20,13 +20,13 @@ document.getElementById("logoutBtn").addEventListener("click", function () {
         localStorage.removeItem("token");
 
         // direct redirect
-        window.location.href = "../../Login.html";
+        window.location.href = "../../Frontend/Html/Auth/Login.html";;
     })
     .catch(() => {
 
         // even error → force logout
         localStorage.removeItem("token");
-        window.location.href = "../../Login.html";
+        window.location.href = "../../Frontend/Html/Auth/Login.html";
     });
 
 });

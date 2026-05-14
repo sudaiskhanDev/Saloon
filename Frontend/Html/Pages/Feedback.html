@@ -52,11 +52,17 @@ button{
 
 <script>
 
+
 const API = "http://127.0.0.1:8000/api/my-appointments";
 const FEEDBACK_API = "http://127.0.0.1:8000/api/feedback";
 
 const token = localStorage.getItem("token");
 
+// 🔴 CHECK LOGIN
+if (!token) {
+    alert("Please login first to access your appointments");
+    window.location.href = "../Auth/Login.html"; // apna correct path yahan set karo
+}
 let appointments = [];
 
 /* ================= LOAD APPOINTMENTS ================= */

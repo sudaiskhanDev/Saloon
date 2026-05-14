@@ -636,9 +636,9 @@ async function loadAppointments() {
         table.innerHTML += `
             <tr>
                 <td>${app.appointment_id}</td>
-                <td>${getUserName(app.user_id)} (${app.user_id})</td>
-                <td>${getStaffName(app.admin_staff_id)} (${app.admin_staff_id})</td>
-                <td>${getServiceName(app.service_id)} (${app.service_id})</td>
+                <td>${getUserName(app.user_id)}</td>
+<td>${getStaffName(app.admin_staff_id)}</td>
+<td>${getServiceName(app.service_id)}</td>
                 <td>${app.date}</td>
                 <td>${app.time}</td>
                 <td>${app.status}</td>
