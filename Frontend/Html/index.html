@@ -21,6 +21,14 @@
                     <li><a href="./Pages/Feedback.html">Feedback</a></li>
                 </ul>
             </div>
+
+            <!-- Navbar ke andar, links ke baad ya pehle yeh add karo -->
+<div class="live-status" id="liveStatus" style="display: flex; align-items: center; gap: 8px; background: #f0f0f0; padding: 6px 15px; border-radius: 60px;">
+    <div id="statusIcon" style="width: 10px; height: 10px; border-radius: 50%;"></div>
+    <span id="statusText" style="font-weight: 600; font-size: 0.85rem;"></span>
+    <span id="statusTime" style="font-size: 0.7rem; color: #666;"></span>
+</div>
+
             <div class="btns">
     <button><a href="./Auth/Login.html">Login</a></button>
     <button><a href="./Auth/Register.html">Register</a></button>
@@ -49,21 +57,21 @@
       <img src="../Assets/nails.jpg" alt="Drook Real">
       <h3>Drook Real</h3>
       <p>Chicks embarrassed each by wealthy joy reality to express. Lainess why end might ask civil again spoil.</p>
-      <span class="price">$10.99</span>
+      <span class="price">Rs 10.99</span>
     </div>
 
     <div class="card">
       <img src="../Assets/nail2.jpg" alt="Finistmal Fire">
       <h3>Finistmal Fire</h3>
       <p>Tried on cause need smart in no dear. Tyneside so many at these ready sense. Alteration end literature admiration.</p>
-      <span class="price">$13.99</span>
+      <span class="price">Rs 13.99</span>
     </div>
 
     <div class="card">
       <img src="../Assets/nail3.jpg" alt="Ouce Fiere">
       <h3>Ouce Fiere</h3>
       <p>Chicks more enjoy temperament had early. To prepare daughters. Alteration end literature admiration.</p>
-      <span class="price">$12.99</span>
+      <span class="price">Rs 12.99</span>
     </div>
 
   </div>
@@ -88,9 +96,20 @@
             </div>
         </div>
 
+
+        <!-- About Section end hone ke baad, footer se pehle yeh code daalo -->
+
+
       <!-- Footer -->
 <div class="footer">
     <div class="footer-content">
+        <!-- Inside .footer-content, before <ul class="socials"> -->
+
+<div style="margin: 1rem 0; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 16px;">
+    <h4 style="margin-bottom: 0.5rem;">⏰ Opening Hours</h4>
+    <p><strong>Monday:</strong> <span style="color: #FFB3A8;">Closed</span></p>
+    <p><strong>Tuesday - Sunday:</strong> 8:00 AM - 7:00 PM</p>
+</div>
         <h3>Blush & Bloom Salon</h3>
         <p>Bringing elegance and confidence to women & girls with modern salon services.</p>
 
@@ -155,6 +174,95 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+
+
+
+
+
+
+// Live Status Checker
+function updateSalonStatus() {
+    const now = new Date();
+    const day = now.getDay(); // 0 = Sunday, 1 = Monday, 2 = Tuesday...
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const currentTime = hours + minutes / 60;
+    
+    let isOpen = false;
+    let statusMessage = "";
+    let statusColor = "";
+    let nextOpenMessage = "";
+    
+    // Monday (day 1) is closed
+    if (day === 1) {
+        isOpen = false;
+        statusMessage = "Closed";
+        statusColor = "#c62828";
+        nextOpenMessage = "Opens Tuesday 8:00 AM";
+    } 
+    // Tuesday to Sunday (day 2 to 0)
+    else {
+        // Open from 8:00 AM (8.0) to 7:00 PM (19.0)
+        if (currentTime >= 8.0 && currentTime < 19.0) {
+            isOpen = true;
+            statusMessage = "Open Now";
+            statusColor = "#2E7D32";
+            nextOpenMessage = `Until 7:00 PM`;
+        } else {
+            isOpen = false;
+            statusMessage = "Closed";
+            statusColor = "#c62828";
+            if (currentTime < 8.0) {
+                nextOpenMessage = `Opens today at 8:00 AM`;
+            } else {
+                nextOpenMessage = `Opens tomorrow 8:00 AM`;
+            }
+        }
+    }
+    
+    // Update UI
+    const statusDiv = document.getElementById("liveStatus");
+    const icon = document.getElementById("statusIcon");
+    const text = document.getElementById("statusText");
+    const timeSpan = document.getElementById("statusTime");
+    
+    if (statusDiv) {
+        icon.style.backgroundColor = statusColor;
+        icon.style.boxShadow = `0 0 8px ${statusColor}`;
+        text.innerHTML = statusMessage;
+        text.style.color = statusColor;
+        timeSpan.innerHTML = nextOpenMessage;
+        
+        // Add pulse animation if open
+        if (isOpen) {
+            icon.style.animation = "pulse 1.5s infinite";
+        } else {
+            icon.style.animation = "none";
+        }
+    }
+}
+
+// Add CSS animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes pulse {
+        0% { opacity: 0.5; transform: scale(0.8); }
+        50% { opacity: 1; transform: scale(1.2); }
+        100% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .live-status {
+        transition: all 0.3s ease;
+    }
+    .live-status:hover {
+        transform: scale(1.02);
+    }
+`;
+document.head.appendChild(style);
+
+// Run immediately and every minute
+updateSalonStatus();
+setInterval(updateSalonStatus, 60000);
 </script>
 
     <script src="../Js/index.js"></script>

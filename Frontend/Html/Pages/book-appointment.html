@@ -247,7 +247,33 @@ form button[type="submit"]:active {
 </div>
 
 <script>
+const dateInput = document.getElementById("date");
+const timeInput = document.getElementById("time");
 
+// today date
+const today = new Date().toISOString().split('T')[0];
+dateInput.min = today;
+
+function updateTimeRestriction() {
+
+    const selectedDate = dateInput.value;
+    const now = new Date();
+    const currentTime = now.toTimeString().slice(0, 5);
+
+    if (selectedDate === today) {
+        // 🔥 block all past time (STRICT)
+        timeInput.min = currentTime;
+    } else {
+        // future date → no restriction
+        timeInput.removeAttribute("min");
+    }
+}
+
+// run on load
+updateTimeRestriction();
+
+// run on date change
+dateInput.addEventListener("change", updateTimeRestriction);
 // =======================
 // GET SERVICE
 // =======================

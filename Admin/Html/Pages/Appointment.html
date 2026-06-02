@@ -533,6 +533,52 @@ const SERVICES_API = "http://127.0.0.1:8000/api/services";
 
 const token = localStorage.getItem("token");
 
+
+// ================= DISABLE PAST DATES =================
+const today = new Date().toISOString().split('T')[0];
+
+document.getElementById("date").min = today;
+document.getElementById("edit_date").min = today;
+
+function validateTime() {
+    const dateInput = document.getElementById("date");
+    const timeInput = document.getElementById("time");
+
+    const editDateInput = document.getElementById("edit_date");
+    const editTimeInput = document.getElementById("edit_time");
+
+    const now = new Date();
+
+    function check(dateEl, timeEl) {
+        dateEl.addEventListener("change", () => {
+            if (dateEl.value === today) {
+                timeEl.min = now.toTimeString().slice(0,5);
+            } else {
+                timeEl.removeAttribute("min");
+            }
+        });
+
+        timeEl.addEventListener("change", () => {
+            if (dateEl.value === today) {
+                const selected = timeEl.value;
+                const current = now.toTimeString().slice(0,5);
+
+                if (selected < current) {
+                    alert("Past time not allowed!");
+                    timeEl.value = "";
+                }
+            }
+        });
+    }
+
+    check(dateInput, timeInput);
+    check(editDateInput, editTimeInput);
+}
+
+validateTime();
+
+
+
 // ⭐ GLOBAL DATA STORE
 let usersList = [];
 let staffList = [];
@@ -549,8 +595,8 @@ async function loadUsers() {
     let select = document.getElementById("user_id");
     let editSelect = document.getElementById("edit_user_id");
 
-    select.innerHTML = "";
-    editSelect.innerHTML = "";
+    select.innerHTML = `<option value="" disabled selected hidden>Client</option>`;
+    editSelect.innerHTML = `<option value="" disabled selected hidden>Client</option>`;
 
     data.forEach(u => {
         let option = `<option value="${u.user_id}">${u.name}</option>`;
@@ -570,8 +616,8 @@ async function loadStaff() {
     let select = document.getElementById("admin_staff_id");
     let editSelect = document.getElementById("edit_admin_staff_id");
 
-    select.innerHTML = "";
-    editSelect.innerHTML = "";
+    select.innerHTML =  `<option value="" disabled selected hidden>Staff</option>`;
+    editSelect.innerHTML = `<option value="" disabled selected hidden>Staff</option>`;
 
     data.forEach(s => {
         let option = `<option value="${s.admin_staff_id}">${s.name}</option>`;
