@@ -689,196 +689,124 @@ body, button, a, li, h1, h2, h3, p {
 
 
 /* Footer - Deep Charcoal Background, Premium Contrast */
-/* Dark Theme Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.footer {
+  background-color: #2E2E2E;        /* Deep charcoal/dark brown as per palette */
+  color: #FFFFFF;
+  font-family: 'Inter', 'Montserrat', sans-serif;
+  margin-top: 0;
+  width: 100%;
 }
 
-body {
-    background-color: #0a0a0a;
-    font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, sans-serif;
-    color: #e0e0e0;
-    line-height: 1.5;
+/* Main Footer Content Container */
+.footer-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 60px 40px 40px 40px;
+  text-align: center;
 }
 
-/* Main container - assuming a wrapper div exists */
-div:has(> .footer-bottom) {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-    background-color: #0f0f0f;
-    border-radius: 24px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+/* Salon Name - Uppercase, Bold, Premium */
+.footer-content h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #FFFFFF;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FF715B 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
-/* Opening Hours Card */
-div[style*="margin: 1rem 0"] {
-    background: rgba(25, 25, 35, 0.8) !important;
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 180, 168, 0.2);
-    transition: all 0.3s ease;
+/* Description Text - Line-height 1.7 for readability */
+.footer-content p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #d1d1d1;
+  max-width: 500px;
+  margin: 0 auto 1.5rem auto;
 }
 
-div[style*="margin: 1rem 0"]:hover {
-    border-color: rgba(255, 180, 168, 0.5);
-    background: rgba(30, 30, 40, 0.9) !important;
-}
-
-h4 {
-    color: #FFB3A8;
-    font-size: 1.4rem;
-    letter-spacing: 0.5px;
-    margin-bottom: 1rem !important;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-h4::before {
-    content: "🕊️";
-    font-size: 1.2rem;
-    opacity: 0.9;
-}
-
-/* Hours text styling */
-p strong {
-    color: #d0d0d0;
-    font-weight: 600;
-    min-width: 100px;
-    display: inline-block;
-}
-
-p span[style*="color: #FFB3A8"] {
-    background: linear-gradient(135deg, #FFB3A8, #FF8A70);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent !important;
-    font-weight: 500;
-}
-
-/* Tuesday - Sunday text */
-p:has(strong:contains("Tuesday")) {
-    color: #c0c0c0;
-}
-
-/* Salon Name */
-h3 {
-    font-size: 2.2rem;
-    font-weight: 600;
-    background: linear-gradient(135deg, #ffffff 0%, #FFB3A8 80%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    margin: 1.5rem 0 0.5rem 0;
-    letter-spacing: -0.3px;
-}
-
-/* Tagline paragraph */
-h3 + p {
-    color: #a0a0a0;
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    border-left: 3px solid #FFB3A8;
-    padding-left: 1rem;
-}
-
-/* Admin Contact */
-p strong:contains("Admin Contact") {
-    color: #FFB3A8;
-}
-
-p:has(strong:contains("Admin Contact")) {
-    background: rgba(255, 179, 168, 0.08);
-    padding: 0.5rem 1rem;
-    border-radius: 40px;
-    display: inline-block;
-    margin: 0.5rem 0;
-}
-
-/* Social Links */
+/* Social Links List */
 .socials {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-    margin: 1.5rem 0 2rem 0;
-    padding: 0;
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0 0;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
 }
 
 .socials li a {
-    color: #b0b0b0;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    padding: 0.4rem 0.8rem;
-    border-radius: 40px;
-    background: rgba(255, 255, 255, 0.03);
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.25s ease;
 }
 
+/* Coral Accent on Hover */
 .socials li a:hover {
-    color: #FFB3A8;
-    background: rgba(255, 179, 168, 0.15);
-    transform: translateY(-2px);
+  color: #FF715B;
 }
 
-/* Footer Bottom */
+/* Footer Bottom Bar - Lighter charcoal or border */
 .footer-bottom {
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px 40px;
+  text-align: center;
 }
 
 .footer-bottom p {
-    color: #6a6a6a;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
+  font-size: 0.8rem;
+  color: #b0b0b0;
+  margin: 0;
+  letter-spacing: 0.5px;
 }
 
-/* Responsive Design */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-    div:has(> .footer-bottom) {
-        padding: 1.5rem;
-        margin: 1rem;
-        border-radius: 20px;
-    }
-    
-    h3 {
-        font-size: 1.8rem;
-    }
-    
-    .socials {
-        gap: 1rem;
-        flex-wrap: wrap;
-    }
-    
-    p strong {
-        min-width: 80px;
-    }
+  .footer-content {
+    padding: 50px 24px 30px 24px;
+  }
+  
+  .footer-content h3 {
+    font-size: 1.5rem;
+  }
+  
+  .footer-content p {
+    font-size: 0.9rem;
+    padding: 0 1rem;
+  }
+  
+  .socials {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .socials li a {
+    font-size: 0.8rem;
+  }
+  
+  .footer-bottom {
+    padding: 16px 20px;
+  }
 }
 
-/* Custom scrollbar for dark theme */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: #1a1a1a;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #FFB3A8;
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #ff8a70;
-}
-
-/* Optional: smooth focus states */
-a:focus-visible, button:focus-visible {
-    outline: 2px solid #FFB3A8;
-    outline-offset: 2px;
-    border-radius: 4px;
+@media (max-width: 480px) {
+  .footer-content {
+    padding: 40px 20px 25px 20px;
+  }
+  
+  .footer-content h3 {
+    font-size: 1.3rem;
+  }
+  
+  .socials {
+    gap: 1.2rem;
+  }
 }
