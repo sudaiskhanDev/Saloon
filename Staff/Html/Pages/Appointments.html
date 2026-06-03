@@ -299,14 +299,20 @@ async function loadAppointments() {
                 </span>
 
                 <br>
+<button 
+    onclick="markCompleted(${app.appointment_id})"
+    ${app.status === 'cancelled' ? 'disabled' : ''}
+>
+    Mark Completed
+</button>
 
-                <button onclick="markCompleted(${app.appointment_id})">
-                    Mark Completed
-                </button>
-
-                <button onclick="cancelAppointment(${app.appointment_id})">
-                    Cancel
-                </button>
+<button 
+    onclick="cancelAppointment(${app.appointment_id})"
+    ${app.status === 'completed' ? 'disabled' : ''}
+>
+    Cancel
+</button>
+               
             </div>
         `;
     });
