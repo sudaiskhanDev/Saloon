@@ -41,6 +41,15 @@ button{
     padding:8px 12px;
     cursor:pointer;
 }
+
+.cancel-message {
+    background: #ffe0e0;
+    padding: 8px;
+    border-radius: 8px;
+    color: #c62828;
+    font-size: 13px;
+    text-align: center;
+}
 </style>
 </head>
 
@@ -52,7 +61,6 @@ button{
 
 <script>
 
-
 const API = "http://127.0.0.1:8000/api/my-appointments";
 const FEEDBACK_API = "http://127.0.0.1:8000/api/feedback";
 
@@ -61,9 +69,15 @@ const token = localStorage.getItem("token");
 // 🔴 CHECK LOGIN
 if (!token) {
     alert("Please login first to access your appointments");
-    window.location.href = "../Auth/Login.html"; // apna correct path yahan set karo
+    window.location.href = "../Auth/Login.html";
 }
 let appointments = [];
+
+/* ================= HELPER: Check if appointment is cancelled ================= */
+function isCancelled(status) {
+    if (!status) return false;
+    return status.toLowerCase().startsWith('cancelled');
+}
 
 /* ================= LOAD APPOINTMENTS ================= */
 async function loadAppointments() {
@@ -82,35 +96,41 @@ async function loadAppointments() {
     container.innerHTML = "";
 
     appointments.forEach(app => {
+        const cancelled = isCancelled(app.status);
+
+        // Determine the feedback section
+        let feedbackHtml = '';
+        if (cancelled) {
+            // Show a message instead of feedback form
+            feedbackHtml = `<div class="cancel-message">❌ This appointment was cancelled. Feedback is not available.</div>`;
+        } else if (app.feedback) {
+            feedbackHtml = `
+                <p>⭐ Rating: ${app.feedback.rating}</p>
+                <p>${app.feedback.comment}</p>
+            `;
+        } else {
+            // Show feedback form for active (booked/completed) appointments
+            feedbackHtml = `
+                <div>
+                    <h4>Give Feedback</h4>
+                    <input type="number" min="1" max="5" id="rating_${app.appointment_id}" placeholder="Rating 1-5">
+                    <textarea id="comment_${app.appointment_id}" placeholder="Comment"></textarea>
+                    <button onclick="submitFeedback(${app.appointment_id})">
+                        Submit
+                    </button>
+                </div>
+            `;
+        }
 
         container.innerHTML += `
             <div class="card">
-
                 <h3>Service: ${app.service.name}</h3>
                 <p>Date: ${app.date} | Time: ${app.time}</p>
-
-                <span class="badge ${app.status}">
-                    ${app.status.toUpperCase()}
+                <span class="badge ${cancelled ? 'cancelled' : app.status}">
+                    ${cancelled ? 'CANCELLED' : app.status.toUpperCase()}
                 </span>
-
                 <hr>
-
-                ${app.feedback ? `
-                    <p>⭐ Rating: ${app.feedback.rating}</p>
-                    <p>${app.feedback.comment}</p>
-                ` : `
-                    <div>
-                        <h4>Give Feedback</h4>
-
-                        <input type="number" min="1" max="5" id="rating_${app.appointment_id}" placeholder="Rating 1-5">
-                        <textarea id="comment_${app.appointment_id}" placeholder="Comment"></textarea>
-
-                        <button onclick="submitFeedback(${app.appointment_id})">
-                            Submit
-                        </button>
-                    </div>
-                `}
-
+                ${feedbackHtml}
             </div>
         `;
     });

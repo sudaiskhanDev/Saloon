@@ -188,29 +188,62 @@ class AppointmentActionController extends Controller
     }
 
     // 🔥 OPTIONAL: CANCEL
-    public function cancel($id)
-    {
-        $staff = auth('admin_api')->user();
+    public function cancel(Request $request, $id)
+{
+    $staff = auth('admin_api')->user();
 
-        $appointment = Appointment::where('appointment_id', $id)
-            ->where('admin_staff_id', $staff->admin_staff_id)
-            ->first();
+    $appointment = Appointment::where('appointment_id', $id)
+        ->where('admin_staff_id', $staff->admin_staff_id)
+        ->first();
 
-        if (!$appointment) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Appointment not found'
-            ], 404);
-        }
-
-        $appointment->status = 'cancelled';
-        $appointment->save();
-
+    if (!$appointment) {
         return response()->json([
-            'status' => true,
-            'message' => 'Appointment cancelled'
-        ]);
+            'status' => false,
+            'message' => 'Appointment not found'
+        ], 404);
     }
+
+    $reason = $request->reason ?? 'No reason provided';
+
+    $appointment->status = 'cancelled';
+    $appointment->save();
+
+    // 🔥 Send notification to user
+    Notification::create([
+        'user_id' => $appointment->user_id,
+        'message' => "Your appointment on {$appointment->date} at {$appointment->time} has been CANCELLED. Reason: {$reason}",
+        'status' => 'unread',
+        'date' => now()->toDateString()
+    ]);
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Appointment cancelled. User has been notified.'
+    ]);
+}
+    // public function cancel($id)
+    // {
+    //     $staff = auth('admin_api')->user();
+
+    //     $appointment = Appointment::where('appointment_id', $id)
+    //         ->where('admin_staff_id', $staff->admin_staff_id)
+    //         ->first();
+
+    //     if (!$appointment) {
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'Appointment not found'
+    //         ], 404);
+    //     }
+
+    //     $appointment->status = 'cancelled';
+    //     $appointment->save();
+
+    //     return response()->json([
+    //         'status' => true,
+    //         'message' => 'Appointment cancelled'
+    //     ]);
+    // }
 
 
     public function userAppointmentsForFeedback()

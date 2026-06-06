@@ -689,11 +689,24 @@ function closeEdit() {
     document.getElementById("editBox").style.display = "none";
 }
 
+
 // ================= INIT =================
 async function init() {
+    const today = new Date().toISOString().split('T')[0];
+
+    document.getElementById("date").min = today;
+    document.getElementById("date").value = today;
+    document.getElementById("edit_date").min = today;
+
     await loadUsers();
     await loadNotifications();
 }
+
+init();
+// async function init() {
+//     await loadUsers();
+//     await loadNotifications();
+// }
 
 init();
   </script>

@@ -5,54 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Dashboard</title>
     <link rel="stylesheet" href="../../Css/Staff Dashboard.css">
-    <!-- <style>
-        body {
-            font-family: Arial;
-            background: #f4f4f4;
-            padding: 20px;
-        }
 
-        .card {
-            background: white;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 5px #ccc;
-        }
-
-        .status {
-            padding: 5px 10px;
-            border-radius: 5px;
-            color: white;
-            display: inline-block;
-        }
-
-        .booked { background: orange; }
-        .completed { background: green; }
-        .cancelled { background: red; }
-
-        button {
-            margin-top: 10px;
-            padding: 6px 10px;
-            cursor: pointer;
-        }
-    </style> -->
-
- <style>
+    <style>
         /* ============================================
    Staff Appointments Page – Premium Styles
-   (Nav-bar styles come from external Staff Dashboard.css)
    ============================================ */
 
-/* Import Google Fonts (if not already in external CSS) */
+/* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
-/* Reset body styles from inline (override basic Arial, background, padding) */
+/* Reset body styles */
 body {
-  background-color: #F8F8F8;        /* Off-white canvas */
+  background-color: #F8F8F8;
   font-family: 'Inter', 'Montserrat', sans-serif;
   line-height: 1.7;
-  color: #2E2E2E;                   /* Deep charcoal text */
+  color: #2E2E2E;
   padding: 0 2rem 3rem 2rem;
   margin: 0;
 }
@@ -90,14 +57,13 @@ h2::after {
   gap: 1.5rem;
 }
 
-/* Appointment Card – Premium white card */
+/* Appointment Card */
 .card {
   background: #FFFFFF;
   border-radius: 24px;
   padding: 1.5rem 2rem;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  margin-bottom: 0; /* remove inline margin */
 }
 
 .card:hover {
@@ -123,7 +89,7 @@ h2::after {
   line-height: 1.6;
 }
 
-/* Status Badges – Pill shape, color-coded */
+/* Status Badges */
 .status {
   display: inline-block;
   padding: 0.3rem 1.2rem;
@@ -137,21 +103,21 @@ h2::after {
 }
 
 .status.booked {
-  background: #FF715B;           /* Coral */
+  background: #FF715B;
   box-shadow: 0 2px 6px rgba(255, 113, 91, 0.3);
 }
 
 .status.completed {
-  background: #2e7d32;           /* Deep green */
+  background: #2e7d32;
   box-shadow: 0 2px 6px rgba(46, 125, 50, 0.2);
 }
 
 .status.cancelled {
-  background: #c62828;           /* Deep red */
+  background: #c62828;
   box-shadow: 0 2px 6px rgba(198, 40, 40, 0.2);
 }
 
-/* Action Buttons – Pill shape */
+/* Action Buttons */
 .card button {
   font-family: inherit;
   font-size: 0.75rem;
@@ -167,7 +133,6 @@ h2::after {
   margin-right: 0.8rem;
 }
 
-/* Mark Completed button (coral) */
 .card button:first-of-type {
   background-color: #FF715B;
   color: #FFFFFF;
@@ -180,7 +145,6 @@ h2::after {
   box-shadow: 0 6px 12px rgba(255, 113, 91, 0.4);
 }
 
-/* Cancel button (red outline → solid red on hover) */
 .card button:last-of-type {
   background-color: transparent;
   color: #c62828;
@@ -194,9 +158,88 @@ h2::after {
   transform: translateY(-2px);
 }
 
-/* Ensure there's no leftover inline styling conflict */
 .card button:active {
   transform: translateY(1px);
+}
+
+.card button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 24px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #c62828;
+}
+
+.modal-content textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+  margin: 1rem 0;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.modal-buttons button {
+  padding: 0.6rem 1.5rem;
+  border-radius: 40px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.modal-buttons button:first-child {
+  background: #c62828;
+  color: white;
+  border: none;
+}
+
+.modal-buttons button:last-child {
+  background: transparent;
+  border: 1px solid #ccc;
+  color: #333;
+}
+
+.modal-buttons button:first-child:hover {
+  background: #a81c1c;
+  transform: translateY(-2px);
+}
+
+.modal-buttons button:last-child:hover {
+  background: #f5f5f5;
 }
 
 /* Responsive */
@@ -244,109 +287,261 @@ h2::after {
   }
 }
 
-/* Utility */
 ::selection {
   background: rgba(255, 113, 91, 0.2);
   color: #2E2E2E;
 }
-
-*:focus-visible {
-  outline: 2px solid #FF715B;
-  outline-offset: 2px;
-}
     </style>
 </head>
 <body>
-   <!-- Navigation bar – NO inline CSS, relies entirely on external Staff Dashboard.css -->
-      <div class="nav-bar">
-            <h1>Blush & Bloom Salon</h1>
-            <ul>
-                <li><a href="../Staff Dashboard.html">Home</a></li>
-                <li><a href="./Appointments.html">Appointments</a></li>
-                <li><a href="./Services.html">Services</a></li>
-            </ul>
-        </div>
+
+<!-- Navigation bar -->
+<div class="nav-bar">
+    <h1>Blush & Bloom Salon</h1>
+    <ul>
+        <li><a href="../Staff Dashboard.html">Home</a></li>
+        <li><a href="./Appointments.html">Appointments</a></li>
+        <li><a href="./Services.html">Services</a></li>
+    </ul>
+</div>
+
 <h2>My Appointments</h2>
 
 <div id="appointments"></div>
 
+<!-- Cancel Reason Modal -->
+<div id="cancelModal" class="modal">
+    <div class="modal-content">
+        <h3>Cancel Appointment</h3>
+        <p>Please provide a reason for cancellation:</p>
+        <textarea id="cancelReason" rows="3" placeholder="Enter reason here..."></textarea>
+        <div class="modal-buttons">
+            <button id="confirmCancelBtn">Submit</button>
+            <button id="closeModalBtn">Close</button>
+        </div>
+    </div>
+</div>
 <script>
-const token = localStorage.getItem("token"); // JWT token
+const token = localStorage.getItem("token");
+let cancelAppointmentId = null;
 
-// 🔥 LOAD APPOINTMENTS
+if (!token) {
+    alert("Please login first");
+    window.location.href = "../../Frontend/Html/Auth/Login.html";
+}
+
+/* ================= ESCAPE HTML ================= */
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, m =>
+        m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'
+    );
+}
+
+/* ================= STATUS UI ================= */
+function getStatusDisplay(status) {
+    switch ((status || '').toLowerCase()) {
+        case 'cancelled':
+            return { text: 'CANCELLED', class: 'cancelled' };
+        case 'completed':
+            return { text: 'COMPLETED', class: 'completed' };
+        default:
+            return { text: 'BOOKED', class: 'booked' };
+    }
+}
+
+/* ================= EXTRACT REASON FROM NOTIFICATION ================= */
+function extractReason(message) {
+    if (!message) return null;
+
+    if (message.includes("Reason:")) {
+        return message.split("Reason:")[1].trim();
+    }
+    return null;
+}
+
+/* ================= EXTRACT DATE/TIME KEY ================= */
+function extractKey(message) {
+    const match = message.match(/on (.*?) at (.*?) has been CANCELLED/i);
+    if (!match) return null;
+
+    return match[1] + "_" + match[2];
+}
+
+/* ================= LOAD APPOINTMENTS ================= */
 async function loadAppointments() {
-    const res = await fetch("http://127.0.0.1:8000/api/staff/appointments", {
-        method: "GET",
-        headers: {
-            "Authorization": "Bearer " + token,
-            "Accept": "application/json"
+    try {
+        const [appRes, notiRes] = await Promise.all([
+            fetch("http://127.0.0.1:8000/api/staff/appointments", {
+                headers: { "Authorization": "Bearer " + token }
+            }),
+            fetch("http://127.0.0.1:8000/api/notifications", {
+                headers: { "Authorization": "Bearer " + token }
+            })
+        ]);
+
+        const appData = await appRes.json();
+        const notifications = await notiRes.json();
+
+        /* ================= BUILD CANCEL MAP ================= */
+        const cancelMap = {};
+
+        notifications.forEach(n => {
+            if (!n.message.includes("CANCELLED")) return;
+
+            const key = extractKey(n.message);
+            const reason = extractReason(n.message);
+
+            if (key) {
+                cancelMap[key] = reason;
+            }
+        });
+
+        const appointments = appData.appointments || [];
+
+        if (appointments.length === 0) {
+            document.getElementById("appointments").innerHTML =
+                `<div style="text-align:center; padding:3rem;">No appointments found.</div>`;
+            return;
         }
-    });
 
-    const data = await res.json();
+        let html = "";
 
-    let html = "";
+        appointments.forEach(app => {
 
-    data.appointments.forEach(app => {
-        html += `
-            <div class="card">
-                <h3>${app.service.name}</h3>
-                <p>User ID: ${app.user_id}</p>
-                <p>Date: ${app.date} | Time: ${app.time}</p>
+            const status = getStatusDisplay(app.status);
+            const isCancelled = app.status === "cancelled";
+            const isCompleted = app.status === "completed";
 
-                <span class="status ${app.status}">
-                    ${app.status}
-                </span>
+            const key = app.date + "_" + app.time;
+            const reason = cancelMap[key];
 
-                <br>
-<button 
-    onclick="markCompleted(${app.appointment_id})"
-    ${app.status === 'cancelled' ? 'disabled' : ''}
->
-    Mark Completed
-</button>
+            const reasonHtml = (isCancelled && reason)
+                ? `<div class="cancel-reason"><strong>Reason:</strong> ${escapeHtml(reason)}</div>`
+                : "";
 
-<button 
-    onclick="cancelAppointment(${app.appointment_id})"
-    ${app.status === 'completed' ? 'disabled' : ''}
->
-    Cancel
-</button>
-               
-            </div>
-        `;
-    });
+            html += `
+                <div class="card">
+                    <h3>${escapeHtml(app.service?.name || 'Service')}</h3>
 
-    document.getElementById("appointments").innerHTML = html;
+                    <p><strong>Client ID:</strong> ${app.user_id}</p>
+                    <p><strong>Date:</strong> ${app.date} | <strong>Time:</strong> ${app.time}</p>
+
+                    <span class="status ${status.class}">
+                        ${status.text}
+                    </span>
+
+                    ${reasonHtml}
+
+                    <br>
+
+                    <button onclick="markCompleted(${app.appointment_id})"
+                        ${isCancelled || isCompleted ? 'disabled' : ''}>
+                        Mark Completed
+                    </button>
+
+                    <button class="cancel-btn"
+                        data-id="${app.appointment_id}"
+                        ${isCancelled || isCompleted ? 'disabled' : ''}>
+                        Cancel
+                    </button>
+                </div>
+            `;
+        });
+
+        document.getElementById("appointments").innerHTML = html;
+
+        document.querySelectorAll(".cancel-btn").forEach(btn => {
+            if (!btn.disabled) {
+                btn.addEventListener("click", function () {
+                    cancelAppointmentId = this.dataset.id;
+                    document.getElementById("cancelModal").style.display = "flex";
+                });
+            }
+        });
+
+    } catch (err) {
+        console.error(err);
+        document.getElementById("appointments").innerHTML =
+            `<div style="text-align:center; padding:3rem; color:red;">Error loading appointments</div>`;
+    }
 }
 
-// 🔥 MARK COMPLETED
+/* ================= MARK COMPLETED ================= */
 async function markCompleted(id) {
-    await fetch(`http://127.0.0.1:8000/api/staff/appointment/${id}/complete`, {
-        method: "POST",
-        headers: {
-            "Authorization": "Bearer " + token,
-            "Accept": "application/json"
-        }
-    });
+    try {
+        const res = await fetch(
+            `http://127.0.0.1:8000/api/staff/appointment/${id}/complete`,
+            {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            }
+        );
 
-    loadAppointments();
+        const data = await res.json();
+
+        alert(data.message || "Completed");
+        loadAppointments();
+
+    } catch (err) {
+        alert("Server error");
+    }
 }
 
-// 🔥 CANCEL
-async function cancelAppointment(id) {
-    await fetch(`http://127.0.0.1:8000/api/staff/appointment/${id}/cancel`, {
-        method: "POST",
-        headers: {
-            "Authorization": "Bearer " + token,
-            "Accept": "application/json"
-        }
-    });
+/* ================= CANCEL ================= */
+async function confirmCancel() {
+    const reason = document.getElementById("cancelReason").value.trim();
 
-    loadAppointments();
+    if (!reason) {
+        alert("Enter reason");
+        return;
+    }
+
+    try {
+        const res = await fetch(
+            `http://127.0.0.1:8000/api/staff/appointment/${cancelAppointmentId}/cancel`,
+            {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + token,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ reason })
+            }
+        );
+
+        const data = await res.json();
+
+        alert(data.message || "Cancelled");
+
+        closeModal();
+        loadAppointments();
+
+    } catch (err) {
+        alert("Server error");
+    }
 }
 
-// INIT
+/* ================= MODAL ================= */
+function closeModal() {
+    document.getElementById("cancelModal").style.display = "none";
+    document.getElementById("cancelReason").value = "";
+    cancelAppointmentId = null;
+}
+
+/* ================= EVENTS ================= */
+document.getElementById("confirmCancelBtn").addEventListener("click", confirmCancel);
+document.getElementById("closeModalBtn").addEventListener("click", closeModal);
+
+window.addEventListener("click", e => {
+    if (e.target === document.getElementById("cancelModal")) {
+        closeModal();
+    }
+});
+
+/* ================= INIT ================= */
 loadAppointments();
 </script>
 

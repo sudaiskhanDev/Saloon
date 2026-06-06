@@ -525,6 +525,40 @@ tbody button:last-of-type:hover {
     </div>
 
    <script>
+// reason edit
+const NOTIFICATION_API = "http://127.0.0.1:8000/api/notifications";
+
+let notificationsList = [];
+async function loadNotifications() {
+
+    let res = await fetch(NOTIFICATION_API, {
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    });
+
+    notificationsList = await res.json();
+}
+function getCancellationReason(app) {
+
+    const notification = notificationsList.find(n => {
+
+        if (!n.message) return false;
+
+        return (
+            n.message.includes(app.date) &&
+            n.message.includes(app.time) &&
+            n.message.includes("CANCELLED")
+        );
+    });
+
+    if (!notification) return "";
+
+    const match = notification.message.match(/Reason:\s*(.*)/i);
+
+    return match ? match[1] : "";
+}
+//Reason edit
 
 const API = "http://127.0.0.1:8000/api/appointments";
 const USERS_API = "http://127.0.0.1:8000/api/users";
@@ -687,7 +721,23 @@ async function loadAppointments() {
 <td>${getServiceName(app.service_id)}</td>
                 <td>${app.date}</td>
                 <td>${app.time}</td>
-                <td>${app.status}</td>
+                <td>
+    ${app.status}
+
+    ${
+        app.status === "cancelled"
+        ? `<br>
+           <small style="
+                color:#c62828;
+                font-weight:bold;
+                display:block;
+                margin-top:5px;
+           ">
+                Reason: ${getCancellationReason(app)}
+           </small>`
+        : ""
+    }
+</td>
                 <td>
                     <button onclick="editAppointment(${app.appointment_id}, ${app.user_id}, ${app.admin_staff_id}, ${app.service_id}, '${app.date}', '${app.time}', '${app.status}')">Edit</button>
                     <button onclick="deleteAppointment(${app.appointment_id})">Delete</button>
@@ -796,8 +846,15 @@ async function init() {
     await loadUsers();
     await loadStaff();
     await loadServices();
+    await loadNotifications();
     await loadAppointments();
 }
+// async function init() {
+//     await loadUsers();
+//     await loadStaff();
+//     await loadServices();
+//     await loadAppointments();
+// }
 
 init();
 
