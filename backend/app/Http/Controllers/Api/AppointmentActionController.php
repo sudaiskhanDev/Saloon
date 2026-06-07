@@ -30,6 +30,20 @@ class AppointmentActionController extends Controller
             'time' => 'required',
         ]);
 
+        //15 appointments only
+        // Inside store() method, after validation and before create
+
+// 🔥 DAILY LIMIT CHECK (max 15 booked appointments per date)
+$bookedCount = Appointment::where('date', $request->date)
+    ->where('status', 'booked')
+    ->count();
+
+if ($bookedCount >= 15) {
+    return response()->json([
+        'message' => 'We are unable to accept additional appointments on this date as the daily limit has been reached. Please choose a different date.'
+    ], 422); // 422 Unprocessable Entity
+}
+        //15 appointments only
         // =========================
         // 1️⃣ CREATE APPOINTMENT
         // =========================
