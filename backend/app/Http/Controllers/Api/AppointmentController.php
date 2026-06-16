@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Appointment;
 
+use App\Models\AdminStaff;
+use App\Models\Service;
+use App\Models\Notification;
+
 class AppointmentController extends Controller
 {
     // GET ALL
@@ -69,13 +73,67 @@ class AppointmentController extends Controller
 
     // UPDATE
     public function update(Request $request, $id)
-    {
-        $appointment = Appointment::findOrFail($id);
+{
+    $appointment = Appointment::findOrFail($id);
 
-        $appointment->update($request->all());
+    // Capture old values before update
+    $oldStaffId = $appointment->admin_staff_id;
+    $oldStatus = $appointment->status;
 
-        return response()->json($appointment);
+    // Perform the update
+    $appointment->update($request->all());
+
+    // Capture new values after update
+    $newStaffId = $appointment->admin_staff_id;
+    $newStatus = $appointment->status;
+
+    // ============= NOTIFICATION LOGIC =============
+
+    // 1️⃣ First-time staff assignment (null → staff): NO notification
+    if ($oldStaffId === null && $newStaffId !== null) {
+        // Silent – do nothing
     }
+
+    // 2️⃣ Staff reassignment: If old status was "cancelled"
+    elseif ($oldStaffId !== null && $newStaffId !== null && $oldStaffId != $newStaffId) {
+        
+        // 🔥 If old status was cancelled → automatically set to booked
+        if ($oldStatus === 'cancelled') {
+            
+            // ✅ Force status to "booked"
+            $appointment->status = 'booked';
+            $appointment->save();
+            
+            // ✅ Send reassignment notification to client
+            $newStaff = \App\Models\AdminStaff::find($newStaffId);
+            $service = \App\Models\Service::find($appointment->service_id);
+
+            if ($newStaff && $service) {
+                \App\Models\Notification::create([
+                    'user_id' => $appointment->user_id,
+                    'message' => "Your appointment for {$service->name} on {$appointment->date} at {$appointment->time} has been reassigned to {$newStaff->name}.",
+                    'status'  => 'unread',
+                    'date'    => now()->toDateString(),
+                ]);
+            }
+        }
+        // For other staff changes (e.g., booked → booked with different staff),
+        // no notification is sent (per your requirement)
+    }
+
+    return response()->json([
+        'message' => 'Appointment updated successfully',
+        'appointment' => $appointment->fresh() // 🔥 Refresh to get latest status
+    ]);
+}
+    // public function update(Request $request, $id)
+    // {
+    //     $appointment = Appointment::findOrFail($id);
+
+    //     $appointment->update($request->all());
+
+    //     return response()->json($appointment);
+    // }
 
     // DELETE
     public function destroy($id)

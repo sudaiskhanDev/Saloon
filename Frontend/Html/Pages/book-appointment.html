@@ -246,6 +246,138 @@ form button[type="submit"]:active {
     </form>
 </div>
 
+
+
+
+
+
+<script>
+const dateInput = document.getElementById("date");
+const timeInput = document.getElementById("time");
+
+// today date
+const today = new Date().toISOString().split('T')[0];
+dateInput.min = today;
+
+function updateTimeRestriction() {
+    const selectedDate = dateInput.value;
+    const now = new Date();
+    const currentTime = now.toTimeString().slice(0, 5);
+
+    if (selectedDate === today) {
+        timeInput.min = currentTime;
+    } else {
+        timeInput.removeAttribute("min");
+    }
+}
+
+// ============================================
+// 🔥 NEW: Disable Mondays
+// ============================================
+function disableMondays() {
+    const date = new Date(dateInput.value);
+    const day = date.getDay(); // 0 = Sunday, 1 = Monday
+    
+    if (day === 1) { // Monday
+        alert("❌ Salon is closed on Mondays. Please select another day.");
+        dateInput.value = ""; // Clear the selection
+    }
+}
+
+// ============================================
+// Updated event listener
+// ============================================
+dateInput.addEventListener("change", function() {
+    if (this.value) {
+        disableMondays();
+        updateTimeRestriction();
+    }
+});
+
+// Run on load
+updateTimeRestriction();
+
+// =======================
+// GET SERVICE
+// =======================
+let service = JSON.parse(localStorage.getItem("selectedService"));
+
+if (!service) {
+    alert("No service selected!");
+    window.location.href = "Service.html";
+}
+
+// =======================
+// SHOW SERVICE INFO
+// =======================
+document.getElementById("serviceInfo").innerHTML = `
+    <h3>${service.name ?? "Service"}</h3>
+    <p>Price: Rs. ${service.price ?? 0}</p>
+    <p>Duration: ${service.duration_minutes ?? service.duration ?? "N/A"} min</p>
+`;
+
+// =======================
+// BOOK APPOINTMENT
+// =======================
+document.getElementById("bookingForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    let date = document.getElementById("date").value;
+    let time = document.getElementById("time").value;
+
+    // 🔥 Extra validation before submitting
+    const selectedDate = new Date(date);
+    if (selectedDate.getDay() === 1) {
+        alert("❌ Salon is closed on Mondays. Please select another day.");
+        return;
+    }
+
+    let token = localStorage.getItem("token");
+
+    if (!token) {
+        alert("Please login first");
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+        let response = await fetch("http://127.0.0.1:8000/api/user/appointments", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            },
+            body: JSON.stringify({
+                service_id: service.service_id ?? service.id,
+                date: date,
+                time: time
+            })
+        });
+
+        let data = await response.json();
+
+        if (response.ok) {
+            alert("Appointment Booked Successfully");
+            window.location.href = "Service.html";
+        } else {
+            console.log(data);
+            alert(data.message || "Booking Failed");
+        }
+    } catch (error) {
+        console.log(error);
+        alert("Server error");
+    }
+});
+</script>
+
+
+
+
+
+
+
+
+<!-- 
 <script>
 const dateInput = document.getElementById("date");
 const timeInput = document.getElementById("time");
@@ -347,7 +479,7 @@ document.getElementById("bookingForm").addEventListener("submit", async function
     }
 });
 
-</script>
+</script> -->
 
 </body>
 </html>
