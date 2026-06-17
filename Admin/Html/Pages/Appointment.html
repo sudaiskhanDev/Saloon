@@ -539,12 +539,15 @@ async function loadNotifications() {
 
     notificationsList = await res.json();
 }
+
+
 function getCancellationReason(app) {
+    // Only show reason if status is cancelled
+    if (app.status !== "cancelled") return "";
 
-    const notification = notificationsList.find(n => {
-
+    // Find all notifications matching this appointment's date/time and containing "CANCELLED"
+    const matching = notificationsList.filter(n => {
         if (!n.message) return false;
-
         return (
             n.message.includes(app.date) &&
             n.message.includes(app.time) &&
@@ -552,12 +555,43 @@ function getCancellationReason(app) {
         );
     });
 
-    if (!notification) return "";
+    if (matching.length === 0) return "";
 
-    const match = notification.message.match(/Reason:\s*(.*)/i);
+    // Sort by date (latest first) – if dates are equal, sort by ID (descending)
+    matching.sort((a, b) => {
+        if (a.date !== b.date) {
+            return new Date(b.date) - new Date(a.date);
+        }
+        return (b.notification_id || 0) - (a.notification_id || 0);
+    });
 
+    const latest = matching[0];
+    const match = latest.message.match(/Reason:\s*(.*)/i);
     return match ? match[1] : "";
 }
+
+
+
+
+//  function getCancellationReason(app) {
+
+//     const notification = notificationsList.find(n => {
+
+//         if (!n.message) return false;
+
+//         return (
+//             n.message.includes(app.date) &&
+//             n.message.includes(app.time) &&
+//             n.message.includes("CANCELLED")
+//         );
+//     });
+
+//     if (!notification) return "";
+
+//     const match = notification.message.match(/Reason:\s*(.*)/i);
+
+//     return match ? match[1] : "";
+// }
 //Reason edit
 
 const API = "http://127.0.0.1:8000/api/appointments";
