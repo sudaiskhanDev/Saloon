@@ -618,26 +618,52 @@ function validateTime() {
     const now = new Date();
 
     function check(dateEl, timeEl) {
-        dateEl.addEventListener("change", () => {
-            if (dateEl.value === today) {
+    dateEl.addEventListener("change", function() {
+        if (this.value) {
+            // 🔥 Call the new function to disable Mondays
+            disableMondays(this);
+            
+            // Existing time restriction logic
+            if (this.value === today) {
                 timeEl.min = now.toTimeString().slice(0,5);
             } else {
                 timeEl.removeAttribute("min");
             }
-        });
+        }
+    });
 
-        timeEl.addEventListener("change", () => {
-            if (dateEl.value === today) {
-                const selected = timeEl.value;
-                const current = now.toTimeString().slice(0,5);
-
-                if (selected < current) {
-                    alert("Past time not allowed!");
-                    timeEl.value = "";
-                }
+    timeEl.addEventListener("change", function() {
+        if (dateEl.value === today) {
+            const selected = this.value;
+            const current = now.toTimeString().slice(0,5);
+            if (selected < current) {
+                alert("Past time not allowed!");
+                this.value = "";
             }
-        });
-    }
+        }
+    });
+}
+    // function check(dateEl, timeEl) {
+    //     dateEl.addEventListener("change", () => {
+    //         if (dateEl.value === today) {
+    //             timeEl.min = now.toTimeString().slice(0,5);
+    //         } else {
+    //             timeEl.removeAttribute("min");
+    //         }
+    //     });
+
+    //     timeEl.addEventListener("change", () => {
+    //         if (dateEl.value === today) {
+    //             const selected = timeEl.value;
+    //             const current = now.toTimeString().slice(0,5);
+
+    //             if (selected < current) {
+    //                 alert("Past time not allowed!");
+    //                 timeEl.value = "";
+    //             }
+    //         }
+    //     });
+    // }
 
     check(dateInput, timeInput);
     check(editDateInput, editTimeInput);
@@ -645,6 +671,19 @@ function validateTime() {
 
 validateTime();
 
+
+// ============================================
+// 🔥 NEW: Disable Mondays
+// ============================================
+function disableMondays(dateInput) {
+    const date = new Date(dateInput.value);
+    const day = date.getDay(); // 0 = Sunday, 1 = Monday
+    
+    if (day === 1) { // Monday
+        alert("❌ Salon is closed on Mondays. Please select another day.");
+        dateInput.value = ""; // Clear the selection
+    }
+}
 
 
 // ⭐ GLOBAL DATA STORE
